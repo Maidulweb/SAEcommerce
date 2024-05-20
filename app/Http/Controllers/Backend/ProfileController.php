@@ -40,6 +40,7 @@ class ProfileController extends Controller
        $user->email = $request->email;
        
        $user->save();
+       
        $notification = array(
         'message' => 'Successfully Done',
         'alert-type' => 'success'

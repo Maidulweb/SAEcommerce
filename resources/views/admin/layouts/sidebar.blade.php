@@ -17,11 +17,24 @@
         </li>
         <li class="menu-header">Starter</li>
         <li class="dropdown">
+          <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Category</span></a>
+          <ul class="dropdown-menu">
+            <li><a class="nav-link" href="{{route('admin.category.index')}}">Show</a></li>
+            <li><a class="nav-link" href="{{route('admin.category.create')}}">Create</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Sub Category</span></a>
+          <ul class="dropdown-menu">
+            <li><a class="nav-link" href="{{route('admin.sub-category.index')}}">Show</a></li>
+            <li><a class="nav-link" href="{{route('admin.sub-category.create')}}">Create</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
           <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Slider</span></a>
           <ul class="dropdown-menu">
             <li><a class="nav-link" href="{{route('admin.slider.index')}}">Show</a></li>
             <li><a class="nav-link" href="{{route('admin.slider.create')}}">Create</a></li>
-            <li><a class="nav-link" href="layout-top-navigation.html">Update</a></li>
           </ul>
         </li>
        {{--  <li class="dropdown">

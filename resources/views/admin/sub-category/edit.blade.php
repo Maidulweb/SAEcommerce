@@ -2,7 +2,7 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-      <h1>Create Category</h1>
+      <h1>Update Sub Category</h1>
     </div>
 
     <div class="section-body mb-0">
@@ -17,17 +17,20 @@
                   </ul>
               </div>
               @endif
-                 <form action="{{route('admin.category.store')}}" method="POST">
+                 <form action="{{route('admin.sub-category.update', $subcategory->id)}}" method="POST">
                   @csrf
+                  @method('PUT')
                   <div class="form-group">
-                    {{-- <label>Icon</label>
-                    <input type="text" name="icon" class="form-control"> --}}
-                    <!-- Button tag -->
-                    <button name="icon" class="btn btn-primary" role="iconpicker">Icon</button>
+                    <label>Status</label>
+                    <select name="category_id" class="form-control">
+                      @foreach ($category as $category)
+                      <option {{$category->id == $subcategory->category_id ? 'selected' : ''}} value="{{$category->id}}">{{$category->name}}</option>
+                      @endforeach
+                    </select>
                   </div>
                   <div class="form-group">
                     <label>Category Name</label>
-                    <input type="text" name="name" value="{{old('name')}}" class="form-control">
+                    <input type="text" name="name" value="{{$subcategory->name}}" class="form-control">
                   </div>
                   <div class="form-group">
                     <label>Status</label>
@@ -36,7 +39,7 @@
                       <option value="0">Inactive</option>
                     </select>
                   </div>
-                  <button type="submit" class="btn btn-primary">Create Category</button>
+                  <button type="submit" class="btn btn-primary">Update Category</button>
                  </form>
             </div>
           </div>

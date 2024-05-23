@@ -2,7 +2,7 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-      <h1>Create Category</h1>
+      <h1>Create Sub Category</h1>
     </div>
 
     <div class="section-body mb-0">
@@ -17,13 +17,15 @@
                   </ul>
               </div>
               @endif
-                 <form action="{{route('admin.category.store')}}" method="POST">
+                 <form action="{{route('admin.sub-category.store')}}" method="POST">
                   @csrf
                   <div class="form-group">
-                    {{-- <label>Icon</label>
-                    <input type="text" name="icon" class="form-control"> --}}
-                    <!-- Button tag -->
-                    <button name="icon" class="btn btn-primary" role="iconpicker">Icon</button>
+                    <label>Status</label>
+                    <select name="category_id" class="form-control">
+                      @foreach ($categories as $category)
+                      <option value="{{$category->id}}">{{$category->name}}</option>
+                      @endforeach
+                    </select>
                   </div>
                   <div class="form-group">
                     <label>Category Name</label>

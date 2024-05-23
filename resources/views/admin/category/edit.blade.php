@@ -21,16 +21,20 @@
                   @csrf
                   @method('PUT')
                   <div class="form-group">
-                    <label>Icon</label>
-                    <input type="file" name="icon" class="form-control">
+                  {{--   <label>Icon</label>
+                    <input type="text" name="icon" class="form-control"> --}}
+                    <button name="icon" data-icon="{{$category->icon}}" class="btn btn-primary" role="iconpicker">Icon</button>
                   </div>
                   <div class="form-group">
                     <label>Category Name</label>
                     <input type="text" name="name" value="{{$category->name}}" class="form-control">
                   </div>
                   <div class="form-group">
-                    <label>Category Slug</label>
-                    <input type="text" name="slig" value="{{$category->slig}}" class="form-control">
+                    <label>Status</label>
+                    <select name="status" class="form-control">
+                      <option value="1">Active</option>
+                      <option value="0">Inactive</option>
+                    </select>
                   </div>
                   <button type="submit" class="btn btn-primary">Category Update</button>
                  </form>

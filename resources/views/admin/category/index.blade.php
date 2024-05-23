@@ -2,7 +2,7 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-      <h1>Create Slider</h1>
+      <h1>Category List</h1>
     </div>
 
     <div class="section-body mb-0">
@@ -17,5 +17,29 @@
 @endsection
 @push('scripts')
     {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+<script>
+  $(document).ready(function(){
+      $('body').on('click', '.change-status', function(){
+        let isChecked = $(this).is(':checked')
+        let id = $(this).data('id');
+        $.ajax({
+          method:'PUT',
+          url:'{{route("admin.category.status")}}',
+          data:{
+            isChecked:isChecked,
+            id:id,
+          },
+          success:function(data){
+            toastr.success(data.message);
+        
+          },
+          error:function(status,error){
+            console.log(status);
+            console.log(error);
+          }
+        })
+      })
+    });
+</script>
 @endpush
 

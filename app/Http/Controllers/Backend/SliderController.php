@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Slider;
 use App\Traits\ImageUploadTrait;
 use Illuminate\Http\Request;
+use File;
 
 class SliderController extends Controller
 {
@@ -76,7 +77,8 @@ class SliderController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $slider = Slider::findOrFail($id);
+        return view('admin.slider.edit',compact('slider'));
     }
 
     /**
@@ -84,7 +86,24 @@ class SliderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $slider = Slider::findOrFail($id);
+        
+        $banner = $this->imageUpdate($request,'banner', 'uploads', $slider->banner);
+    
+        $slider->banner = empty(!$banner) ? $banner  : $slider->banner;
+        $slider->type = $request->type;
+        $slider->title = $request->title;
+        $slider->price = $request->price;
+        $slider->button_url = $request->button_url;
+        $slider->serial = $request->serial;
+        $slider->status = $request->status;
+        $slider->save();
+
+        $notification = [
+            'message' => 'Updated successfully',
+            'alert-type' => 'success'
+            ];
+        return redirect()->back()->with($notification);
     }
 
     /**
@@ -92,6 +111,12 @@ class SliderController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $slider = Slider::findOrFail($id);
+        $this->sliderImageDelete($slider->banner);
+        $slider->delete();
+        return response()->json([
+            'status'=>'success',
+            'message'=>'Slider item deleted!!!'
+        ]);
     }
 }

@@ -22,7 +22,27 @@ class SliderDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'slider.action')
+            ->addColumn('action', function($query){
+                $edit = '<a href="'.route('admin.slider.edit',$query->id).'" class="btn btn-primary"><i class="far fa-edit"></i></a>';
+                $delete = '<a href="'.route('admin.slider.destroy',$query->id).'" class="btn btn-danger delete-item"><i class="far fa-trash-alt"></i></a>';
+
+                return $edit.$delete;
+            })
+            ->addColumn('banner', function($query){
+                return $img = '<img src="'.asset($query->banner).'" alt="Nai"></img>';
+            })
+            ->addColumn('status', function($query){
+                $active = '<button class="btn btn-success">Active</button>';
+                $inactive = '<button class="btn btn-info">Inactive</button>';
+                if($query->status == 1){
+                    return $active;
+                }else if($query->status == 0){
+                    return $inactive;
+                }
+
+               
+            })
+            ->rawColumns(['banner','action','status'])
             ->setRowId('id');
     }
 
@@ -62,11 +82,7 @@ class SliderDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
+           
             Column::make('id'),
             Column::make('banner'),
             Column::make('type'),
@@ -75,8 +91,11 @@ class SliderDataTable extends DataTable
             Column::make('button_url'),
             Column::make('serial'),
             Column::make('status'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::computed('action')
+            ->exportable(false)
+            ->printable(false)
+            ->width(60)
+            ->addClass('text-center'),
         ];
     }
 

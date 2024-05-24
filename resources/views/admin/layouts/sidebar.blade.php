@@ -31,6 +31,13 @@
           </ul>
         </li>
         <li class="dropdown">
+          <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Child Category</span></a>
+          <ul class="dropdown-menu">
+            <li><a class="nav-link" href="{{route('admin.child-category.index')}}">Show</a></li>
+            <li><a class="nav-link" href="{{route('admin.child-category.create')}}">Create</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
           <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Slider</span></a>
           <ul class="dropdown-menu">
             <li><a class="nav-link" href="{{route('admin.slider.index')}}">Show</a></li>

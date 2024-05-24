@@ -50,7 +50,7 @@ class CategoryController extends Controller
             'message' => 'Category created successfully!',
             'alert-type' => 'success'
           ];
-          return redirect()->back()->with($notification);
+          return redirect()->route('admin.category.index')->with($notification);
     }
 
     /**
@@ -94,7 +94,7 @@ class CategoryController extends Controller
             'message' => 'Category updated successfully!',
             'alert-type' => 'success'
           ];
-          return redirect()->back()->with($notification);
+          return redirect()->route('admin.category.index')->with($notification);
     }
 
     /**
@@ -106,7 +106,7 @@ class CategoryController extends Controller
         $category->delete();
         return response()->json([
             'status'=>'success',
-            'message'=>'Slider item deleted!!!'
+            'message'=>'Category deleted!!!'
         ]);
     }
 

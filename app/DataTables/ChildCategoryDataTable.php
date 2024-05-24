@@ -30,12 +30,12 @@ class ChildCategoryDataTable extends DataTable
             ->addColumn('status',function($query){
                 if($query->status == 1){
                    $active = '<label class="custom-switch mt-2">
-                   <input type="checkbox" data-id="'.$query->id.'" checked name="custom-switch-checkbox" class="custom-switch-input active-status">
+                   <input type="checkbox" data-id="'.$query->id.'" checked name="custom-switch-checkbox" class="custom-switch-input status-active">
                    <span class="custom-switch-indicator"></span>
                  </label>';
                 }else{
                     $active = '<label class="custom-switch mt-2">
-                    <input type="checkbox" data-id="'.$query->id.'" name="custom-switch-checkbox" class="custom-switch-input active-status">
+                    <input type="checkbox" data-id="'.$query->id.'" name="custom-switch-checkbox" class="custom-switch-input status-active">
                     <span class="custom-switch-indicator"></span>
                   </label>';
                 }

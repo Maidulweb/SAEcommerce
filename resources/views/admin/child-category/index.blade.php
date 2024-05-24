@@ -24,7 +24,7 @@ $(document).ready(function(){
     let id = $(this).data('id');
     $.ajax({
       method:'PUT',
-      url:"{{route('admin.subcategory.status')}}",
+      url:"{{route('admin.childcategory.status')}}",
       data:{
         status:isChecked,
         id:id

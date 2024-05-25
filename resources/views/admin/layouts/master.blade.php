@@ -156,6 +156,12 @@
                       icon: "success"
                     });
                     window.location.reload()
+                    }else if(data.status == 'error'){
+                      Swal.fire({
+                      title: "Can't delet!",
+                      text: data.message,
+                      icon: "error"
+                    });
                     }
                    
 

@@ -14,5 +14,5 @@
 
     <link rel="stylesheet" href="{{asset('frontend/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/responsive.css')}}">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
+    <link href="{{asset('frontend/css/toastr.css')}}" rel="stylesheet">
     <!-- <link rel="stylesheet" href="css/rtl.css"> -->

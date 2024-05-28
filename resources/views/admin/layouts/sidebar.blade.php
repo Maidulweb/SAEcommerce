@@ -7,37 +7,49 @@
         <a href="index.html">St</a>
       </div>
       <ul class="sidebar-menu">
-        <li class="menu-header">Dashboard</li>
-        <li class="dropdown active">
-          <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Dashboard</span></a>
-          <ul class="dropdown-menu">
-            <li class=active><a class="nav-link" href="index-0.html">General Dashboard</a></li>
-            <li><a class="nav-link" href="index.html">Ecommerce Dashboard</a></li>
-          </ul>
-        </li>
-        <li class="menu-header">Starter</li>
-        <li class="dropdown">
+       
+        <li class="dropdown {{setActive(['admin.category.*'])}}">
           <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Category</span></a>
           <ul class="dropdown-menu">
-            <li><a class="nav-link" href="{{route('admin.category.index')}}">Show</a></li>
-            <li><a class="nav-link" href="{{route('admin.category.create')}}">Create</a></li>
+            <li class="{{setActive(['admin.category.index'])}}"><a class="nav-link" href="{{route('admin.category.index')}}">Show</a></li>
+            <li class="{{setActive(['admin.category.create'])}}"><a class="nav-link" href="{{route('admin.category.create')}}">Create</a></li>
           </ul>
         </li>
-        <li class="dropdown">
+        <li class="dropdown {{setActive(['admin.sub-category.*'])}}">
           <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Sub Category</span></a>
           <ul class="dropdown-menu">
             <li><a class="nav-link" href="{{route('admin.sub-category.index')}}">Show</a></li>
             <li><a class="nav-link" href="{{route('admin.sub-category.create')}}">Create</a></li>
           </ul>
         </li>
-        <li class="dropdown">
+        <li class="dropdown {{setActive(['admin.child-category.*'])}}">
           <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Child Category</span></a>
           <ul class="dropdown-menu">
             <li><a class="nav-link" href="{{route('admin.child-category.index')}}">Show</a></li>
             <li><a class="nav-link" href="{{route('admin.child-category.create')}}">Create</a></li>
           </ul>
         </li>
-        <li class="dropdown">
+        <li class="dropdown {{setActive(['admin.brand.*'])}}">
+          <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Brand</span></a>
+          <ul class="dropdown-menu">
+            <li><a class="nav-link" href="{{route('admin.brand.index')}}">Show</a></li>
+            <li><a class="nav-link" href="{{route('admin.brand.create')}}">Create</a></li>
+          </ul>
+        </li>
+        <li class="dropdown {{setActive(['admin.product.*'])}}">
+          <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Product</span></a>
+          <ul class="dropdown-menu">
+            <li><a class="nav-link" href="{{route('admin.product.index')}}">Show</a></li>
+            <li><a class="nav-link" href="{{route('admin.product.create')}}">Create</a></li>
+          </ul>
+        </li>
+        <li class="dropdown {{setActive(['admin.vendor-profile.*'])}}">
+          <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Vendor</span></a>
+          <ul class="dropdown-menu">
+            <li><a class="nav-link" href="{{route('admin.vendor-profile.index')}}">Create</a></li>
+          </ul>
+        </li>
+        <li class="dropdown {{setActive(['admin.slider.*'])}}">
           <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Slider</span></a>
           <ul class="dropdown-menu">
             <li><a class="nav-link" href="{{route('admin.slider.index')}}">Show</a></li>

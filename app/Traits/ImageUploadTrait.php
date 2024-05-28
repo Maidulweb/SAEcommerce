@@ -13,6 +13,7 @@ trait ImageUploadTrait {
             return $path.'/'.$imageName;
         }
     }
+    
     public function imageUpdate(Request $request, $file, $path, $oldImage=null){
         if($request->hasFile($file)){   
             $image = $request->$file;
@@ -28,6 +29,12 @@ trait ImageUploadTrait {
     }
 
     public function sliderImageDelete($path){
+        if(File::exists(public_path($path))){
+            File::delete(public_path($path));
+        }
+    }
+
+    public function brandImageDelete($path){
         if(File::exists(public_path($path))){
             File::delete(public_path($path));
         }

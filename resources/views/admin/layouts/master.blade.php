@@ -15,10 +15,14 @@
   <link rel="stylesheet" href="{{asset('backend/assets/modules/weather-icon/css/weather-icons.min.css')}}">
   <link rel="stylesheet" href="{{asset('backend/assets/modules/weather-icon/css/weather-icons-wind.min.css')}}">
   <link rel="stylesheet" href="{{asset('backend/assets/modules/summernote/summernote-bs4.css')}}">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
-  <link rel="stylesheet" href="//cdn.datatables.net/2.0.7/css/dataTables.dataTables.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.bootstrap5.css">
+  {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet"> --}}
+  <link rel="stylesheet" href="{{asset('backend/assets/css/toastr.css')}}">
+  {{-- <link rel="stylesheet" href="//cdn.datatables.net/2.0.7/css/dataTables.dataTables.min.css"> --}}
+  <link rel="stylesheet" href="{{asset('backend/assets/css/dataTables.min.css')}}">
+  {{-- <link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.bootstrap5.css"> --}}
+  <link rel="stylesheet" href="{{asset('backend/assets/css/dataTables.bootstrap5.css')}}">
   <link rel="stylesheet" href="{{asset('backend/assets/css/bootstrap-iconpicker.min.css')}}">
+  <link rel="stylesheet" href="{{asset('backend/assets/modules/bootstrap-daterangepicker/daterangepicker.css')}}">
   
 
   <!-- Template CSS -->
@@ -26,7 +30,8 @@
   <link rel="stylesheet" href="{{asset('backend/assets/css/components.css')}}">
  
 <!-- Start GA -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
+{{-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script> --}}
+<script async src="{{asset('backend/assets/js/gtag.js')}}"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -74,13 +79,16 @@
   <script src="{{asset('backend/assets/modules/jqvmap/dist/maps/jquery.vmap.world.js')}}"></script>
   <script src="{{asset('backend/assets/modules/summernote/summernote-bs4.js')}}"></script>
   <script src="{{asset('backend/assets/modules/chocolat/dist/js/jquery.chocolat.min.js')}}"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-  <script src="//cdn.datatables.net/2.0.7/js/dataTables.min.js"></script>
-{{--   <script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script> --}}
-  <script src="https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script> --}}
+  <script src="{{asset('backend/assets/js/toastr.min.js')}}"></script>
+  {{--  <script src="//cdn.datatables.net/2.0.7/js/dataTables.min.js"></script> --}}
+  <script src="{{asset('backend/assets/js/dataTables.min.js')}}"></script>
+  {{-- <script src="https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js"></script> --}}
+  <script src="{{asset('backend/assets/js/dataTables.bootstrap5.js')}}"></script>
+  {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
+  <script src="{{asset('backend/assets/js/sweetalert2@11.js')}}"></script>
   <script type="text/javascript" src="{{asset('backend/assets/js/bootstrap-iconpicker.bundle.min.js')}}"></script>
+  <script src="{{asset('backend/assets/modules/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
   
 
   <!-- Page Specific JS File -->

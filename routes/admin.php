@@ -6,6 +6,9 @@ use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ChildCatgoryController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\ProductImageGalleryController;
+use App\Http\Controllers\Backend\ProductVariantController;
+use App\Http\Controllers\Backend\ProductVariantItemController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubCategoryController;
@@ -39,3 +42,16 @@ Route::get('product/sub-category', [ProductController::class, 'subCategory'])->n
 Route::get('product/child-category', [ProductController::class, 'childCategory'])->name('product.child-category');
 Route::post('product/status', [ProductController::class, 'status'])->name('product.status');
 Route::resource('product', ProductController::class);
+
+Route::resource('product-image-gallery', ProductImageGalleryController::class);
+
+Route::post('product-variant/status', [ProductVariantController::class, 'status'])->name('product-variant.status');
+Route::resource('product-variant', ProductVariantController::class);
+
+Route::get('product-variant-item/{productId}/{variantId}', [ProductVariantItemController::class, 'index'])->name('product-variant-item.index');
+Route::get('product-variant-item/{productId}/{variantId}/create', [ProductVariantItemController::class, 'create'])->name('product-variant-item.create');
+Route::post('product-variant-item', [ProductVariantItemController::class, 'store'])->name('product-variant-item.store');
+Route::get('product-variant-item-edit/{id}', [ProductVariantItemController::class, 'edit'])->name('product-variant-item.edit');
+Route::post('product-variant-item-edit/{id}', [ProductVariantItemController::class, 'update'])->name('product-variant-item.update');
+Route::delete('product-variant-item-destroy/{id}', [ProductVariantItemController::class, 'destroy'])->name('product-variant-item.delete');
+Route::post('product-variant-item/status', [ProductVariantItemController::class, 'status'])->name('product-variant-item.status');

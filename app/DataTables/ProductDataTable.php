@@ -23,8 +23,21 @@ class ProductDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function($query){
-                $action = '<a href="'.route('admin.product.edit', $query->id).'"><i class="far fa-edit"></i></a><a  class="delete-item" href="'.route('admin.product.destroy', $query->id).'"><i class="far fa-trash-alt"></i></a>';
-              return $action;
+                $edit = '<a href="'.route('admin.product.edit', $query->id).'"><i class="far fa-edit"></i></a>';
+                $delete = '<a  class="delete-item" href="'.route('admin.product.destroy', $query->id).'"><i class="far fa-trash-alt"></i></a>';
+                $mulltiimages = '<div class="btn-group dropleft show">
+                <button type="button" class="dropdown-toggle product-action-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <i class="fas fa-pencil-ruler"></i>
+                </button>
+                <div class="dropdown-menu dropleft" x-placement="left-start" style="position: absolute; transform: translate3d(-202px, 0px, 0px); top: 0px; left: 0px; will-change: transform;">
+                  <a class="dropdown-item" href="'.route('admin.product-image-gallery.index', ['productId'=>$query->id]).'">Image Gallery</a>
+                  <a class="dropdown-item" href="'.route('admin.product-variant.index',['productId'=>$query->id]).'">Product Variant</a>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Separated link</a>
+                </div>
+              </div>';
+              return $edit.$delete.$mulltiimages;
             })
             ->addColumn('status', function($query){
                 if($query->status == 1){

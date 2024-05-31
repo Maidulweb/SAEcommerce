@@ -8,6 +8,8 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\ChildCategory;
 use App\Models\Product;
+use App\Models\ProductImageGallery;
+use App\Models\ProductVariant;
 use App\Models\SubCategory;
 use App\Traits\ProductImageTrait;
 use Illuminate\Http\Request;
@@ -167,9 +169,24 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $this->productImageDelete($product->thumb_image);
+
+        $productImageGalleries = ProductImageGallery::where('product_id', $product->id)->get();
+
+        foreach($productImageGalleries as $productImageGallery){
+            $this->productImageDelete($productImageGallery->images);
+            $productImageGallery->delete();
+        }
+
+        $productVariants = ProductVariant::where('product_id', $product->id)->get();
+
+        foreach($productVariants as $productVariant){
+            $productVariant->productVariantItem()->delete();
+            $productVariant->delete();
+        }
+
         $product->delete();
 
-        return redirect()->back()->response([
+        return response([
             'message' => 'Product Delete',
             'status' => 'success'
         ]);

@@ -4,9 +4,9 @@
     <div class="section-header">
       <h1>Show Variant -- {{$product->name}} -- {{$variant->name}}</h1>
     </div>
-  {{--   <div>
+ <div>
       <a href="{{route('admin.product-variant.index', ['productId' => $product->id])}}">Back</a>
-    </div> --}}
+    </div> 
     <div>
       <a href="{{route('admin.product-variant-item.create', ['productId' => $product->id, 'variantId'=>$variant->id])}}">Create</a>
     </div>

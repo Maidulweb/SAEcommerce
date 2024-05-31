@@ -5,6 +5,9 @@
       <h1>Show {{$product->name}} Variant</h1>
     </div>
     <div>
+      <a href="{{route('admin.product.index')}}">Back</a>
+    </div>
+    <div>
       <a href="{{route('admin.product-variant.create', ['product_id'=>$product->id])}}">Create</a>
     </div>
     <div class="section-body mb-0">

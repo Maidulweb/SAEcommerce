@@ -184,12 +184,12 @@ class VendorProductController extends Controller
     public function destroy(string $id)
     {
         $product = Product::findOrFail($id);
-        $this->productImageDelete($product->thumb_image);
+        $this->brandImageDelete($product->thumb_image);
 
         $productImageGalleries = ProductImageGallery::where('product_id', $product->id)->get();
 
         foreach($productImageGalleries as $productImageGallery){
-            $this->productImageDelete($productImageGallery->images);
+            $this->brandImageDelete($productImageGallery->images);
             $productImageGallery->delete();
         }
 

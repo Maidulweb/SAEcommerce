@@ -48,6 +48,7 @@ Route::resource('product-image-gallery', ProductImageGalleryController::class);
 Route::post('product-variant/status', [ProductVariantController::class, 'status'])->name('product-variant.status');
 Route::resource('product-variant', ProductVariantController::class);
 
+/* Product */
 Route::get('product-variant-item/{productId}/{variantId}', [ProductVariantItemController::class, 'index'])->name('product-variant-item.index');
 Route::get('product-variant-item/{productId}/{variantId}/create', [ProductVariantItemController::class, 'create'])->name('product-variant-item.create');
 Route::post('product-variant-item', [ProductVariantItemController::class, 'store'])->name('product-variant-item.store');

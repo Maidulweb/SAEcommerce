@@ -45,6 +45,7 @@ class VendorProfileController extends Controller
               ];
          return redirect()->back()->with($notification);
      }
+     
      public function passwordUpdate(Request $request){
          $request->validate([
              'current_password' => ['required', 'current_password'],

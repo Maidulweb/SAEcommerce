@@ -2,7 +2,7 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-      <h1>Create Product Variant Item</h1>
+      <h1>Edit Product Variant Item</h1>
     </div>
 
     <div class="section-body mb-0">

@@ -2,7 +2,8 @@
 
 namespace App\DataTables;
 
-use App\Models\ProductImageGallery;
+use App\Models\ProductVariant;
+use App\Models\VendorProductVariant;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,7 +13,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class ProductImageGalleryDataTable extends DataTable
+class VendorProductVariantDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -22,22 +23,39 @@ class ProductImageGalleryDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', function($query){
-                return '<a class="delete-item" href="'.route('admin.product-image-gallery.destroy', $query->id).'"><i class="far fa-trash-alt"></i></a>';
-            })
-            ->addColumn('images', function($query){
-                return '<img src="'.asset($query->images).'" />';
-            })
-            ->rawColumns(['images','action'])
+        ->addColumn('action', function($query){
+            $item = '<a href="'.route('vendor.product-variant-item.index',['productId'=>$query->product_id, 'variantId'=>$query->id]).'">Items</a>';
+            $edit = '<a href="'.route('vendor.product-variant.edit',$query->id).'"><i class="far fa-edit"></i></a>';
+            $delete = '<a class="delete-item" href="'.route('vendor.product-variant.destroy', $query->id).'"><i class="far fa-trash-alt"></i></a>';
+            return $item.$edit.$delete;
+          })
+          ->addColumn('status',function($query){
+            if($query->status == 1){
+            
+                $active = '<div class="form-check form-switch">
+                <input class="form-check-input product-active" type="checkbox" checked  data-id="'.$query->id.'" id="flexSwitchCheckDefault">
+              </div>';
+                
+                }else{
+                
+                $active = '<div class="form-check form-switch">
+                <input class="form-check-input product-active" type="checkbox"  data-id="'.$query->id.'" id="flexSwitchCheckDefault">
+              </div>';
+                
+                }
+
+                return $active;
+          })
+          ->rawColumns(['action','status'])
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(ProductImageGallery $model): QueryBuilder
+    public function query(ProductVariant $model): QueryBuilder
     {
-        return $model->where('product_id', request()->productId)->newQuery();
+        return $model->newQuery();
     }
 
     /**
@@ -46,7 +64,7 @@ class ProductImageGalleryDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('productimagegallery-table')
+                    ->setTableId('vendorproductvariant-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
@@ -68,10 +86,9 @@ class ProductImageGalleryDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            
             Column::make('id'),
-            Column::make('images'),
-            Column::make('product_id'),
+            Column::make('name'),
+            Column::make('status'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
@@ -85,6 +102,6 @@ class ProductImageGalleryDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'ProductImageGallery_' . date('YmdHis');
+        return 'VendorProductVariant_' . date('YmdHis');
     }
 }

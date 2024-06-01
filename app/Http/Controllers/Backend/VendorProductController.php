@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\DataTables\ProductDataTable;
+use App\DataTables\VendorProductDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
@@ -11,20 +11,20 @@ use App\Models\Product;
 use App\Models\ProductImageGallery;
 use App\Models\ProductVariant;
 use App\Models\SubCategory;
-use App\Traits\ProductImageTrait;
+use App\Traits\ImageUploadTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Str;
 
-class ProductController extends Controller
+class VendorProductController extends Controller
 {
-    use ProductImageTrait;
+    use ImageUploadTrait;
     /**
      * Display a listing of the resource.
      */
-    public function index(ProductDataTable $dataTable)
+    public function index(VendorProductDataTable $dataTable)
     {
-        return $dataTable->render('admin.product.index');
+        return $dataTable->render('vendor.product.index');
     }
 
     /**
@@ -34,8 +34,11 @@ class ProductController extends Controller
     {
         $categories = Category::get();
         $brands = Brand::get();
-        return view('admin.product.create', compact(['categories','brands']));
+        return view('vendor.product.create', compact(['categories','brands']));
     }
+
+    
+
 
     /**
      * Store a newly created resource in storage.
@@ -52,41 +55,46 @@ class ProductController extends Controller
             'long_description' => ['required'],
             'price' => ['required'],
             'status' => ['required']
-        ]);
-
-        $product = new Product();
-        
-        $image = $this->productImageUpload($request, 'thumb_image', 'uploads');
-
-        $product->name = $request->name;
-        $product->slug = Str::slug($request->name);
-        $product->thumb_image = $image;
-        $product->vendor_id = Auth::user()->vendor->id;
-        $product->category_id = $request->category_id;
-        $product->sub_category_id = $request->sub_category_id;
-        $product->child_category_id = $request->child_category_id;
-        $product->brand_id = $request->brand_id;
-        $product->qty = $request->qty;
-        $product->short_description = $request->short_description;
-        $product->long_description = $request->long_description;
-        $product->video_link = $request->video_link;
-        $product->sku = $request->sku;
-        $product->price = $request->price;
-        $product->offer_price = $request->offer_price;
-        $product->offer_start_date = $request->offer_start_date;
-        $product->offer_end_date = $request->offer_end_date;
-        $product->product_type = $request->product_type;
-        $product->status = $request->status;
-        $product->is_approved = 1;
-        $product->seo_title = $request->seo_title;
-        $product->seo_description = $request->seo_description;
-        $product->save();
-
-        $response = [
-            'message' => 'Product upload successfully',
+            ]);
+            
+            
+            
+            $product = new Product();
+            
+            $image = $this->imageUpload($request, 'thumb_image', 'uploads');
+            
+            $product->name = $request->name;
+            $product->slug = Str::slug($request->name);
+            $product->thumb_image = $image;
+            $product->vendor_id = Auth::user()->vendor->id;
+            $product->category_id = $request->category_id;
+            $product->sub_category_id = $request->sub_category_id;
+            $product->child_category_id = $request->child_category_id;
+            $product->brand_id = $request->brand_id;
+            $product->qty = $request->qty;
+            $product->short_description = $request->short_description;
+            $product->long_description = $request->long_description;
+            $product->video_link = $request->video_link;
+            $product->sku = $request->sku;
+            $product->price = $request->price;
+            $product->offer_price = $request->offer_price;
+            $product->offer_start_date = $request->offer_start_date;
+            $product->offer_end_date = $request->offer_end_date;
+            $product->product_type = $request->product_type;
+            $product->status = $request->status;
+            $product->is_approved = 0;
+            $product->seo_title = $request->seo_title;
+            $product->seo_description = $request->seo_description;
+            $product->save();
+            
+            
+            
+            $response = [
+            'message' => 'Vendor Product upload successfully',
             'alert-type' => 'success'
-        ];
-        return redirect()->route('admin.product.index')->with($response);
+            ];
+            
+            return redirect()->route('vendor.product.index')->with($response);
     }
 
     /**
@@ -108,7 +116,11 @@ class ProductController extends Controller
         $childcategories = ChildCategory::where('sub_category_id', $product->sub_category_id)->get();
         $brands = Brand::all();
 
-        return view('admin.product.edit', compact(['product','categories','subcategories','childcategories','brands']));
+        if($product->vendor_id !== Auth::user()->vendor->id ){
+            abort(404);
+        }
+
+        return view('vendor.product.edit', compact(['product','categories','subcategories','childcategories','brands']));
     }
 
     /**
@@ -128,8 +140,12 @@ class ProductController extends Controller
         ]);
 
         $product = Product::findOrFail($id);
+
+        if($product->vendor_id !== Auth::user()->vendor->id ){
+            abort(404);
+        }
         
-        $image = $this->productImageUpdate($request, 'thumb_image', 'uploads', $product->thumb_image);
+        $image = $this->imageUpdate($request, 'thumb_image', 'uploads', $product->thumb_image);
 
         $product->name = $request->name;
         $product->slug = Str::slug($request->name);
@@ -150,7 +166,7 @@ class ProductController extends Controller
         $product->offer_end_date = $request->offer_end_date;
         $product->product_type = $request->product_type;
         $product->status = $request->status;
-        $product->is_approved = 1;
+        $product->is_approved =  $product->is_approved;
         $product->seo_title = $request->seo_title;
         $product->seo_description = $request->seo_description;
         $product->save();
@@ -159,10 +175,10 @@ class ProductController extends Controller
             'message' => 'Product updated successfully',
             'alert-type' => 'success'
         ];
-        return redirect()->route('admin.product.index')->with($response);
+        return redirect()->route('vendor.product.index')->with($response);
     }
 
-    /**
+   /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)

@@ -12,6 +12,9 @@
   <link rel="stylesheet" href="{{asset('frontend/css/jquery.classycountdown.css')}}">
   <link rel="stylesheet" href="{{asset('frontend/css/venobox.min.css')}}">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{asset('backend/assets/modules/summernote/summernote-bs4.css')}}">
+  <link rel="stylesheet" href="{{asset('backend/assets/css/dataTables.min.css')}}">
+  <link rel="stylesheet" href="{{asset('backend/assets/modules/bootstrap-daterangepicker/daterangepicker.css')}}">
 
   <link rel="stylesheet" href="{{asset('frontend/css/style.css')}}">
   <link rel="stylesheet" href="{{asset('frontend/css/responsive.css')}}">

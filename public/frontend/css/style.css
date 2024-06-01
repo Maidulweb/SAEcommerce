@@ -9408,3 +9408,10 @@ a:not([href]):not([class]):hover {
     color: #08c;
 }
 /* extra css end here */
+.shop-profile .form-group {
+    padding-bottom: 25px;
+}
+
+img {
+    width: 100px;
+}

@@ -20,6 +20,10 @@
                  <form action="{{route('admin.vendor-profile.store')}}" method="POST" enctype="multipart/form-data">
                   @csrf
                   <div class="form-group">
+                    <label>Shop Name</label>
+                    <input type="text" name="shop_name" value="{{$profile->shop_name}}" class="form-control">
+                  </div>
+                  <div class="form-group">
                     <label>Banner</label>
                      <img src="{{asset($profile->banner)}}" alt="Nai">
                     <input type="file" name="banner" class="form-control">

@@ -42,12 +42,18 @@
             <li><a class="nav-link" href="{{route('admin.product.index')}}">Show</a></li>
             <li><a class="nav-link" href="{{route('admin.product.create')}}">Create</a></li>
           </ul>
-        </li><li class="dropdown {{setActive(['admin.product.*'])}}">
+        </li><li class="dropdown {{setActive(['admin.product.seller-product*'])}}">
           <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Seller Product</span></a>
           <ul class="dropdown-menu">
             <li><a class="nav-link" href="{{route('admin.seller-product.index')}}">Show</a></li>
           </ul>
         </li>
+      </li><li class="dropdown {{setActive(['admin.product.pending-product*'])}}">
+        <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Pending Product</span></a>
+        <ul class="dropdown-menu">
+          <li><a class="nav-link" href="{{route('admin.pending-product.index')}}">Show</a></li>
+        </ul>
+      </li>
         <li class="dropdown {{setActive(['admin.vendor-profile.*'])}}">
           <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Vendor</span></a>
           <ul class="dropdown-menu">

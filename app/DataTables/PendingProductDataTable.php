@@ -2,8 +2,8 @@
 
 namespace App\DataTables;
 
+use App\Models\PendingProduct;
 use App\Models\Product;
-use App\Models\SellerProduct;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\EloquentDataTable;
@@ -14,7 +14,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class SellerProductDataTable extends DataTable
+class PendingProductDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -79,9 +79,9 @@ class SellerProductDataTable extends DataTable
           })
           ->addColumn('is_approved', function($query){
             return "
-              <select class='form-control seller' data-id='$query->id' name='is_approved'>
-              <option value='1'>Approved</option>
+              <select class='form-control approved' data-id='$query->id' name='is_approved'>
               <option value='0'>Pending</option>
+              <option value='1'>Approved</option>
               </select>
             ";
           })
@@ -95,7 +95,7 @@ class SellerProductDataTable extends DataTable
     public function query(Product $model): QueryBuilder
     {
         return $model->where('vendor_id', '!=', Auth::user()->vendor->id)
-        ->where('is_approved', 1)
+        ->where('is_approved', 0)
         ->newQuery();
     }
 
@@ -105,7 +105,7 @@ class SellerProductDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('sellerproduct-table')
+                    ->setTableId('pendingproduct-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
@@ -147,6 +147,6 @@ class SellerProductDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'SellerProduct_' . date('YmdHis');
+        return 'PendingProduct_' . date('YmdHis');
     }
 }

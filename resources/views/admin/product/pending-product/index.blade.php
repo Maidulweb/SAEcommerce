@@ -2,7 +2,7 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-      <h1>Show Seller Product</h1>
+      <h1>Show Pending Product</h1>
     </div>
 
     <div class="section-body mb-0">
@@ -20,18 +20,18 @@
 
     <script>
       $(document).ready(function(){
-        $('body').on('change', '.seller', function(){
+        $('body').on('change', '.approved', function(){
           let pending = $(this).val();
-          
           let id = $(this).data('id');
           $.ajax({
             method:'PUT',
-            url:"{{route('admin.seller-product-pending.update')}}",
+            url:"{{route('admin.pending-product-approved.update')}}",
             data:{
               id:id,
               pending:pending
             },
             success:function(data){
+              
                 toastr.success(data.message)
                 window.location.reload();
             },

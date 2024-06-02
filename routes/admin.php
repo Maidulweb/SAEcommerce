@@ -60,3 +60,6 @@ Route::post('product-variant-item/status', [ProductVariantItemController::class,
 
 /* Seller Product */
 Route::get('seller-product', [SellerProductController::class, 'index'])->name('seller-product.index');
+Route::put('seller-product-pending', [SellerProductController::class, 'sellerProductPending'])->name('seller-product-pending.update');
+Route::get('pending-product', [SellerProductController::class, 'pendingProduct'])->name('pending-product.index');
+Route::put('seller-product-approved', [SellerProductController::class, 'sellerProductApproved'])->name('pending-product-approved.update');

@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\AdminVendorProfileController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ChildCatgoryController;
+use App\Http\Controllers\Backend\FlashSaleContorller;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\ProductImageGalleryController;
 use App\Http\Controllers\Backend\ProductVariantController;
@@ -63,3 +64,10 @@ Route::get('seller-product', [SellerProductController::class, 'index'])->name('s
 Route::put('seller-product-pending', [SellerProductController::class, 'sellerProductPending'])->name('seller-product-pending.update');
 Route::get('pending-product', [SellerProductController::class, 'pendingProduct'])->name('pending-product.index');
 Route::put('seller-product-approved', [SellerProductController::class, 'sellerProductApproved'])->name('pending-product-approved.update');
+
+/* Flash Sale Product */
+Route::get('flash-sale-product', [FlashSaleContorller::class, 'index'])->name('flash-sale-product.index');
+Route::put('flash-sale-product', [FlashSaleContorller::class, 'update'])->name('flash-sale-product.update');
+Route::post('flash-sale-item-product', [FlashSaleContorller::class, 'store'])->name('flash-sale-item-product.store');
+Route::put('flash-sale-item-product/status', [FlashSaleContorller::class, 'status'])->name('flash-sale-item-product.status');
+Route::delete('flash-sale-item-product/delete/{id}', [FlashSaleContorller::class, 'destroy'])->name('flash-sale-item-product.delete');

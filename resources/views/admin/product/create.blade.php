@@ -119,10 +119,10 @@
                         <label>Product Type</label>
                         <select name="product_type" class="form-control">
                           <option value="">Select</option>
-                          <option value="top_product">Top Product</option>
-                          <option value="new_product">New Product</option>
-                          <option value="featured_product">Featured Product</option>
-                          <option value="best_product">Best Product</option>
+                          <option value="top_product">Top</option>
+                          <option value="new_product">New</option>
+                          <option value="featured_product">Featured</option>
+                          <option value="best_product">Best</option>
                         </select>
                       </div>
                     </div>

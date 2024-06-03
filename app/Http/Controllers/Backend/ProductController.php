@@ -134,7 +134,6 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->slug = Str::slug($request->name);
         $product->thumb_image = empty(!$image) ? $image :  $product->thumb_image;
-        $product->vendor_id = Auth::user()->vendor->id;
         $product->category_id = $request->category_id;
         $product->sub_category_id = $request->sub_category_id;
         $product->child_category_id = $request->child_category_id;
@@ -150,7 +149,6 @@ class ProductController extends Controller
         $product->offer_end_date = $request->offer_end_date;
         $product->product_type = $request->product_type;
         $product->status = $request->status;
-        $product->is_approved = 1;
         $product->seo_title = $request->seo_title;
         $product->seo_description = $request->seo_description;
         $product->save();

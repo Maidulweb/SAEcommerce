@@ -98,6 +98,7 @@
 
 
    @include('frontend.layouts.script')
+   @stack('scripts')
 </body>
 
 </html>

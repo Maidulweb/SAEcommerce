@@ -10,7 +10,7 @@ function setActive(array $route) {
     }
 }
 
-function checkDiscount($product){
+function checkOffer($product){
     $currentDate = date('Y-m-d');
     if($product->offer_price > 0 && $product->offer_start_date <= $currentDate && $product->offer_end_date >= $currentDate){
       return true;

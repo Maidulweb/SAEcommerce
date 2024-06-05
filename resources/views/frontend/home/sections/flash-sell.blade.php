@@ -19,10 +19,10 @@
             <div class="col-xl-3 col-sm-6 col-lg-4">
                 <div class="wsus__product_item">
                     <span class="wsus__new">{{productType($flashSaleItem->product)}}</span>
-                    @if(checkDiscount($flashSaleItem->product))
+                    @if(checkOffer($flashSaleItem->product))
                     <span class="wsus__minus">-{{checkDiscountPercentage($flashSaleItem->product->price,$flashSaleItem->product->offer_price)}}%</span>
                     @endif
-                    <a class="wsus__pro_link" href="product_details.html">
+                    <a class="wsus__pro_link" href="{{route('frontend.product-details.index', $flashSaleItem->product->slug)}}">
                         <img src="{{asset($flashSaleItem->product->thumb_image)}}" alt="product" class="img-fluid w-100 img_1" />
                         <img src="
                         @if(isset($flashSaleItem->product->productImagegallery[0]->images))
@@ -48,11 +48,11 @@
                             <i class="fas fa-star-half-alt"></i>
                             <span>(133 review)</span>
                         </p>
-                        <a class="wsus__pro_name" href="#">{{$flashSaleItem->product->name}}</a>
-                        @if(checkDiscount($flashSaleItem->product))
-                        <p class="wsus__price">${{$flashSaleItem->product->offer_price}} <del>${{$flashSaleItem->product->price}}</del></p>
+                        <a class="wsus__pro_name" href="{{route('frontend.product-details.index', $flashSaleItem->product->slug)}}">{{$flashSaleItem->product->name}}</a>
+                        @if(checkOffer($flashSaleItem->product))
+                        <p class="wsus__price">{{$setting->currency_icon}}{{$flashSaleItem->product->offer_price}} <del>{{$setting->currency_icon}}{{$flashSaleItem->product->price}}</del></p>
                         @else
-                        <p class="wsus__price">${{$flashSaleItem->product->price}}</p>
+                        <p class="wsus__price">{{$setting->currency_icon}}{{$flashSaleItem->product->price}}</p>
                         @endif
                         <a class="add_cart" href="#">add to cart</a>
                     </div>
@@ -69,7 +69,6 @@
         year: {{date('Y', strtotime($flashSaleDate->flash_sale_end_date))}},
         month: {{date('m', strtotime($flashSaleDate->flash_sale_end_date))}},
         day: {{date('d', strtotime($flashSaleDate->flash_sale_end_date))}},
-        enableUtc: true
     });
         })
     </script>

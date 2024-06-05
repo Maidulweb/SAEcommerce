@@ -72,7 +72,10 @@ class ProductDataTable extends DataTable
                         break;    
                   }
               })
-            ->rawColumns(['action', 'status', 'product_type'])
+              ->addColumn('thumb_image', function($query){
+                return '<img src="'.asset($query->thumb_image).'" alt="Nai" />';
+              })
+            ->rawColumns(['action', 'status', 'product_type', 'thumb_image'])
             ->setRowId('id');
     }
 

@@ -128,7 +128,6 @@
         year: {{date('Y', strtotime($flashSaleDate->flash_sale_end_date))}},
         month: {{date('m', strtotime($flashSaleDate->flash_sale_end_date))}},
         day: {{date('d', strtotime($flashSaleDate->flash_sale_end_date))}},
-        enableUtc: true
     });
         })
     </script>

@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\AdminVendorProfileController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ChildCatgoryController;
+use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\FlashSaleContorller;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\ProductImageGalleryController;
@@ -13,10 +14,12 @@ use App\Http\Controllers\Backend\ProductVariantItemController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\SellerProductController;
 use App\Http\Controllers\Backend\SettingController;
+use App\Http\Controllers\Backend\ShippingRuleController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\VendorController;
 use App\Models\Brand;
+use App\Models\ShippingRule;
 use Illuminate\Support\Facades\Route;
 
 Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
@@ -72,6 +75,14 @@ Route::put('flash-sale-product', [FlashSaleContorller::class, 'update'])->name('
 Route::post('flash-sale-item-product', [FlashSaleContorller::class, 'store'])->name('flash-sale-item-product.store');
 Route::put('flash-sale-item-product/status', [FlashSaleContorller::class, 'status'])->name('flash-sale-item-product.status');
 Route::delete('flash-sale-item-product/delete/{id}', [FlashSaleContorller::class, 'destroy'])->name('flash-sale-item-product.delete');
+
+/* Coupon */
+Route::put('/coupon/status', [CouponController::class, 'status'])->name('coupon.status');
+Route::resource('coupon', CouponController::class);
+
+/* Shipping Rule */
+Route::put('/shipping-rule/status', [ShippingRuleController::class, 'status'])->name('shipping-rule.status');
+Route::resource('shipping-rule', ShippingRuleController::class);
 
 /* Setting */
 Route::get('/setting', [SettingController::class, 'index'])->name('setting.index');

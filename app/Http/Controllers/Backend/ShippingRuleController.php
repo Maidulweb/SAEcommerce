@@ -103,4 +103,14 @@ class ShippingRuleController extends Controller
             'status' => 'success'
         ]);
     }
+
+    public function status(Request $request){
+        $shippingRule = ShippingRule::findOrFail($request->id);
+        $shippingRule->status = $request->isChecked == 'true' ? 1 : 0;
+        $shippingRule->save();
+        return response()->json([
+            'message' => 'Status updated',
+            'alert-type' => 'success'
+        ]);
+    }
 }

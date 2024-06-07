@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\AdminController;
+use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\FlashSaleController;
 use App\Http\Controllers\Frontend\FrontendProductController;
 use App\Http\Controllers\Frontend\HomeController;
@@ -20,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'home']);
+Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/flash-sale', [FlashSaleController::class, 'index'])->name('pages.flash-sale.index');
 Route::get('/product-details/{slug}', [FrontendProductController::class, 'index'])->name('frontend.product-details.index');
 
@@ -36,8 +37,12 @@ Route::get('admin/login', [AdminController::class, 'login'])->name('admin.login'
 
 require __DIR__.'/auth.php';
 
+/* Cart */
+Route::post('/shopping-cart', [CartController::class, 'addToCart'])->name('shopping-cart');
+Route::get('/cart-details', [CartController::class, 'cartDetails'])->name('cart-details');
+Route::post('/cart-quantity-update', [CartController::class, 'cartQuantityUpdate'])->name('cart-quantity-update');
 
-
+/* Profile */
 Route::group(['middleware'=>['auth','verified'], 'prefix'=>'user', 'as'=>'user.'],function(){
    Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
    Route::get('/profile', [UserDashboardController::class, 'profile'])->name('profile');

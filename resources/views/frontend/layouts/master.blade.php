@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi" />
     <meta name="csrf-token" content="{{ csrf_token() }}"> 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <title>Sazao || e-Commerce HTML Template</title>
+    <title>@yield('title')</title>
     <link rel="icon" type="image/png" href="images/favicon.png">
     <link rel="stylesheet" href="{{asset('frontend/css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/bootstrap.min.css')}}">
@@ -81,13 +81,7 @@
     ===========================-->
 
 
-    <!--==========================
-      PRODUCT MODAL VIEW START
-    ===========================-->
-   @include('frontend.layouts.modal')
-    <!--==========================
-      PRODUCT MODAL VIEW END
-    ===========================-->
+
 
 
     @yield('content')

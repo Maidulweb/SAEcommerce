@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function home(){
+    public function home(Request $request){
         $sliders = Slider::where('status',1)->orderBy('serial','asc')->get();
         $flashSaleDate = FlashSale::first();
         $flashSaleItems = FlashSaleItem::where('show_at_home', 1)->where('status', 1)->get();

@@ -9415,3 +9415,8 @@ a:not([href]):not([class]):hover {
 img {
     width: 100px;
 }
+
+.input-qty {
+    width: 50px;
+    text-align: center;
+}

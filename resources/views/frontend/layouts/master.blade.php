@@ -142,6 +142,7 @@
  <!--classycountdown js-->
  <script src="{{asset('frontend/js/jquery.classycountdown.js')}}"></script>
  <script src="{{asset('frontend/js/toastr.min.js')}}"></script>
+ <script src="{{asset('frontend/js/sweetalert2@11.js')}}"></script>
  <!--main/custom js-->
  <script src="{{asset('frontend/js/main.js')}}"></script>
 

@@ -41,6 +41,7 @@ require __DIR__.'/auth.php';
 Route::post('/shopping-cart', [CartController::class, 'addToCart'])->name('shopping-cart');
 Route::get('/cart-details', [CartController::class, 'cartDetails'])->name('cart-details');
 Route::post('/cart-quantity-update', [CartController::class, 'cartQuantityUpdate'])->name('cart-quantity-update');
+Route::get('/cart-clear', [CartController::class, 'cartClear'])->name('cart.clear');
 
 /* Profile */
 Route::group(['middleware'=>['auth','verified'], 'prefix'=>'user', 'as'=>'user.'],function(){

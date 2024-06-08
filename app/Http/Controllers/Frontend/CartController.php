@@ -55,7 +55,6 @@ class CartController extends Controller
        $cartData['weight'] = 10;
        $cartData['options']['variants'] = $variants;
        $cartData['options']['variant_item_price'] = $variantItemPrice;
-       $cartData['options']['variant_total_price'] = 0;
        $cartData['options']['image'] = $product->thumb_image;
        $cartData['options']['slug'] = $product->slug;
 
@@ -75,7 +74,7 @@ class CartController extends Controller
       Cart::update($request->rowId, $request->quantity); 
       $total = $this->getTotal($request->rowId);
       return response()->json([
-         'message' => 'Added to cart',
+         'message' => 'Quantity Changed',
          'alert-type' => 'success',
          'status' => 200,
          'total' => $total
@@ -84,7 +83,15 @@ class CartController extends Controller
 
     public function getTotal($rowId){
       $item = Cart::get($rowId);
-      $total = ($item->price + $item->options->variant_total_price) * $item->qty;
+      $total = ($item->price + $item->options->variant_item_price) * $item->qty;
       return $total;
      }
+
+    public function cartClear(){
+      Cart::destroy();
+      return response()->json([
+         'message' => 'Cart Clear',
+         'status' => 'success',
+        ]);
+    } 
 }

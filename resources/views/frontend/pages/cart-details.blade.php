@@ -60,7 +60,7 @@
                                         </th> --}}
 
                                         <th class="wsus__pro_icon">
-                                            <a href="#" class="common_btn">clear cart</a>
+                                            <a href="#" class="common_btn cart-clear">clear cart</a>
                                         </th>
                                     </tr>
                                     @foreach ($cartItems as $item)
@@ -79,9 +79,9 @@
 
                                         <td class="wsus__pro_status">
                                         @if ($item->options->variant_item_price)
-                                        <p id="{{$item->rowId}}">{{$setting->currency_icon}}{{$item->options->variant_item_price + $item->price}}</p>
+                                        <p id="{{$item->rowId}}">{{$setting->currency_icon}}{{($item->options->variant_item_price + $item->price) * $item->qty}}</p>
                                         @else
-                                            <p id="{{$item->rowId}}">{{$setting->currency_icon}}{{$item->price}}</p>
+                                            <p id="{{$item->rowId}}">{{$setting->currency_icon}}{{$item->price * $item->qty}}</p>
                                         @endif
                                         </td>
 
@@ -102,8 +102,15 @@
                                         </td>
                                     </tr>
                                     @endforeach
+                                  
                                 </tbody>
                             </table>
+                            @if(count($cartItems) === 0)
+                            <div class="text-center p-4">
+                                <h3 class="text-danger">No item</h3>
+                            </div>
+                        
+                        @endif
                         </div>
                     </div>
                 </div>
@@ -180,6 +187,37 @@
                 success:function(data){
                     if(data.status === 200){
                         let id = '#'+rowId;
+                        $(id).text("{{$setting->currency_icon}}"+data.total);
+                        toastr.success(data.message)
+                    }
+                    
+                    
+                },
+                error:function(error){
+                   console.log(error)
+                }
+            })
+            
+        })
+
+        $('.minus-qty').on('click', function(){
+            let inputValue = $(this).siblings('.input-qty');
+            let quantity = parseInt(inputValue.val()) - 1;
+            if(quantity < 1){
+                quantity = 1
+            }
+            inputValue.val(quantity);
+            let rowId =  inputValue.data('id');
+            $.ajax({
+                method:'POST',
+                url:'{{route("cart-quantity-update")}}',
+                data:{
+                    quantity:quantity,
+                    rowId:rowId
+                },
+                success:function(data){
+                    if(data.status === 200){
+                        let id = '#'+rowId;
                         $(id).text(data.total);
                         toastr.success(data.message)
                     }
@@ -190,14 +228,38 @@
                    console.log(error)
                 }
             })
+            
         })
-/* 
-        $('.minus-qty').on('click', function(){
-            let inputValue = $(this).siblings('.input-qty');
-            let quantity = parseInt(inputValue.val()) - 1;
-            inputValue.val(quantity);
-            console.log(quantity);
-        }) */
+        
+        $('.cart-clear').on('click', function(event){
+            event.preventDefault();
+            Swal.fire({
+              title: "Are you sure?",
+              text: "You won't be able to clear all!",
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#3085d6",
+              cancelButtonColor: "#d33",
+              confirmButtonText: "Yes, clear all!"
+            }).then((result) => {
+              if (result.isConfirmed) {
+                $.ajax({
+                  method:'GET',
+                  url:"{{route('cart.clear')}}",
+                  success:function(data){
+                    if(data.status=='success'){
+                    window.location.reload()
+                    }
+                  },
+                  error:function(xhr,status,error){
+                    console.log(xhr)
+                    console.log(status)
+                    console.log(error)
+                  }
+                })
+              }
+           });
+        })
       })
     </script>
 @endpush

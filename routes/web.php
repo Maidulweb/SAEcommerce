@@ -42,6 +42,11 @@ Route::post('/shopping-cart', [CartController::class, 'addToCart'])->name('shopp
 Route::get('/cart-details', [CartController::class, 'cartDetails'])->name('cart-details');
 Route::post('/cart-quantity-update', [CartController::class, 'cartQuantityUpdate'])->name('cart-quantity-update');
 Route::get('/cart-clear', [CartController::class, 'cartClear'])->name('cart.clear');
+Route::get('/cart-remove/{rowId}', [CartController::class, 'cartRemove'])->name('cart.remove');
+Route::get('/cart-remove-test', [CartController::class, 'cartRemoveTest'])->name('cart.remove.test');
+Route::get('/cart-count', [CartController::class, 'cartCount'])->name('cart.count');
+Route::get('/cart-sidebar-product', [CartController::class, 'cartSidebarProduct'])->name('cart.sidebar-product');
+Route::get('/cart-sidebar-product-total', [CartController::class, 'cartSidebarProductTotal'])->name('cart.sidebar-product.total');
 
 /* Profile */
 Route::group(['middleware'=>['auth','verified'], 'prefix'=>'user', 'as'=>'user.'],function(){

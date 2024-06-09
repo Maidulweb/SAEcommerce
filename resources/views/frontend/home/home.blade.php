@@ -101,3 +101,9 @@
         HOME BLOGS END
     ==============================-->
 @endsection
+
+@push('scripts')
+    <script>
+        toastr.warning(message)
+    </script>
+@endpush

@@ -43,3 +43,10 @@ function productType($product){
   }
 }
 
+function getCartTotal(){
+    $total = 0;
+      foreach(\Cart::content() as $product){
+           $total += ($product->price + $product->options->variant_item_price) * $product->qty;
+      }
+      return $total;
+  }

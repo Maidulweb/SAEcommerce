@@ -14,6 +14,20 @@ class CartController extends Controller
 
        $product = Product::findOrFail($request->product_id);
 
+       if($product->qty === 0){
+        return response()->json([
+          'status' => 'error',
+          'message' => 'No Product',
+          'alert-type' => 'error'
+        ]);
+    }elseif($product->qty < $request->qty){
+      return response()->json([
+        'status' => 'error',
+        'message' => 'Out of stock',
+        'alert-type' => 'error'
+      ]); 
+    }
+
        $variants = [];
        $variantItemPrice = 0;
 
@@ -61,20 +75,46 @@ class CartController extends Controller
       $data =  Cart::add($cartData);
        return response()->json([
         'message' => 'Added to cart',
-        'alert-type' => 'success'
+        'alert-type' => 'success',
+        'status' => 'success'
        ]);
     }
 
     public function cartDetails(){
       $cartItems = Cart::content();
+      if(count($cartItems) === 0){
+        return redirect()->route('home')->with([
+          'alert-type' => 'warning',
+          'message' => 'Cart is empty!!! Please add product.'
+        ]);
+      }
       return view('frontend.pages.cart-details', compact('cartItems'));
     }
 
     public function cartQuantityUpdate(Request $request){
+     
+      $productId = Cart::get($request->rowId)->id;
+     
+      $product = Product::findOrFail($productId);
+        if($product->qty === 0){
+            return response()->json([
+              'status' => 'error',
+              'message' => 'No Product',
+              'alert-type' => 'error'
+            ]);
+        }elseif($product->qty < $request->quantity){
+          return response()->json([
+            'status' => 'error',
+            'message' => 'Out of stock',
+            'alert-type' => 'error'
+          ]); 
+        }
+
       Cart::update($request->rowId, $request->quantity); 
+
       $total = $this->getTotal($request->rowId);
       return response()->json([
-         'message' => 'Quantity Changed',
+         'message' => 'Quantity increased',
          'alert-type' => 'success',
          'status' => 200,
          'total' => $total
@@ -87,6 +127,14 @@ class CartController extends Controller
       return $total;
      }
 
+     public function cartSidebarProductTotal(){
+      $total = 0;
+      foreach(Cart::content() as $product){
+           $total += $this->getTotal($product->rowId);
+      }
+      return $total;
+     }
+
     public function cartClear(){
       Cart::destroy();
       return response()->json([
@@ -94,4 +142,29 @@ class CartController extends Controller
          'status' => 'success',
         ]);
     } 
+
+    public function cartRemove($rowId){
+      Cart::remove($rowId);
+      return redirect()->back()->with([
+         'message' => 'Cart remove',
+         'alert-type' => 'success',
+        ]);
+    } 
+
+    public function cartRemoveTest(Request $request){
+      Cart::remove($request->id);
+      return response()->json([
+         'message' => 'Cart remove',
+         'status' => 200,
+         'alert-type' => 'success'
+        ]);
+    } 
+
+    public function cartCount(){
+      return Cart::content()->count();
+    }
+
+    public function cartSidebarProduct(){
+      return Cart::content();
+    }
 }

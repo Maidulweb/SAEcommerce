@@ -93,12 +93,8 @@
                                             </div>
                                         </td>
 
-                                        <td class="wsus__pro_tk">
-                                            <h6>Total Price</h6>
-                                        </td>
-
                                         <td class="wsus__pro_icon">
-                                            <a href="#"><i class="far fa-times"></i></a>
+                                            <a href="{{route('cart.remove', $item->rowId)}}"><i class="far fa-times"></i></a>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -109,23 +105,23 @@
                             <div class="text-center p-4">
                                 <h3 class="text-danger">No item</h3>
                             </div>
-                        
-                        @endif
+                            @endif
                         </div>
                     </div>
                 </div>
                 <div class="col-xl-3">
                     <div class="wsus__cart_list_footer_button" id="sticky_sidebar">
                         <h6>total cart</h6>
-                        <p>subtotal: <span>$124.00</span></p>
+                        <p>subtotal: <span id="sub_total">{{$setting->currency_icon}}{{getCartTotal()}}</span></p>
                         <p>delivery: <span>$00.00</span></p>
                         <p>discount: <span>$10.00</span></p>
-                        <p class="total"><span>total:</span> <span>$134.00</span></p>
-
                         <form>
                             <input type="text" placeholder="Coupon Code">
                             <button type="submit" class="common_btn">apply</button>
                         </form>
+                        <p class="total"><span>total:</span> <span>$134.00</span></p>
+
+                        
                         <a class="common_btn mt-4 w-100 text-center" href="check_out.html">checkout</a>
                         <a class="common_btn mt-1 w-100 text-center" href="product_grid_view.html"><i
                                 class="fab fa-shopify"></i> go shop</a>
@@ -188,7 +184,10 @@
                     if(data.status === 200){
                         let id = '#'+rowId;
                         $(id).text("{{$setting->currency_icon}}"+data.total);
+                        renderCartSubTotal();
                         toastr.success(data.message)
+                    }else if(data.status === 'error'){
+                        toastr.error(data.message)
                     }
                     
                     
@@ -219,6 +218,7 @@
                     if(data.status === 200){
                         let id = '#'+rowId;
                         $(id).text(data.total);
+                        renderCartSubTotal();
                         toastr.success(data.message)
                     }
                     
@@ -260,6 +260,21 @@
               }
            });
         })
+
+       //Render total
+
+       function renderCartSubTotal(){
+                $.ajax({
+                    method: 'GET',
+                    url: '{{ route('cart.sidebar-product.total') }}',
+                    success: function(data) {
+                        $('#sub_total').text("{{ $setting->currency_icon }}" + data);
+                    },
+                    error: function() {
+                    }
+                })
+       }
+
       })
     </script>
 @endpush

@@ -7,6 +7,7 @@ use App\Models\FlashSale;
 use App\Models\FlashSaleItem;
 use App\Models\Slider;
 use Illuminate\Http\Request;
+use Cart;
 
 class HomeController extends Controller
 {

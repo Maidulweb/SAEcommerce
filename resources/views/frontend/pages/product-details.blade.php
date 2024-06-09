@@ -1,8 +1,8 @@
 @extends('frontend.layouts.master')
 @section('content')
- <!--==========================
-    PRODUCT  REPORT MODAL VIEW
-    ===========================-->
+    <!--==========================
+                                    PRODUCT  REPORT MODAL VIEW
+                                    ===========================-->
     <section class="product_popup_modal report_modal">
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
@@ -26,8 +26,7 @@
                                     </div>
                                     <div class="wsus__single_input">
                                         <label>Description</label>
-                                        <textarea cols="3" rows="3"
-                                            placeholder="Brief description of your issue"></textarea>
+                                        <textarea cols="3" rows="3" placeholder="Brief description of your issue"></textarea>
                                     </div>
                                     <div class="wsus__report_img">
                                         <div class="img_upload">
@@ -48,13 +47,13 @@
         </div>
     </section>
     <!--==========================
-    PRODUCT REPORT MODAL VIEW 
-    ===========================-->
+                                    PRODUCT REPORT MODAL VIEW
+                                    ===========================-->
 
 
     <!--==========================
-      PRODUCT MODAL VIEW START
-    ===========================-->
+                                      PRODUCT MODAL VIEW START
+                                    ===========================-->
     {{-- <section class="product_popup_modal">
         <div class="modal fade" id="exampleModal2" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
@@ -188,13 +187,13 @@
         </div>
     </section> --}}
     <!--==========================
-      PRODUCT MODAL VIEW END
-    ===========================-->
+                                      PRODUCT MODAL VIEW END
+                                    ===========================-->
 
 
     <!--============================
-        BREADCRUMB START
-    ==============================-->
+                                        BREADCRUMB START
+                                    ==============================-->
     <section id="wsus__breadcrumb">
         <div class="wsus_breadcrumb_overlay">
             <div class="container">
@@ -212,13 +211,13 @@
         </div>
     </section>
     <!--============================
-        BREADCRUMB END
-    ==============================-->
+                                        BREADCRUMB END
+                                    ==============================-->
 
 
     <!--============================
-        PRODUCT DETAILS START
-    ==============================-->
+                                        PRODUCT DETAILS START
+                                    ==============================-->
     <section id="wsus__product_details">
         <div class="container">
             <div class="wsus__details_bg">
@@ -228,16 +227,18 @@
                             <div class="exzoom hidden" id="exzoom">
                                 <div class="exzoom_img_box">
                                     @if ($product->video_link)
-                                    <a class="venobox wsus__pro_det_video" data-autoplay="true" data-vbtype="video"
-                                    href="{{$product->video_link}}">
-                                    <i class="fas fa-play"></i>
-                                    </a>
+                                        <a class="venobox wsus__pro_det_video" data-autoplay="true" data-vbtype="video"
+                                            href="{{ $product->video_link }}">
+                                            <i class="fas fa-play"></i>
+                                        </a>
                                     @endif
-                                   
+
                                     <ul class='exzoom_img_ul'>
-                                        <li><img class="zoom ing-fluid w-100" src="{{asset($product->thumb_image)}}" alt="product"></li>
+                                        <li><img class="zoom ing-fluid w-100" src="{{ asset($product->thumb_image) }}"
+                                                alt="product"></li>
                                         @foreach ($product->productImageGallery as $image)
-                                        <li><img class="zoom ing-fluid w-100" src="{{asset($image->images)}}" alt="product"></li>
+                                            <li><img class="zoom ing-fluid w-100" src="{{ asset($image->images) }}"
+                                                    alt="product"></li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -253,14 +254,17 @@
                     </div>
                     <div class="col-xl-5 col-md-7 col-lg-7">
                         <div class="wsus__pro_details_text">
-                            <a class="title" href="#">{{$product->name}}</a>
-                            <p class="wsus__stock_area"><span class="in_stock">in stock</span> ({{$product->qty}} item)</p>
+                            <a class="title" href="#">{{ $product->name }}</a>
+                            <p class="wsus__stock_area"><span class="in_stock">{{$product->qty === 0 ? 'Out of stock' : 'In Stock'}}</span> ({{ $product->qty }} item)
+                            </p>
                             @if (checkOffer($product))
-                            <h4>{{$setting->currency_icon}}{{$product->offer_price}} <del>{{$setting->currency_icon}}{{$product->price}}</del></h4>
+                                <h4>{{ $setting->currency_icon }}{{ $product->offer_price }}
+                                    <del>{{ $setting->currency_icon }}{{ $product->price }}</del>
+                                </h4>
                             @else
-                            <h4>{{$setting->currency_icon}}{{$product->price}}</h4>
+                                <h4>{{ $setting->currency_icon }}{{ $product->price }}</h4>
                             @endif
-                            
+
                             <p class="review">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -270,36 +274,42 @@
                                 <span>20 review</span>
                             </p>
                             <!-- <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-                                neque
-                                sint obcaecati asperiores dolor cumque. ad voluptate dolores reprehenderit hic adipisci
-                                Similique eaque illum.</p> -->
+                                                                neque
+                                                                sint obcaecati asperiores dolor cumque. ad voluptate dolores reprehenderit hic adipisci
+                                                                Similique eaque illum.</p> -->
 
                             @if ($product->offer_price)
-                            <div class="wsus_pro_hot_deals">
-                                <h5>offer ending time : </h5>
-                                <div class="simply-countdown simply-countdown-one"></div>
-                            </div>
+                                <div class="wsus_pro_hot_deals">
+                                    <h5>offer ending time : </h5>
+                                    <div class="simply-countdown simply-countdown-one"></div>
+                                </div>
                             @endif
                             <form class="shopping-cart-form">
                                 <div class="wsus__selectbox">
                                     <div class="row">
-                                        <input type="hidden" name="product_id" value="{{$product->id}}">
+                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
                                         @foreach ($product->productVariant as $productVariant)
-                                        <div class="col-md-6">
-                                            <h5 class="mb-2">{{$productVariant->name}}</h5>
-                                            <select class="select_2" name="variants[]">
-                                                @foreach ($productVariant->productVariantItem as $item)
-                                                <option value="{{$item->id}}">{{$item->name}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+                                        @if ($productVariant->status != 0)
+                                            <div class="col-md-6">
+                                                <h5 class="mb-2">{{ $productVariant->name }}</h5>
+                                                <select class="select_2" name="variants[]">
+                                                    @foreach ($productVariant->productVariantItem as $item)
+                                                        @if ($item->status != 0)
+                                                            <option value="{{ $item->id }}">{{ $item->name }}
+                                                            </option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            @endif
                                         @endforeach
                                     </div>
                                 </div>
                                 <div class="wsus__quentity">
                                     <h5>quentity :</h5>
                                     <div class="select_number">
-                                        <input class="number_area" name="qty" type="text" min="1" max="100" value="1" />
+                                        <input class="number_area" name="qty" type="text" min="1"
+                                            max="100" value="1" />
                                     </div>
                                 </div>
                                 <ul class="wsus__button_area">
@@ -309,8 +319,9 @@
                                     <li><a href="#"><i class="far fa-random"></i></a></li>
                                 </ul>
                             </form>
-                            <p class="brand_model"><span>logo :</span> <img src="{{asset($product->brand->logo)}}" alt=""></p>
-                            <p class="brand_model"><span>brand :</span> {{$product->brand->name}}</p>
+                            <p class="brand_model"><span>logo :</span> <img src="{{ asset($product->brand->logo) }}"
+                                    alt=""></p>
+                            <p class="brand_model"><span>brand :</span> {{ $product->brand->name }}</p>
                             <div class="wsus__pro_det_share">
                                 <h5>share :</h5>
                                 <ul class="d-flex">
@@ -351,14 +362,17 @@
                                 </li>
                             </ul>
                             <div class="wsus__det_sidebar_banner">
-                                <img src="{{asset('frontend/images/blog_1.jpg')}}" alt="banner" class="img-fluid w-100">
+                                <img src="{{ asset('frontend/images/blog_1.jpg') }}" alt="banner"
+                                    class="img-fluid w-100">
                                 <div class="wsus__det_sidebar_banner_text_overlay">
                                     <div class="wsus__det_sidebar_banner_text">
                                         <p>Black Friday Sale</p>
                                         @if (checkOffer($product))
-                                        <h4>Up To {{checkDiscountPercentage($product->price, $product->offer_price)}}% Off</h4>
+                                            <h4>Up To
+                                                {{ checkDiscountPercentage($product->price, $product->offer_price) }}% Off
+                                            </h4>
                                         @endif
-                                        
+
                                         <a href="#" class="common_btn">shope now</a>
                                     </div>
                                 </div>
@@ -394,7 +408,7 @@
                                     aria-labelledby="pills-home-tab7">
                                     <div class="row">
                                         <div class="col-xl-12">
-                                            <div class="wsus__description_area">{!!$product->long_description!!}</div>
+                                            <div class="wsus__description_area">{!! $product->long_description !!}</div>
                                         </div>
                                         <div class="row">
                                             <div class="col-xl-4 col-md-4">
@@ -428,12 +442,13 @@
                                         <div class="row">
                                             <div class="col-xl-6 col-xxl-5 col-md-6">
                                                 <div class="wsus__vebdor_img">
-                                                    <img src="{{asset($product->vendor->banner)}}" alt="vendor" class="img-fluid w-100">
+                                                    <img src="{{ asset($product->vendor->banner) }}" alt="vendor"
+                                                        class="img-fluid w-100">
                                                 </div>
                                             </div>
                                             <div class="col-xl-6 col-xxl-7 col-md-6 mt-4 mt-md-0">
                                                 <div class="wsus__pro_det_vendor_text">
-                                                    <h4>{{$product->vendor->user->name}}</h4>
+                                                    <h4>{{ $product->vendor->user->name }}</h4>
                                                     <p class="rating">
                                                         <i class="fas fa-star"></i>
                                                         <i class="fas fa-star"></i>
@@ -442,16 +457,16 @@
                                                         <i class="fas fa-star"></i>
                                                         <span>(41 review)</span>
                                                     </p>
-                                                    <p><span>Store Name:</span> {{$product->vendor->shop_name}}</p>
-                                                    <p><span>Address:</span> {{$product->vendor->address}}</p>
-                                                    <p><span>Phone:</span> {{$product->vendor->phone}}</p>
-                                                    <p><span>mail:</span> {{$product->vendor->email}}</p>
+                                                    <p><span>Store Name:</span> {{ $product->vendor->shop_name }}</p>
+                                                    <p><span>Address:</span> {{ $product->vendor->address }}</p>
+                                                    <p><span>Phone:</span> {{ $product->vendor->phone }}</p>
+                                                    <p><span>mail:</span> {{ $product->vendor->email }}</p>
                                                     <a href="vendor_details.html" class="see_btn">visit store</a>
                                                 </div>
                                             </div>
                                             <div class="col-xl-12">
                                                 <div class="wsus__vendor_details">
-                                                    <p>{!!$product->vendor->description!!}</p>
+                                                    <p>{!! $product->vendor->description !!}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -500,8 +515,7 @@
                                                                                     <div
                                                                                         class="wsus__riv_edit_single text_area">
                                                                                         <i class="far fa-edit"></i>
-                                                                                        <textarea cols="3" rows="1"
-                                                                                            placeholder="Your Text"></textarea>
+                                                                                        <textarea cols="3" rows="1" placeholder="Your Text"></textarea>
                                                                                     </div>
                                                                                     <button type="submit"
                                                                                         class="common_btn">submit</button>
@@ -518,8 +532,7 @@
                                                                     class="img-fluid w-100">
                                                             </div>
                                                             <div class="wsus__comment_text reply">
-                                                                <h6>Smith jhon <span>5 <i
-                                                                            class="fas fa-star"></i></span>
+                                                                <h6>Smith jhon <span>5 <i class="fas fa-star"></i></span>
                                                                 </h6>
                                                                 <span>09 Jul 2021</span>
                                                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing
@@ -540,8 +553,7 @@
                                                                                     <div
                                                                                         class="wsus__riv_edit_single text_area">
                                                                                         <i class="far fa-edit"></i>
-                                                                                        <textarea cols="3" rows="1"
-                                                                                            placeholder="Your Text"></textarea>
+                                                                                        <textarea cols="3" rows="1" placeholder="Your Text"></textarea>
                                                                                     </div>
                                                                                     <button type="submit"
                                                                                         class="common_btn">submit</button>
@@ -561,8 +573,8 @@
                                                                             <i class="fas fa-chevron-left"></i>
                                                                         </a>
                                                                     </li>
-                                                                    <li class="page-item"><a
-                                                                            class="page-link page_active" href="#">1</a>
+                                                                    <li class="page-item"><a class="page-link page_active"
+                                                                            href="#">1</a>
                                                                     </li>
                                                                     <li class="page-item"><a class="page-link"
                                                                             href="#">2</a></li>
@@ -571,7 +583,8 @@
                                                                     <li class="page-item"><a class="page-link"
                                                                             href="#">4</a></li>
                                                                     <li class="page-item">
-                                                                        <a class="page-link" href="#" aria-label="Next">
+                                                                        <a class="page-link" href="#"
+                                                                            aria-label="Next">
                                                                             <i class="fas fa-chevron-right"></i>
                                                                         </a>
                                                                     </li>
@@ -606,8 +619,7 @@
                                                                 <div class="col-xl-12">
                                                                     <div class="col-xl-12">
                                                                         <div class="wsus__single_com">
-                                                                            <textarea cols="3" rows="3"
-                                                                                placeholder="Write your review"></textarea>
+                                                                            <textarea cols="3" rows="3" placeholder="Write your review"></textarea>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -628,8 +640,8 @@
                                         </div>
                                     </div>
                                 </div>
-            
-                        
+
+
                             </div>
                         </div>
                     </div>
@@ -639,14 +651,14 @@
         </div>
     </section>
     <!--============================
-        PRODUCT DETAILS END
-    ==============================-->
+                                        PRODUCT DETAILS END
+                                    ==============================-->
 
 
     <!--============================
-        RELATED PRODUCT START
-    ==============================-->
-{{--     <section id="wsus__flash_sell">
+                                        RELATED PRODUCT START
+                                    ==============================-->
+    <section id="wsus__flash_sell">
         <div class="container">
             <div class="row">
                 <div class="col-xl-12">
@@ -799,7 +811,9 @@
                                 <span>(17 review)</span>
                             </p>
                             <a class="wsus__pro_name" href="#">men's casual fashion watch</a>
-                            <p class="wsus__price">{{$setting->currency_icon}}159 <del>{{$setting->currency_icon}}200</del></p>
+                            <p class="wsus__price">{{ $setting->currency_icon }}159
+                                <del>{{ $setting->currency_icon }}200</del>
+                            </p>
                             <a class="add_cart" href="#">add to cart</a>
                         </div>
                     </div>
@@ -807,41 +821,20 @@
 
             </div>
         </div>
-    </section> --}}
+    </section>
     <!--============================
-        RELATED PRODUCT END
-    ==============================-->
+                                        RELATED PRODUCT END
+                                    ==============================-->
 @endsection
 
 @push('scripts')
     <script>
-$(document).ready(function(){
-	simplyCountdown('.simply-countdown-one', {
-		year: {{date('Y', strtotime($product->offer_end_date))}},
-		month: {{date('m', strtotime($product->offer_end_date))}},
-		day: {{date('d', strtotime($product->offer_end_date))}},
-	});
-
-    $('.shopping-cart-form').on('submit',function(e){
-        e.preventDefault();
-        let formData = $(this).serialize();
-        $.ajax({
-            method:'POST',
-            url:'{{route("shopping-cart")}}',
-            data:formData,
-            success:function(data){
-              console.log(data.data)
-              toastr.success(data.message)
-            
-            },
-            error:function(error){
-                console.log(error);
-            }
+        $(document).ready(function() {
+            simplyCountdown('.simply-countdown-one', {
+                year: {{ date('Y', strtotime($product->offer_end_date)) }},
+                month: {{ date('m', strtotime($product->offer_end_date)) }},
+                day: {{ date('d', strtotime($product->offer_end_date)) }},
+            });
         })
-    })
-
-})
     </script>
-
-
 @endpush

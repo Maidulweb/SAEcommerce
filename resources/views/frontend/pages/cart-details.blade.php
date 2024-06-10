@@ -113,13 +113,12 @@
                     <div class="wsus__cart_list_footer_button" id="sticky_sidebar">
                         <h6>total cart</h6>
                         <p>subtotal: <span id="sub_total">{{$setting->currency_icon}}{{getCartTotal()}}</span></p>
-                        <p>delivery: <span>$00.00</span></p>
-                        <p>discount: <span>$10.00</span></p>
-                        <form>
-                            <input type="text" placeholder="Coupon Code">
+                        <p>discount: <span id="calculate_discount">{{getDiscount()}}</span></p>
+                        <form id="coupon_apply">
+                            <input type="text" name="coupon_code" placeholder="Coupon Code" value="{{Session::has('coupon')?Session::get('coupon')['coupon_code']:''}}">
                             <button type="submit" class="common_btn">apply</button>
                         </form>
-                        <p class="total"><span>total:</span> <span>$134.00</span></p>
+                        <p class="total"><span>total:</span> <span id="calculate_cart_total">{{getMainCartTotal()}}</span></p>
 
                         
                         <a class="common_btn mt-4 w-100 text-center" href="check_out.html">checkout</a>
@@ -185,6 +184,7 @@
                         let id = '#'+rowId;
                         $(id).text("{{$setting->currency_icon}}"+data.total);
                         renderCartSubTotal();
+                        couponCalculationTotal();
                         toastr.success(data.message)
                     }else if(data.status === 'error'){
                         toastr.error(data.message)
@@ -219,6 +219,7 @@
                         let id = '#'+rowId;
                         $(id).text(data.total);
                         renderCartSubTotal();
+                        couponCalculationTotal();
                         toastr.success(data.message)
                     }
                     
@@ -271,6 +272,50 @@
                         $('#sub_total').text("{{ $setting->currency_icon }}" + data);
                     },
                     error: function() {
+                    }
+                })
+       }
+
+       $('#coupon_apply').on('submit', function(e){
+        e.preventDefault();
+        let formData = $(this).serialize();
+            $.ajax({
+                method: 'GET',
+                url: '{{ route('coupon-apply') }}',
+                data:formData,
+                success: function(data) {
+                   if(data.status === 401){
+                    toastr.error(data.message);
+                   }else if(data.status === 402){
+                    toastr.error(data.message);
+                   }else if(data.status === 403){
+                    toastr.error(data.message);
+                   }else if(data.status === 404){
+                    toastr.error(data.message);
+                   }
+                   
+                   if(data.status === 200){
+                    couponCalculationTotal();
+                    toastr.success(data.message);
+                   }
+                   
+                },
+                error: function(error) {
+                    console.log(error)
+                }
+            })
+       })
+
+       function couponCalculationTotal(){
+                $.ajax({
+                    method: 'GET',
+                    url: '{{ route('coupon-calculation') }}',
+                    success: function(data) {
+                        $('#calculate_discount').text(data.discount);
+                        $('#calculate_cart_total').text(data.cart_total);
+                    },
+                    error: function(error) {
+                        console.log(error);
                     }
                 })
        }

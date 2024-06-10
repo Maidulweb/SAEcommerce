@@ -47,6 +47,8 @@ Route::get('/cart-remove-test', [CartController::class, 'cartRemoveTest'])->name
 Route::get('/cart-count', [CartController::class, 'cartCount'])->name('cart.count');
 Route::get('/cart-sidebar-product', [CartController::class, 'cartSidebarProduct'])->name('cart.sidebar-product');
 Route::get('/cart-sidebar-product-total', [CartController::class, 'cartSidebarProductTotal'])->name('cart.sidebar-product.total');
+Route::get('/coupon-apply', [CartController::class, 'couponApply'])->name('coupon-apply');
+Route::get('/coupon-calculation', [CartController::class, 'couponCalculation'])->name('coupon-calculation');
 
 /* Profile */
 Route::group(['middleware'=>['auth','verified'], 'prefix'=>'user', 'as'=>'user.'],function(){

@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Session;
+
 function setActive(array $route) {
     if(is_array($route)){
         foreach ($route as $r){
@@ -50,3 +52,41 @@ function getCartTotal(){
       }
       return $total;
   }
+
+function getMainCartTotal(){
+    if(Session::has('coupon')){
+
+        $coupon = Session::get('coupon');
+        $subTotal = getCartTotal();
+
+        if($coupon['discount_type'] == 'amount'){
+          $total = $subTotal - $coupon['discount'];
+          return $total;
+        }else if($coupon['discount_type'] == 'percentage'){
+          $total = $subTotal - $subTotal * $coupon['discount'] / 100;
+          return $total;
+        }
+      }else {
+        return getCartTotal();
+      }
+}
+
+function getDiscount(){
+    if(Session::has('coupon')){
+
+        $coupon = Session::get('coupon');
+        $subTotal = getCartTotal();
+
+        if($coupon['discount_type'] == 'amount'){
+          return $coupon['discount'];
+        }else if($coupon['discount_type'] == 'percentage'){
+            $discount = $subTotal * $coupon['discount'] / 100;
+          return $discount;
+        }
+      }else {
+        return 0;
+      }
+}
+
+
+

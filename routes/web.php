@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Backend\AdminController;
+use App\Http\Controllers\Backend\PaymentController;
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\FlashSaleController;
 use App\Http\Controllers\Frontend\FrontendProductController;
 use App\Http\Controllers\Frontend\HomeController;
@@ -58,4 +60,12 @@ Route::group(['middleware'=>['auth','verified'], 'prefix'=>'user', 'as'=>'user.'
    Route::post('profile/password', [UserDashboardController::class, 'passwordUpdate'])->name('profile.password.update');
 
    Route::resource('user-address', UserAddressController::class);
+
+   /* Checkout */
+   Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout');
+   Route::post('checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+   Route::post('checkout/form-submit', [CheckoutController::class, 'formSubmit'])->name('checkout.form-submit');
+
+   /* Payment */
+   Route::get('payment', [PaymentController::class, 'index'])->name('payment');
 });

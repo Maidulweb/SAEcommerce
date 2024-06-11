@@ -121,7 +121,7 @@
                         <p class="total"><span>total:</span> <span id="calculate_cart_total">{{getMainCartTotal()}}</span></p>
 
                         
-                        <a class="common_btn mt-4 w-100 text-center" href="check_out.html">checkout</a>
+                        <a class="common_btn mt-4 w-100 text-center" href="{{route('user.checkout')}}">checkout</a>
                         <a class="common_btn mt-1 w-100 text-center" href="product_grid_view.html"><i
                                 class="fab fa-shopify"></i> go shop</a>
                     </div>

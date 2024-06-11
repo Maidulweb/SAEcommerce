@@ -651,13 +651,13 @@
         </div>
     </section>
     <!--============================
-                                        PRODUCT DETAILS END
-                                    ==============================-->
+        PRODUCT DETAILS END
+    ==============================-->
 
 
     <!--============================
-                                        RELATED PRODUCT START
-                                    ==============================-->
+        RELATED PRODUCT START
+    ==============================-->
     <section id="wsus__flash_sell">
         <div class="container">
             <div class="row">
@@ -823,8 +823,8 @@
         </div>
     </section>
     <!--============================
-                                        RELATED PRODUCT END
-                                    ==============================-->
+          RELATED PRODUCT END
+    ==============================-->
 @endsection
 
 @push('scripts')

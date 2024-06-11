@@ -39,6 +39,11 @@ $(function () {
         $(".select_2").select2();
     });
 
+    // Select2
+    if (jQuery().select2) {
+        $(".select2").select2();
+    }
+
     //*======BANNER SLIDER=====
     $(".banner_slider").slick({
         slidesToShow: 1,

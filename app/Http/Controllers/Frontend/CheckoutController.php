@@ -53,7 +53,8 @@ class CheckoutController extends Controller
             Session::put('shipping_rules', [
                 'id' => $shippingRule->id,
                 'name' => $shippingRule->name,
-                'type' => $shippingRule->cost
+                'type' => $shippingRule->type,
+                'cost' => $shippingRule->cost,
           ]);
         }
         

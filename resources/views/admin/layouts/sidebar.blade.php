@@ -50,6 +50,8 @@
         <li><a class="nav-link" href="{{route('admin.shipping-rule.index')}}"><i class="far fa-square"></i> <span>Shipping Rule</span></a></li>
 
         <li><a class="nav-link" href="{{route('admin.setting.index')}}"><i class="far fa-square"></i> <span>General Setting</span></a></li>
+
+        <li><a class="nav-link" href="{{route('admin.payment.index')}}"><i class="far fa-square"></i> <span>Payment Setting</span></a></li>
         
        {{--  <li class="dropdown">
           <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Layout</span></a>

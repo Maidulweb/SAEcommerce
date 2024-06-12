@@ -116,7 +116,6 @@ return [
         'Yemen Rial' => 'YER',
         'Zimbabwe Dollar' => 'ZWD',
     ],
-
     'timezone' => [
     'Pacific/Midway' => '(UTC-11:00) Midway',
     'Pacific/Niue' => '(UTC-11:00) Niue',

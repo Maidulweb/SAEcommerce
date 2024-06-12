@@ -88,5 +88,17 @@ function getDiscount(){
       }
 }
 
+function getShippingFee(){
+  if(Session::has('shipping_fee')){
+    return Session::get('shipping_fee')['cost'];
+  }else{
+    return 0;
+  }
+}
+
+function getFinalPay(){
+  return getMainCartTotal() + getShippingFee();
+}
+
 
 

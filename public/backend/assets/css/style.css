@@ -3943,3 +3943,6 @@ body:not(.sidebar-mini)
 img {
     width: 50px !important;
 }
+.select2-container {
+    width: 100% !important;
+}

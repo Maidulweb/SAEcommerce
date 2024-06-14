@@ -8,11 +8,14 @@ use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\PaypalSetting;
 use App\Models\Product;
+use App\Models\StripeSetting;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
+use Stripe\Charge;
+use Stripe\Stripe;
 
 class PaymentController extends Controller
 {
@@ -169,4 +172,34 @@ class PaymentController extends Controller
         'message' => 'Something wrong!!!'
       ]);
     }
+
+   public function stripe(Request $request){
+    $stripeSetting = StripeSetting::first();
+    $total = getFinalPay();
+    $payAbleAmount = round($total*$stripeSetting->currency_rate, 2);
+    Stripe::setApiKey($stripeSetting->secret_key);
+    $response = Charge::create([
+      'amount' => $payAbleAmount * 100,
+      'currency' => $stripeSetting->currency_name,
+      'source' => $request->token,
+      'description' => 'Payment test',
+    ]);
+    if($response->status =='succeeded'){
+      $this->storeOrder('Stripe',$response->status,$response->id, $payAbleAmount,$stripeSetting->currency_name);
+         //Clear session
+         $this->clearSession();
+         return redirect()->route('user.payment.success')->with([
+           'message' => 'Payment successfully',
+           'alert-type' => 'success'
+         ]);
+    } else {
+      return redirect()->route('user.payment')->with([
+        'status' => 'error',
+        'message' => 'Something wrong!!!'
+      ]);
+    }
+   } 
+   public function stripeSuccess(){
+    return view('frontend.pages.payment-success');
+   }
 }

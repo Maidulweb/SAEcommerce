@@ -89,8 +89,8 @@ function getDiscount(){
 }
 
 function getShippingFee(){
-  if(Session::has('shipping_fee')){
-    return Session::get('shipping_fee')['cost'];
+  if(Session::has('shipping_rules')){
+    return Session::get('shipping_rules')['cost'];
   }else{
     return 0;
   }

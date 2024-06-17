@@ -22,7 +22,40 @@ class OrderDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'order.action')
+            ->addColumn('action', function($query){
+               $show = '<a href="'.route('admin.order.show', $query->id).'"><i class="far fa-eye"></i></a>';
+               
+               $edit = '<a href="'.route('admin.order.edit', $query->id).'"><i class="far fa-edit"></i></a>';
+
+               
+               return $show.$edit;
+            })
+            ->addColumn('customer', function($query){
+               return $query->user->name;
+            })
+            ->addColumn('Date',function($query){
+                return date('d-M-Y', strtotime($query->created_at));
+             })
+            ->addColumn('sub_total', function($query){
+                return $query->currency_icon.$query->sub_total;
+             })
+             ->addColumn('amount', function($query){
+                return $query->currency_icon.$query->amount;
+             })
+             ->addColumn('order_status', function($query){
+                switch($query->order_status){
+                    case'pending':
+                    return '<i class="badge badge-success">Pending</i>';
+                    break;
+                    case'complete':
+                    return '<i class="badge badge-primary">Complete</i>';
+                    break;
+                }
+
+                
+             })
+            
+             ->rawColumns(['action','order_status'])
             ->setRowId('id');
     }
 
@@ -44,7 +77,7 @@ class OrderDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(1)
+                    ->orderBy(0)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -64,9 +97,15 @@ class OrderDataTable extends DataTable
         return [
             
             Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('invoice_id'),
+            Column::make('customer'),
+            Column::make('Date'),
+            Column::make('sub_total'),
+            Column::make('amount'),
+            Column::make('product_qty'),
+            Column::make('payment_method'),
+            Column::make('payment_status'),
+            Column::make('order_status'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)

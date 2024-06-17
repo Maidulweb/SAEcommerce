@@ -100,4 +100,6 @@ Route::put('/paypal-setting/{id}', [PaypalSettingController::class, 'update'])->
 Route::put('/stripe-setting/{id}', [StripeSettingController::class, 'update'])->name('stripe.update');
 
 /* Order */
+Route::get('/order-status', [OrderController::class, 'changeOrderStatus'])->name('order.status');
+Route::get('/order-payment-status', [OrderController::class, 'changePaymentStatus'])->name('order.payment.status');
 Route::resource('order', OrderController::class);

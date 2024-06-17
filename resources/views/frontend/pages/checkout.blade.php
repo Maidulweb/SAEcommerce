@@ -89,7 +89,7 @@
                             @endforeach
                             <div class="wsus__order_details_summery">
                                 <p>subtotal: <span>{{$setting->currency_icon}}{{getCartTotal()}}</span></p>
-                                <p>shipping fee: <span id="shipping_fee">0</span></p>
+                                <p>shipping fee: <span id="shipping_fee">{{$setting->currency_icon}}0</span></p>
                                 <p>Coupon(-): <span>{{$setting->currency_icon}}{{getDiscount()}}</span></p>
                                 
                                 <p><b>total:</b> <span><b id="total_amount" data-id="{{getMainCartTotal()}}">{{$setting->currency_icon}}{{getMainCartTotal()}}</b></span></p>
@@ -206,7 +206,9 @@
             $('#shipping_method_id').val($(this).val());
             $('#shipping_fee').text("{{$setting->currency_icon}}"+$(this).data('id'))
             
-            $('#total_amount').text("{{$setting->currency_icon}}"+($('#total_amount').data('id')+$(this).data('id')));
+           let result = $('#total_amount').text("{{$setting->currency_icon}}"+($('#total_amount').data('id')+$(this).data('id')));
+
+           console.log($result);
         })
 
         $('.shipping_address').on('click', function(){

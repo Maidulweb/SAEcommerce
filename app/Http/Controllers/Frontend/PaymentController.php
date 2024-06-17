@@ -98,7 +98,7 @@ class PaymentController extends Controller
           $storeOrder = new Order();
           $storeOrder->invoice_id = rand(1, 999999);
           $storeOrder->user_id = Auth::user()->id;
-          $storeOrder->sub_total = getMainCartTotal();
+          $storeOrder->sub_total = getCartTotal();
           $storeOrder->amount = getFinalPay();
           $storeOrder->currency_name = $generalSetting->currency_name;
           $storeOrder->currency_icon = $generalSetting->currency_icon;
@@ -108,7 +108,7 @@ class PaymentController extends Controller
           $storeOrder->order_address = json_encode(Session::get('shipping_address'));
           $storeOrder->shipping_rules = json_encode(Session::get('shipping_rules'));
           $storeOrder->coupon = json_encode(Session::get('coupon'));
-          $storeOrder->order_status = 0;
+          $storeOrder->order_status = 'pending';
           $storeOrder->save();
 
           foreach(\Cart::content() as $cartItem){
@@ -154,7 +154,7 @@ class PaymentController extends Controller
         $total = getFinalPay();
         $payAbleAmount = round($total*$paypalSetting->currency_rate, 2);
 
-        $this->storeOrder('Paypal',$response['status'],$response['id'],$payAbleAmount,$paypalSetting->currency_name);
+        $this->storeOrder('Paypal',1,$response['id'],$payAbleAmount,$paypalSetting->currency_name);
         //Clear session
         $this->clearSession();
         return redirect()->route('user.payment.success')->with([

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\AdminController;
+use App\Http\Controllers\Backend\UserOrderController;
 use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
@@ -76,4 +77,8 @@ Route::group(['middleware'=>['auth','verified'], 'prefix'=>'user', 'as'=>'user.'
 
    /* Stripe */
    Route::post('stripe/payment', [PaymentController::class, 'stripe'])->name('stripe.payment');
+
+   /* Order */
+   Route::get('order', [UserOrderController::class, 'index'])->name('order.index');
+   Route::get('order/{id}', [UserOrderController::class, 'show'])->name('order.show');
 });

@@ -8,7 +8,7 @@
     
       <li><a href="{{route('vendor.shop-profile.index')}}"><i class="far fa-user"></i> Shop Proile</a></li>
       <li><a href="{{route('vendor.profile')}}"><i class="far fa-user"></i> My Proile</a></li>
-      <li><a href="{{route('vendor.product.index')}}"><i class="far fa-user"></i> Product</a></li>
+      <li><a href="{{route('vendor.order.index')}}"><i class="far fa-user"></i>Order Product</a></li>
       <li>
         <form method="POST" action="{{ route('logout') }}">
             @csrf

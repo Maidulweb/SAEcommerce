@@ -22,6 +22,7 @@ use App\Http\Controllers\Backend\ShippingRuleController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\StripeSettingController;
 use App\Http\Controllers\Backend\SubCategoryController;
+use App\Http\Controllers\Backend\TransactionController;
 use App\Http\Controllers\Backend\VendorController;
 use App\Models\Brand;
 use App\Models\Order;
@@ -102,4 +103,12 @@ Route::put('/stripe-setting/{id}', [StripeSettingController::class, 'update'])->
 /* Order */
 Route::get('/order-status', [OrderController::class, 'changeOrderStatus'])->name('order.status');
 Route::get('/order-payment-status', [OrderController::class, 'changePaymentStatus'])->name('order.payment.status');
+Route::get('/order-all-pending', [OrderController::class, 'orderPending'])->name('order.pending');
+Route::get('/order-all-processed', [OrderController::class, 'orderProcessed'])->name('order.processed');
+Route::get('/order-all-dropped', [OrderController::class, 'orderDropped'])->name('order.dropped');
+Route::get('/order-all-shipped', [OrderController::class, 'orderShipped'])->name('order.shipped');
+Route::get('/order-all-out-delivered', [OrderController::class, 'orderOutDelivered'])->name('order.out-delivered');
+Route::get('/order-all-delivered', [OrderController::class, 'orderDelivered'])->name('order.delivered');
 Route::resource('order', OrderController::class);
+
+Route::get('transaction', [TransactionController::class, 'index'])->name('transaction.index');

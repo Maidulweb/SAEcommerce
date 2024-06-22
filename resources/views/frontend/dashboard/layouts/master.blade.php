@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="{{asset('frontend/css/ranger_style.css')}}">
   <link rel="stylesheet" href="{{asset('frontend/css/jquery.classycountdown.css')}}">
   <link rel="stylesheet" href="{{asset('frontend/css/venobox.min.css')}}">
+  <link rel="stylesheet" href="{{asset('frontend/css/dataTables.min.css')}}">
   <link href="{{asset('frontend/css/toastr.css')}}" rel="stylesheet">
 
   <link rel="stylesheet" href="{{asset('frontend/css/style.css')}}">
@@ -101,6 +102,8 @@
 <script src="{{asset('frontend/js/jquery.classycountdown.js')}}"></script>
 <script src="{{asset('frontend/js/toastr.min.js')}}"></script>
 <script src="{{asset('frontend/js/sweetalert2@11.js')}}"></script>
+<script src="{{asset('frontend/js/dataTables.min.js')}}"></script>
+
 
 <!--main/custom js-->
 <script src="{{asset('frontend/js/main.js')}}"></script>
@@ -182,6 +185,7 @@
     })  
   })
 </script>
+@stack('scripts')
 </body>
 
 </html>

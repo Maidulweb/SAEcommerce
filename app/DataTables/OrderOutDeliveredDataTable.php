@@ -12,7 +12,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class OrderDataTable extends DataTable
+class OrderOutDeliveredDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -25,7 +25,7 @@ class OrderDataTable extends DataTable
             ->addColumn('action', function($query){
                $show = '<a href="'.route('admin.order.show', $query->id).'"><i class="far fa-eye"></i></a>';
                
-               $edit = '<a class="delete-item" href="'.route('admin.order.destroy', $query->id).'"><i class="far fa-trash-alt"></i></a>';
+               $edit = '<a href="'.route('admin.order.edit', $query->id).'"><i class="far fa-edit"></i></a>';
 
                
                return $show.$edit;
@@ -44,8 +44,8 @@ class OrderDataTable extends DataTable
              })
              ->addColumn('order_status', function($query){
                 switch($query->order_status){
-                        case'pending':
-                        return '<button class="badge badge-success">Pending</button>';
+                    case'pending':
+                        return '<i class="badge badge-success">Pending</i>';
                         break;
                         case'processed_and_ready_to_ship':
                         return '<i class="badge badge-info">Processed</i>';
@@ -76,7 +76,7 @@ class OrderDataTable extends DataTable
      */
     public function query(Order $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->where('order_status', 'out_for_delivery')->newQuery();
     }
 
     /**

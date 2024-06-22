@@ -3,6 +3,13 @@
 namespace App\Http\Controllers\Backend;
 
 use App\DataTables\OrderDataTable;
+use App\DataTables\OrderDeliveredDataTable;
+use App\DataTables\OrderDroppedDataTable;
+use App\DataTables\OrderOutDeliveredDataTable;
+use App\DataTables\OrderPendingDataTable;
+use App\DataTables\OrderProcessedDataTable;
+use App\DataTables\OrderShippedDataTable;
+use App\DataTables\PendingDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderProduct;
@@ -17,7 +24,36 @@ class OrderController extends Controller
     {
         return $dataTable->render('admin.order.index'); 
     }
+    
+    public function orderPending(OrderPendingDataTable $dataTable)
+    {
+        return $dataTable->render('admin.order.pending'); 
+    }
 
+    public function orderProcessed(OrderProcessedDataTable $dataTable)
+    {
+        return $dataTable->render('admin.order.processed'); 
+    }
+
+    public function orderDropped(OrderDroppedDataTable $dataTable)
+    {
+        return $dataTable->render('admin.order.dropped'); 
+    }
+
+    public function orderShipped(OrderShippedDataTable $dataTable)
+    {
+        return $dataTable->render('admin.order.shipped'); 
+    }
+
+    public function orderOutDelivered(OrderOutDeliveredDataTable $dataTable)
+    {
+        return $dataTable->render('admin.order.out_delivered'); 
+    }
+
+    public function orderDelivered(OrderDeliveredDataTable $dataTable)
+    {
+        return $dataTable->render('admin.order.delivered'); 
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -64,7 +100,15 @@ class OrderController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $order = Order::findOrFail($id);
+        $order->orderProduct()->delete();
+        $order->transaction()->delete();
+        $order->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Delete Order'
+        ]);
     }
 
     public function changeOrderStatus(Request $request){

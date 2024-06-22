@@ -52,12 +52,20 @@
         <li><a class="nav-link" href="{{route('admin.setting.index')}}"><i class="far fa-square"></i> <span>General Setting</span></a></li>
 
         <li><a class="nav-link" href="{{route('admin.payment.index')}}"><i class="far fa-square"></i> <span>Payment Setting</span></a></li>
+       
         <li class="dropdown {{setActive(['admin.order.*'])}}">
           <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Order</span></a>
           <ul class="dropdown-menu">
             <li><a class="nav-link" href="{{route('admin.order.index')}}">Show</a></li>
+            <li><a class="nav-link" href="{{route('admin.order.pending')}}">All Pending</a></li>
+            <li><a class="nav-link" href="{{route('admin.order.processed')}}">All Processed</a></li>
+            <li><a class="nav-link" href="{{route('admin.order.dropped')}}">All Dropped</a></li>
+            <li><a class="nav-link" href="{{route('admin.order.shipped')}}">All Shipped</a></li>
+            <li><a class="nav-link" href="{{route('admin.order.out-delivered')}}">All Out of Delivered</a></li>
+            <li><a class="nav-link" href="{{route('admin.order.delivered')}}">All Delivered</a></li>
           </ul>
         </li>
+        <li><a class="nav-link" href="{{route('admin.transaction.index')}}"><i class="far fa-square"></i> <span>Transaction</span></a></li>
         <br>
         <br>
         <br>

@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ChildCatgoryController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\FlashSaleContorller;
+use App\Http\Controllers\Backend\HomepageSettingController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\PaymentSettingController;
 use App\Http\Controllers\Backend\PaypalSettingController;
@@ -91,6 +92,13 @@ Route::resource('coupon', CouponController::class);
 Route::put('/shipping-rule/status', [ShippingRuleController::class, 'status'])->name('shipping-rule.status');
 Route::resource('shipping-rule', ShippingRuleController::class);
 
+/* Homepage Setting */
+Route::get('/homepage', [HomepageSettingController::class, 'index'])->name('homepage.index');
+Route::put('/homepage/popular-product-update', [HomepageSettingController::class, 'PopularProductUpdate'])->name('homepage.popular-product.update');
+Route::put('/homepage/single-category-product-update', [HomepageSettingController::class, 'singleCategoryProduct'])->name('homepage.single-category-product.update');
+Route::put('/homepage/single-category-two-product-update', [HomepageSettingController::class, 'singleCategoryTwoProduct'])->name('homepage.single-category-two-product.update');
+Route::put('/homepage/single-category-three-product-update', [HomepageSettingController::class, 'singleCategoryThreeProduct'])->name('homepage.single-category-three-product.update');
+
 /* Setting */
 Route::get('/setting', [SettingController::class, 'index'])->name('setting.index');
 Route::put('/general-setting-update', [SettingController::class, 'generalSettingUpdate'])->name('general-setting.update');
@@ -111,4 +119,5 @@ Route::get('/order-all-out-delivered', [OrderController::class, 'orderOutDeliver
 Route::get('/order-all-delivered', [OrderController::class, 'orderDelivered'])->name('order.delivered');
 Route::resource('order', OrderController::class);
 
+/* Transaction */
 Route::get('transaction', [TransactionController::class, 'index'])->name('transaction.index');

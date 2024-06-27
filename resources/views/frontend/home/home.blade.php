@@ -24,7 +24,7 @@
     <!--============================
        MONTHLY TOP PRODUCT START
     ==============================-->
-{{--    @include('frontend.home.sections.monthly-top-product') --}}
+    @include('frontend.home.sections.popular-product') 
     <!--============================
        MONTHLY TOP PRODUCT END
     ==============================-->
@@ -33,7 +33,7 @@
     <!--============================
         BRAND SLIDER START
     ==============================-->
-{{--  @include('frontend.home.sections.brand') --}}
+    @include('frontend.home.sections.brand') 
     <!--============================
         BRAND SLIDER END
     ==============================-->
@@ -51,7 +51,7 @@
     <!--============================
         HOT DEALS START
     ==============================-->
-   {{--  @include('frontend.home.sections.hot-deal') --}}
+   @include('frontend.home.sections.hot-deal') 
     <!--============================
         HOT DEALS END  
     ==============================-->
@@ -60,12 +60,18 @@
     <!--============================
         ELECTRONIC PART START  
     ==============================-->
-   {{-- @include('frontend.home.sections.electronic') --}}
+   @include('frontend.home.sections.single-category')
     <!--============================
         ELECTRONIC PART END  
     ==============================-->
 
-
+    <!--============================
+        ELECTRONIC PART START  
+    ==============================-->
+    @include('frontend.home.sections.single-category-two') 
+    <!--============================
+        ELECTRONIC PART END  
+    ==============================-->
     <!--============================
         LARGE BANNER  START  
     ==============================-->
@@ -78,7 +84,7 @@
     <!--============================
         WEEKLY BEST ITEM START  
     ==============================-->
-  {{-- @include('frontend.home.sections.weekly-best-item') --}}
+  @include('frontend.home.sections.weekly-best-item') 
     <!--============================
         WEEKLY BEST ITEM END 
     ==============================-->

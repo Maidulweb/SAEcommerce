@@ -1,149 +1,107 @@
-<section id="wsus__hot_deals" class="wsus__hot_deals_2">
+@php
+$single_category_two_products = json_decode($singleCategoryTwo->value);
+$lastkey = [];
+foreach ($single_category_two_products as $key => $item) {
+   if ($item == null) {
+    break;
+   }
+   $lastkey = [$key => $item];
+ }
+
+ if (array_keys($lastkey)[0] == 'category') {
+     $category = \App\Models\Category::find($lastkey['category']);
+     $products = \App\Models\Product::where('category_id', $category->id)->take(4)->orderBy('id', 'DESC')->get();
+ }elseif(array_keys($lastkey)[0] == 'sub_category'){
+     $category = \App\Models\SubCategory::find($lastkey['sub_category']);
+     $products = \App\Models\Product::where('sub_category_id', $category->id)->take(4)->orderBy('id', 'DESC')->get();
+ }else{
+     $category = \App\Models\ChildCategory::find($lastkey['child_category']);
+     $products = \App\Models\Product::where('child_category_id', $category->id)->take(4)->orderBy('id', 'DESC')->get();
+ }
+
+@endphp
+<section id="wsus__electronic">
     <div class="container">
         <div class="row">
             <div class="col-xl-12">
                 <div class="wsus__section_header">
-                    <h3>hot deals of the day</h3>
+                    <h3>{{$category->name}}</h3>
+                    <a class="see_btn" href="#">see more <i class="fas fa-caret-right"></i></a>
                 </div>
             </div>
         </div>
-        <div class="wsus__hot_large_item">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="wsus__section_header justify-content-start">
-                        <div class="monthly_top_filter2 mb-1">
-                            <button class="auto-click active" data-filter=".top_product">Top Product</button>
-                            <button data-filter=".new_product">New Product</button>
-                            <button data-filter=".featured_product">Featured Product</button>
-                            <button data-filter=".best_product">Best Product</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row grid2">
-                    @foreach ($getTypeProducts as $key => $products)
-                        @foreach ($products as $product)
-                        <div class="col-xl-3 col-sm-6 col-md-4 col-lg-4 clotha spka wata {{$key}}">
-                            <div class="wsus__product_item">
-                                <span class="wsus__new">{{ productType($product) }}</span>
-                                @if (checkOffer($product))
-                                    <span
-                                        class="wsus__minus">-{{ checkDiscountPercentage($product->price, $product->offer_price) }}%</span>
-                                @endif
-                                <a class="wsus__pro_link"
-                                    href="{{ route('frontend.product-details.index', $product->slug) }}">
-                                    <img src="{{ asset($product->thumb_image) }}" alt="product"
-                                        class="img-fluid w-100 img_1" />
-                                    <img src="
-                            @if (isset($product->productImagegallery[0]->images)) {{ asset($product->productImagegallery[0]->images) }}
-                            @else
-                            {{ asset($product->thumb_image) }} @endif
-                            "
-                                        alt="product" class="img-fluid w-100 img_2" />
-                                </a>
-                                <ul class="wsus__single_pro_icon">
-                                    <li><a class="modal-data" href="#" data-bs-toggle="modal"
-                                            data-bs-target="#hotdeal-{{ $product->id }}"><i
-                                                class="far fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="far fa-heart"></i></a></li>
-                                    <li><a href="#"><i class="far fa-random"></i></a>
-                                </ul>
-                                <div class="wsus__product_details">
-                                    <a class="wsus__category" href="#">{{ $product->category->name }} </a>
-                                    <p class="wsus__pro_rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                        <span>(133 review)</span>
-                                    </p>
-                                    <a class="wsus__pro_name"
-                                        href="{{ route('frontend.product-details.index', $product->slug) }}">{{ $product->name }}</a>
-                                    @if (checkOffer($product))
-                                        <p class="wsus__price">{{ $setting->currency_icon }}{{ $product->offer_price }}
-                                            <del>{{ $setting->currency_icon }}{{ $product->price }}</del>
-                                        </p>
-                                    @else
-                                        <p class="wsus__price">{{ $setting->currency_icon }}{{ $product->price }}</p>
-                                    @endif
-                                    <form class="shopping-cart-form">
-                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                        <select class="d-none" name="variants[]">
-                                            @foreach ($product->productVariant as $productVariant)
-                                                @foreach ($productVariant->productVariantItem as $item)
-                                                    <option value="{{ $item->id }}">
-                                                        {{ $item->name }}</option>
-                                                @endforeach
-                                            @endforeach
-                                        </select>
+        <div class="row flash_sell_slider">
         
-                                        <input name="qty" type="hidden" min="1" max="100" value="1" />
-        
-                                        <button class="add_cart" type="submit">add to cart</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        @endforeach
-                      
-                    @endforeach
-            </div>
-        </div>
+@foreach ($products as $key => $product)
+<div class="col-xl-2 col-6 col-sm-6 col-md-4 col-lg-3  category-{{$key}}">
+   <div class="wsus__product_item">
+       <span class="wsus__new">{{ productType($product) }}</span>
+       @if (checkOffer($product))
+           <span
+               class="wsus__minus">-{{ checkDiscountPercentage($product->price, $product->offer_price) }}%</span>
+       @endif
+       <a class="wsus__pro_link"
+           href="{{ route('frontend.product-details.index', $product->slug) }}">
+           <img src="{{ asset($product->thumb_image) }}" alt="product"
+               class="img-fluid w-100 img_1" />
+           <img src="
+   @if (isset($product->productImagegallery[0]->images)) {{ asset($product->productImagegallery[0]->images) }}
+   @else
+   {{ asset($product->thumb_image) }} @endif
+   "
+               alt="product" class="img-fluid w-100 img_2" />
+       </a>
+       <ul class="wsus__single_pro_icon">
+           <li><a class="modal-data" href="#" data-bs-toggle="modal"
+                   data-bs-target="#single-two-{{ $product->id }}"><i
+                       class="far fa-eye"></i></a></li>
+           <li><a href="#"><i class="far fa-heart"></i></a></li>
+           <li><a href="#"><i class="far fa-random"></i></a>
+       </ul>
+       <div class="wsus__product_details">
+           <a class="wsus__category" href="#">{{ $product->category->name }} </a>
+           <p class="wsus__pro_rating">
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star-half-alt"></i>
+               <span>(133 review)</span>
+           </p>
+           <a class="wsus__pro_name"
+               href="{{ route('frontend.product-details.index', $product->slug) }}">{{ $product->name }}</a>
+           @if (checkOffer($product))
+               <p class="wsus__price">{{ $setting->currency_icon }}{{ $product->offer_price }}
+                   <del>{{ $setting->currency_icon }}{{ $product->price }}</del>
+               </p>
+           @else
+               <p class="wsus__price">{{ $setting->currency_icon }}{{ $product->price }}</p>
+           @endif
+           <form class="shopping-cart-form">
+               <input type="hidden" name="product_id" value="{{ $product->id }}">
+               <select class="d-none" name="variants[]">
+                   @foreach ($product->productVariant as $productVariant)
+                       @foreach ($productVariant->productVariantItem as $item)
+                           <option value="{{ $item->id }}">
+                               {{ $item->name }}</option>
+                       @endforeach
+                   @endforeach
+               </select>
 
-        <section id="wsus__single_banner" class="home_2_single_banner">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-6 col-lg-6">
-                        <div class="wsus__single_banner_content banner_1">
-                            <div class="wsus__single_banner_img">
-                                <img src="{{asset('frontend/images/single_banner_44.jpg')}}" alt="banner" class="img-fluid w-100">
-                            </div>
-                            <div class="wsus__single_banner_text">
-                                <h6>sell on <span>35% off</span></h6>
-                                <h3>smart watch</h3>
-                                <a class="shop_btn" href="#">shop now</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-6">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="wsus__single_banner_content single_banner_2">
-                                    <div class="wsus__single_banner_img">
-                                        <img src="{{asset('frontend/images/single_banner_55.jpg')}}" alt="banner" class="img-fluid w-100">
-                                    </div>
-                                    <div class="wsus__single_banner_text">
-                                        <h6>New Collection</h6>
-                                        <h3>kid's fashion</h3>
-                                        <a class="shop_btn" href="#">shop now</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 mt-lg-4">
-                                <div class="wsus__single_banner_content">
-                                    <div class="wsus__single_banner_img">
-                                        <img src="{{asset('frontend/images/single_banner_66.jpg')}}" alt="banner" class="img-fluid w-100">
-                                    </div>
-                                    <div class="wsus__single_banner_text">
-                                        <h6>sell on <span>42% off</span></h6>
-                                        <h3>winter collection</h3>
-                                        <a class="shop_btn" href="#">shop now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+               <input name="qty" type="hidden" min="1" max="100" value="1" />
+
+               <button class="add_cart" type="submit">add to cart</button>
+           </form>
+       </div>
+   </div>
+</div>
+@endforeach
+        </div>
     </div>
 </section>
-@foreach ($getTypeProducts as $key => $products)
-@foreach ($products as $product)
+@foreach ($products as $key => $product)
 <section class="product_popup_modal">
-    <div class="modal fade" id="hotdeal-{{ $product->id }}" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="single-two-{{ $product->id }}" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
@@ -271,5 +229,4 @@
         </div>
     </div>
 </section>
-@endforeach
 @endforeach

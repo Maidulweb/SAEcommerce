@@ -5,10 +5,10 @@
               <!--============================
         INVOICE PAGE START
     ==============================-->
-        <div class="container">
+        <div class="container" id="order_print_body">
             <div class="wsus__invoice_area">
                 <div class="wsus__invoice_header">
-                   <div id="order_print_body">
+                   <div>
                     <div class="wsus__invoice_content">
                         <div class="row">
                             <div class="col-xl-4 col-md-4 mb-5 mb-md-0">
@@ -102,7 +102,17 @@
                                        {{$product->qty}}
                                     </td>
                                     <td class="total">
-                                        {{$setting->currency_icon}}{{$product->unit_price * $product->qty}}
+                                        @php
+                                            $variants = json_decode($product->product_variants);
+                                            $variantTotal = 0;
+                                        @endphp
+                                        @foreach ($variants as $variant)
+                                        @php
+                                         $variantTotal += $variant->price 
+                                        @endphp
+                                          
+                                        @endforeach
+                                        {{$setting->currency_icon}}{{($product->unit_price + $variantTotal) * $product->qty}}
                                     </td>
                                 </tr>
                                
@@ -113,7 +123,16 @@
                    </div>
                     <div class="row">
                         
-                         <div class="col-md-4"></div>
+                         <div class="col-md-4">
+                            <p>Sub Total : {{$order->sub_total}}</p>
+                            @php
+                                $coupon = json_decode($order->coupon);
+                                $shipping = json_decode($order->shipping_rules);
+                            @endphp
+                            <p>Coupon(-) : {{$coupon->discount}}</p>
+                            <p>Shipping Fee(+) : {{$shipping->cost}}</p>
+                            <p>Total : {{$order->amount}}</p>
+                         </div>
                          <div class="col-md-4"></div>
                          <div class="col-md-4"><button class="btn btn-info mt-5" type="button" id="order_print">Print</button></div>
                     </div>
@@ -135,6 +154,7 @@
       $('#order_print').on('click', function(){
         let print_section = $('#order_print_body');
         let bodyHtml = $('body').html();
+        $(this).addClass('d-none');
 
         $('body').html(print_section.html());
         

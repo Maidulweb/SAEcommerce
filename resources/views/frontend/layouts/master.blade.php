@@ -239,6 +239,11 @@
             })
         })
     </script>
+    <script>
+        $(document).ready(function(){
+            $('.auto-click').click();
+        })
+    </script>
     @include('frontend.layouts.scripts-cart')
     @stack('scripts')
 </body>

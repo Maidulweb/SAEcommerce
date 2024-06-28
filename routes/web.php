@@ -28,6 +28,7 @@ Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/flash-sale', [FlashSaleController::class, 'index'])->name('pages.flash-sale.index');
 Route::get('/product-details/{slug}', [FrontendProductController::class, 'index'])->name('frontend.product-details.index');
 Route::get('/products', [FrontendProductController::class, 'products'])->name('frontend.products');
+Route::get('/change-gird-view', [FrontendProductController::class, 'changeGirdView'])->name('frontend.products.change-gird-view');
 
 
 

@@ -23,7 +23,7 @@ function checkOffer($product){
 function checkDiscountPercentage($originalPrice, $offerPrice){
    $discount = $originalPrice - $offerPrice;
    $discountPercentage = ($discount / $originalPrice) * 100;
-   return $discountPercentage;
+   return round($discountPercentage);
 }
 
 function productType($product){
@@ -98,6 +98,10 @@ function getShippingFee(){
 
 function getFinalPay(){
   return getMainCartTotal() + getShippingFee();
+}
+
+function limitText($text, $limit = 20){
+  return \Str::limit($text, $limit);
 }
 
 

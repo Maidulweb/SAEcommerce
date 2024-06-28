@@ -63,15 +63,9 @@
                                     aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
                                         <ul>
-                                            <li><a href="#">Accessories</a></li>
-                                            <li><a href="#">Babies</a></li>
-                                            <li><a href="#">Babies</a></li>
-                                            <li><a href="#">Beauty</a></li>
-                                            <li><a href="#">Decoration</a></li>
-                                            <li><a href="#">Electronics</a></li>
-                                            <li><a href="#">Fashion</a></li>
-                                            <li><a href="#">Food</a></li>
-                                            <li><a href="#">Furniture</a></li>
+                                            @foreach ($categories as $category)
+                                            <li><a href="{{route('frontend.products', ['category' => $category->slug])}}">{{$category->name}}</a></li>
+                                            @endforeach
                                         </ul>
                                     </div>
                                 </div>
@@ -87,13 +81,20 @@
                                     aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
                                         <div class="price_ranger">
-                                            <input type="hidden" id="slider_range" class="flat-slider" />
-                                            <button type="submit" class="common_btn">filter</button>
+                                            <form action="{{url()->current()}}">
+                                                @foreach (request()->query() as $key => $value)
+                                                    @if ($key != 'range')
+                                                        <input type="hidden" name="{{$key}}" value="{{$value}}">
+                                                    @endif
+                                                @endforeach
+                                                 <input type="hidden" id="slider_range" name="range" class="flat-slider" />
+                                                 <button type="submit" class="common_btn">filter</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="accordion-item">
+                            {{-- <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingThree2">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseThree2" aria-expanded="false"
@@ -127,7 +128,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingThree3">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
@@ -139,45 +140,15 @@
                                 <div id="collapseThree3" class="accordion-collapse collapse show"
                                     aria-labelledby="headingThree3" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value=""
-                                                id="flexCheckDefault11">
-                                            <label class="form-check-label" for="flexCheckDefault11">
-                                                gentle park
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value=""
-                                                id="flexCheckChecked22">
-                                            <label class="form-check-label" for="flexCheckChecked22">
-                                                colors
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value=""
-                                                id="flexCheckChecked222">
-                                            <label class="form-check-label" for="flexCheckChecked222">
-                                                yellow
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value=""
-                                                id="flexCheckChecked33">
-                                            <label class="form-check-label" for="flexCheckChecked33">
-                                                enice man
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value=""
-                                                id="flexCheckChecked333">
-                                            <label class="form-check-label" for="flexCheckChecked333">
-                                                plus point
-                                            </label>
-                                        </div>
+                                        <ul>
+                                            @foreach ($brands as $brand)
+                                            <li><a href="{{route('frontend.products', ['brand' => $brand->slug])}}">{{$brand->name}}</a></li>
+                                            @endforeach
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
-                            <div class="accordion-item">
+                          {{--   <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingThree">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseThree" aria-expanded="true"
@@ -225,7 +196,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -236,12 +207,12 @@
                                 <div class="wsus__product_topbar_left">
                                     <div class="nav nav-pills" id="v-pills-tab" role="tablist"
                                         aria-orientation="vertical">
-                                        <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill"
+                                        <button class="list-view nav-link {{session()->has('change_gird_view') && session()->get('change_gird_view') == 'gird' ? 'active' : ''}} {{!session()->has('change_gird_view') ? 'active' : ''}}" data-id="gird" id="v-pills-home-tab" data-bs-toggle="pill"
                                             data-bs-target="#v-pills-home" type="button" role="tab"
                                             aria-controls="v-pills-home" aria-selected="true">
                                             <i class="fas fa-th"></i>
                                         </button>
-                                        <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill"
+                                        <button class="list-view nav-link {{session()->has('change_gird_view') && session()->get('change_gird_view') == 'list' ? 'active' : ''}}" data-id="list" id="v-pills-profile-tab" data-bs-toggle="pill"
                                             data-bs-target="#v-pills-profile" type="button" role="tab"
                                             aria-controls="v-pills-profile" aria-selected="false">
                                             <i class="fas fa-list-ul"></i>
@@ -267,8 +238,13 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="text-center mt-5">
+                            @if (count($products) === 0)
+                                <h2 class="text-danger">No Product</h2>
+                            @endif
+                        </div>
                         <div class="tab-content" id="v-pills-tabContent">
-                            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                            <div class="tab-pane fade {{session()->has('change_gird_view') && session()->get('change_gird_view') == 'gird' ? 'show active' : ''}} {{!session()->has('change_gird_view') ? 'show active' : ''}}" id="v-pills-home" role="tabpanel"
                                 aria-labelledby="v-pills-home-tab">
                                 <div class="row">
                                     @foreach ($products as $product)
@@ -308,7 +284,7 @@
                                                     <span>(133 review)</span>
                                                 </p>
                                                 <a class="wsus__pro_name"
-                                                    href="{{ route('frontend.product-details.index', $product->slug) }}">{{ $product->name }}</a>
+                                                    href="{{ route('frontend.product-details.index', $product->slug) }}">{{ limitText($product->name, 5)  }}</a>
                                                 @if (checkOffer($product))
                                                     <p class="wsus__price">{{ $setting->currency_icon }}{{ $product->offer_price }}
                                                         <del>{{ $setting->currency_icon }}{{ $product->price }}</del>
@@ -337,7 +313,7 @@
                                     @endforeach
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
+                            <div class="tab-pane fade {{session()->has('change_gird_view') && session()->get('change_gird_view') == 'list' ? 'show active' : ''}}" id="v-pills-profile" role="tabpanel"
                                 aria-labelledby="v-pills-profile-tab">
                                 <div class="row">
                                     @foreach ($products as $product)
@@ -360,30 +336,45 @@
                                                 alt="product" class="img-fluid w-100 img_2" />
                                         </a>
                                             <div class="wsus__product_details">
-                                                <a class="wsus__pro_name"
-                                                    href="{{ route('frontend.product-details.index', $product->slug) }}">{{ $product->name }}</a>
+                                                <a class="wsus__category" href="#">fashion </a>
+                                                <p class="wsus__pro_rating">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star-half-alt"></i>
+                                                    <span>(17 review)</span>
+                                                </p>
+                                                <a class="wsus__pro_name" href="{{ route('frontend.product-details.index', $product->slug) }}">{{ $product->name }}</a>
                                                 @if (checkOffer($product))
-                                                    <p class="wsus__price">{{ $setting->currency_icon }}{{ $product->offer_price }}
-                                                        <del>{{ $setting->currency_icon }}{{ $product->price }}</del>
-                                                    </p>
+                                                <p class="wsus__price">{{ $setting->currency_icon }}{{ $product->offer_price }}
+                                                    <del>{{ $setting->currency_icon }}{{ $product->price }}</del>
+                                                </p>
                                                 @else
                                                     <p class="wsus__price">{{ $setting->currency_icon }}{{ $product->price }}</p>
                                                 @endif
-                                                <form class="shopping-cart-form">
-                                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                                    <select class="d-none" name="variants[]">
-                                                        @foreach ($product->productVariant as $productVariant)
-                                                            @foreach ($productVariant->productVariantItem as $item)
-                                                                <option value="{{ $item->id }}">
-                                                                    {{ $item->name }}</option>
-                                                            @endforeach
-                                                        @endforeach
-                                                    </select>
-                    
-                                                    <input name="qty" type="hidden" min="1" max="100" value="1" />
-                    
-                                                    <button class="add_cart" type="submit">add to cart</button>
-                                                </form>
+                                                <p class="list_description">{!! limitText($product->long_description, 150) !!}</p>
+                                                <ul class="wsus__single_pro_icon mt-3">
+                                                    <li>
+                                                        <form class="shopping-cart-form">
+                                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                            <select class="d-none" name="variants[]">
+                                                                @foreach ($product->productVariant as $productVariant)
+                                                                    @foreach ($productVariant->productVariantItem as $item)
+                                                                        <option value="{{ $item->id }}">
+                                                                            {{ $item->name }}</option>
+                                                                    @endforeach
+                                                                @endforeach
+                                                            </select>
+                            
+                                                            <input name="qty" type="hidden" min="1" max="100" value="1" />
+                            
+                                                            <button class="add_cart" type="submit">add to cart</button>
+                                                        </form>
+                                                    </li>
+                                                    <li><a href="#"><i class="far fa-heart"></i></a></li>
+                                                    <li><a href="#"><i class="far fa-random"></i></a>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
@@ -395,24 +386,9 @@
                 </div>
                 <div class="col-xl-12">
                     <section id="pagination">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <i class="fas fa-chevron-left"></i>
-                                    </a>
-                                </li>
-                                <li class="page-item"><a class="page-link page_active" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <i class="fas fa-chevron-right"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
+                            @if ($products->hasPages())
+                                {{$products->withQueryString()->links()}}
+                            @endif
                     </section>
                 </div>
             </div>
@@ -553,3 +529,40 @@
 </section>
 @endforeach
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function(){
+          $('.list-view').on('click', function(){
+            let style = $(this).data('id');
+            $.ajax({
+                method:'GET',
+                url:'{{route("frontend.products.change-gird-view")}}',
+                data:{
+                    style:style
+                },
+                success:function(data){},
+                error:function(){}
+            })
+          })
+          @php
+              if(request()->has('range') && request()->range != ''){
+                $price = explode(';', request()->range);
+              }else{
+                $price[0] = 0; 
+                $price[1] = 50;
+              }
+          @endphp
+          jQuery(function () {
+        jQuery("#slider_range").flatslider({
+            min: 0,
+            max: 50,
+            step: 5,
+            values: [{{$price[0]}}, {{$price[1]}}],
+            range: true,
+            einheit: "$",
+        });
+    });
+        })
+    </script>
+@endpush

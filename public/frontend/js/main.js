@@ -463,16 +463,16 @@ $(function () {
     });
 
     //*==========PRICE SLIDER=========
-    jQuery(function () {
+    /*    jQuery(function () {
         jQuery("#slider_range").flatslider({
             min: 0,
-            max: 10000,
-            step: 100,
-            values: [0, 8000],
+            max: 50,
+            step: 5,
+            values: [0, 5],
             range: true,
             einheit: "$",
         });
-    });
+    }); */
 
     //*========IMG & VIDEO UPLOAD=======
     $(".gallery").miv({ image: ".cam", video: ".vid" });

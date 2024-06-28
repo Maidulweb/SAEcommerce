@@ -58,8 +58,7 @@
                                         <i class="fas fa-star-half-alt"></i>
                                         <span>(133 review)</span>
                                     </p>
-                                    <a class="wsus__pro_name"
-                                        href="{{ route('frontend.product-details.index', $product->slug) }}">{{ $product->name }}</a>
+                                    <a class="wsus__pro_name" href="{{ route('frontend.product-details.index', $product->slug) }}">{{ $product->name }}</a>
                                     @if (checkOffer($product))
                                         <p class="wsus__price">{{ $setting->currency_icon }}{{ $product->offer_price }}
                                             <del>{{ $setting->currency_icon }}{{ $product->price }}</del>

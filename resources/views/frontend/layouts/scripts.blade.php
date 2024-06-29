@@ -128,7 +128,15 @@
                 id:id
             },
             success:function(data){
-                toastr.success(data.message)
+                
+                if(data.status == 'success'){
+                    $('#wishlist_count').text(data.addcount);
+                    toastr.success(data.message);
+                }else if(data.status == 'info'){
+                    $('#wishlist_count').text(data.deletecount);
+                    toastr.info(data.message);
+                }
+                
             },
             error:function(xhr,status,error){
                 alert('Please login')

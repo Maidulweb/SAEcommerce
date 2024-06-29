@@ -110,6 +110,6 @@
 
 @push('scripts')
     <script>
-        toastr.warning(message)
+       /*  toastr.warning(message) */
     </script>
 @endpush

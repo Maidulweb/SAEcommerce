@@ -52,14 +52,15 @@ class FrontendProductController extends Controller
             })
             ->paginate(12);
         }elseif($request->has('search')){
-            $products = Product::where(['status' => 1, 'is_approved' => 1])->where(function($query) use ($request){
+            $products = Product::where(['status' => 1, 'is_approved' => 1])
+            ->where(function($query) use ($request){
                $query->where('name', 'like', '%'.$request->search.'%')
-                     ->orWhere('long_description', 'like', '%'.$request->search.'%');
-            })
-            ->orWhereHas('category', function($query) use ($request){
-                $query->where(['status' => 1, 'is_approved' => 1])
-                      ->where('name', 'like', '%'.$request->search.'%')
-                      ->orWhere('long_description', 'like', '%'.$request->search.'%');
+                     ->orWhere('long_description', 'like', '%'.$request->search.'%')
+                     ->orWhereHas('category', function($query) use ($request){
+                        $query->where(['status' => 1, 'is_approved' => 1])
+                              ->where('name', 'like', '%'.$request->search.'%')
+                              ->orWhere('long_description', 'like', '%'.$request->search.'%');
+                    });
             })
             ->paginate(12); 
         }else{

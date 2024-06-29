@@ -117,5 +117,24 @@
             })
         }
 
+        $('.add_to_wishlist').on('click', function(e){
+            e.preventDefault();
+           
+           let id = $(this).data('id');
+           $.ajax({
+            method:'POST',
+            url:'{{route("user.wishlist.store")}}',
+            data:{
+                id:id
+            },
+            success:function(data){
+                toastr.success(data.message)
+            },
+            error:function(xhr,status,error){
+                alert('Please login')
+            }
+           })
+        })
+
     })
 </script>

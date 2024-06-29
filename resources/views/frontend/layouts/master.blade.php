@@ -244,7 +244,7 @@
             $('.auto-click').click();
         })
     </script>
-    @include('frontend.layouts.scripts-cart')
+    @include('frontend.layouts.scripts')
     @stack('scripts')
 </body>
 

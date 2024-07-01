@@ -7,6 +7,10 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ChildCatgoryController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\FlashSaleContorller;
+use App\Http\Controllers\Backend\FooterGridThreeController;
+use App\Http\Controllers\Backend\FooterGridTwoController;
+use App\Http\Controllers\Backend\FooterInfoController;
+use App\Http\Controllers\Backend\FooterSocialController;
 use App\Http\Controllers\Backend\HomepageSettingController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\PaymentSettingController;
@@ -102,6 +106,21 @@ Route::put('/homepage/single-category-three-product-update', [HomepageSettingCon
 /* Setting */
 Route::get('/setting', [SettingController::class, 'index'])->name('setting.index');
 Route::put('/general-setting-update', [SettingController::class, 'generalSettingUpdate'])->name('general-setting.update');
+Route::put('/smtp-setting-update', [SettingController::class, 'smtpSettingUpdate'])->name('smtp-setting.update');
+
+/* Footer Setting */
+Route::resource('footer-info', FooterInfoController::class);
+
+Route::put('/footer-social/status', [FooterSocialController::class, 'footerSocialStatus'])->name('footer-social.status');
+Route::resource('footer-social', FooterSocialController::class);
+
+Route::put('/footer-grid-two/status', [FooterGridTwoController::class, 'footerGridTwoStatus'])->name('footer-grid-two.status');
+Route::put('/footer-grid-two/title', [FooterGridTwoController::class, 'footerGridTwotitle'])->name('footer-grid-two.title');
+Route::resource('footer-grid-two', FooterGridTwoController::class);
+
+Route::put('/footer-grid-three/status', [FooterGridThreeController::class, 'footerGridThreeStatus'])->name('footer-grid-three.status');
+Route::put('/footer-grid-three/title', [FooterGridThreeController::class, 'footerGridThreetitle'])->name('footer-grid-three.title');
+Route::resource('footer-grid-three', FooterGridThreeController::class);
 
 /* Payment */
 Route::get('/payment-setting', [PaymentSettingController::class, 'index'])->name('payment.index');

@@ -72,7 +72,7 @@ class FrontendProductController extends Controller
         return view('frontend.pages.products', compact('products','categories','brands'));
     }
 
-    public function changeGirdView(Request $request){
-         Session::put('change_gird_view', $request->style);
+    public function changeGridView(Request $request){
+         Session::put('change_grid_view', $request->style);
     }
 }

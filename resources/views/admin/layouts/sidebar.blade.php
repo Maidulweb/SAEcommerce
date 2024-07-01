@@ -72,6 +72,15 @@
           </ul>
         </li>
         <li><a class="nav-link" href="{{route('admin.transaction.index')}}"><i class="far fa-square"></i> <span>Transaction</span></a></li>
+        <li class="dropdown {{setActive(['admin.slider.*'])}}">
+          <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Footer</span></a>
+          <ul class="dropdown-menu">
+            <li><a class="nav-link" href="{{route('admin.footer-info.index')}}">Create Footer Info</a></li>
+            <li><a class="nav-link" href="{{route('admin.footer-social.index')}}">Social Link</a></li>
+            <li><a class="nav-link" href="{{route('admin.footer-grid-two.index')}}">Grid Two</a></li>
+            <li><a class="nav-link" href="{{route('admin.footer-grid-three.index')}}">Grid Three</a></li>
+          </ul>
+        </li>
         <br>
         <br>
         <br>

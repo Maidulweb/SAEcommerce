@@ -1,50 +1,47 @@
+@php
+    $footer_info = \App\Models\FooterInfo::first();
+    $footer_socials = \App\Models\FooterSocial::where('status', 1)->orderBy('id', 'ASC')->get();
+    $footer_grid_twos = \App\Models\FooterGridTwo::where('status', 1)->orderBy('id', 'ASC')->get();
+    $footer_grid_threes = \App\Models\FooterGridThree::where('status', 1)->orderBy('id', 'ASC')->get();
+    $footer_grid_title = \App\Models\FooterGridTitle::first();
+@endphp
 <footer class="footer_2">
     <div class="container">
         <div class="row justify-content-between">
             <div class="col-xl-3 col-sm-7 col-md-6 col-lg-3">
                 <div class="wsus__footer_content">
                     <a class="wsus__footer_2_logo" href="#">
-                        <img src="{{asset('frontend/images/logo_2.png')}}" alt="logo">
+                        <img src="{{asset($footer_info->logo)}}" alt="logo">
                     </a>
                     <a class="action" href="callto:+8896254857456"><i class="fas fa-phone-alt"></i>
-                        +8896254857456</a>
+                        {{$footer_info->phone}}</a>
                     <a class="action" href="mailto:example@gmail.com"><i class="far fa-envelope"></i>
-                        example@gmail.com</a>
-                    <p><i class="fal fa-map-marker-alt"></i> San Francisco City Hall, San Francisco, CA</p>
+                        {{$footer_info->email}}</a>
+                    <p><i class="fal fa-map-marker-alt"></i> {{$footer_info->address}}</p>
                     <ul class="wsus__footer_social">
-                        <li><a class="facebook" href="#"><i class="fab fa-facebook-f"></i></a></li>
-                        <li><a class="twitter" href="#"><i class="fab fa-twitter"></i></a></li>
-                        <li><a class="whatsapp" href="#"><i class="fab fa-whatsapp"></i></a></li>
-                        <li><a class="pinterest" href="#"><i class="fab fa-pinterest-p"></i></a></li>
-                        <li><a class="behance" href="#"><i class="fab fa-behance"></i></a></li>
+                        @foreach ($footer_socials as $footer_social)
+                        <li><a class="facebook" href="#"><i class="{{$footer_social->icon}}"></i></a></li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
             <div class="col-xl-2 col-sm-5 col-md-4 col-lg-2">
                 <div class="wsus__footer_content">
-                    <h5>Company</h5>
+                    <h5>{{$footer_grid_title->footer_grid_two_title}}</h5>
                     <ul class="wsus__footer_menu">
-                        <li><a href="#"><i class="fas fa-caret-right"></i> About Us</a></li>
-                        <li><a href="#"><i class="fas fa-caret-right"></i> Team Member</a></li>
-                        <li><a href="#"><i class="fas fa-caret-right"></i> Career</a></li>
-                        <li><a href="#"><i class="fas fa-caret-right"></i> Contact Us</a></li>
-                        <li><a href="#"><i class="fas fa-caret-right"></i> Affilate</a></li>
-                        <li><a href="#"><i class="fas fa-caret-right"></i> Order History</a></li>
-                        <li><a href="#"><i class="fas fa-caret-right"></i> Team Member</a></li>
+                        @foreach ($footer_grid_twos as $footer_grid_two)
+                        <li><a href="{{$footer_grid_two->url}}"><i class="fas fa-caret-right"></i> {{$footer_grid_two->name}}</a></li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
             <div class="col-xl-2 col-sm-5 col-md-4 col-lg-2">
                 <div class="wsus__footer_content">
-                    <h5>Company</h5>
+                    <h5>{{$footer_grid_title->footer_grid_three_title}}</h5>
                     <ul class="wsus__footer_menu">
-                        <li><a href="#"><i class="fas fa-caret-right"></i> About Us</a></li>
-                        <li><a href="#"><i class="fas fa-caret-right"></i> Team Member</a></li>
-                        <li><a href="#"><i class="fas fa-caret-right"></i> Career</a></li>
-                        <li><a href="#"><i class="fas fa-caret-right"></i> Contact Us</a></li>
-                        <li><a href="#"><i class="fas fa-caret-right"></i> Affilate</a></li>
-                        <li><a href="#"><i class="fas fa-caret-right"></i> Order History</a></li>
-                        <li><a href="#"><i class="fas fa-caret-right"></i> Team Member</a></li>
+                        @foreach ($footer_grid_threes as $footer_grid_three)
+                        <li><a href="{{$footer_grid_three->url}}"><i class="fas fa-caret-right"></i> {{$footer_grid_three->name}}</a></li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -53,9 +50,10 @@
                     <h3>Subscribe To Our Newsletter</h3>
                     <p>Get all the latest information on Events, Sales and Offers.
                         Get all the latest information on Events.</p>
-                    <form>
-                        <input type="text" placeholder="Search...">
-                        <button type="submit" class="common_btn">subscribe</button>
+                    <form id="newsletter" action="" method="POST">
+                        @csrf
+                        <input class="newsletter-email" type="email" name="email" placeholder="Email....">
+                        <button type="submit" class="common_btn subscription-before-send">subscribe</button>
                     </form>
                     <div class="footer_payment">
                         <p>We're using safe payment for :</p>

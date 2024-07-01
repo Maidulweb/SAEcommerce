@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\FlashSale;
 use App\Models\FlashSaleItem;
+use App\Models\FooterInfo;
 use App\Models\HomepageSetting;
 use App\Models\Product;
 use App\Models\Slider;

@@ -207,12 +207,12 @@
                                 <div class="wsus__product_topbar_left">
                                     <div class="nav nav-pills" id="v-pills-tab" role="tablist"
                                         aria-orientation="vertical">
-                                        <button class="list-view nav-link {{session()->has('change_gird_view') && session()->get('change_gird_view') == 'gird' ? 'active' : ''}} {{!session()->has('change_gird_view') ? 'active' : ''}}" data-id="gird" id="v-pills-home-tab" data-bs-toggle="pill"
+                                        <button class="list-view nav-link {{session()->has('change_grid_view') && session()->get('change_grid_view') == 'grid' ? 'active' : ''}} {{!session()->has('change_grid_view') ? 'active' : ''}}" data-id="grid" id="v-pills-home-tab" data-bs-toggle="pill"
                                             data-bs-target="#v-pills-home" type="button" role="tab"
                                             aria-controls="v-pills-home" aria-selected="true">
                                             <i class="fas fa-th"></i>
                                         </button>
-                                        <button class="list-view nav-link {{session()->has('change_gird_view') && session()->get('change_gird_view') == 'list' ? 'active' : ''}}" data-id="list" id="v-pills-profile-tab" data-bs-toggle="pill"
+                                        <button class="list-view nav-link {{session()->has('change_grid_view') && session()->get('change_grid_view') == 'list' ? 'active' : ''}}" data-id="list" id="v-pills-profile-tab" data-bs-toggle="pill"
                                             data-bs-target="#v-pills-profile" type="button" role="tab"
                                             aria-controls="v-pills-profile" aria-selected="false">
                                             <i class="fas fa-list-ul"></i>
@@ -244,7 +244,7 @@
                             @endif
                         </div>
                         <div class="tab-content" id="v-pills-tabContent">
-                            <div class="tab-pane fade {{session()->has('change_gird_view') && session()->get('change_gird_view') == 'gird' ? 'show active' : ''}} {{!session()->has('change_gird_view') ? 'show active' : ''}}" id="v-pills-home" role="tabpanel"
+                            <div class="tab-pane fade {{session()->has('change_grid_view') && session()->get('change_grid_view') == 'grid' ? 'show active' : ''}} {{!session()->has('change_grid_view') ? 'show active' : ''}}" id="v-pills-home" role="tabpanel"
                                 aria-labelledby="v-pills-home-tab">
                                 <div class="row">
                                     @foreach ($products as $product)
@@ -313,7 +313,7 @@
                                     @endforeach
                                 </div>
                             </div>
-                            <div class="tab-pane fade {{session()->has('change_gird_view') && session()->get('change_gird_view') == 'list' ? 'show active' : ''}}" id="v-pills-profile" role="tabpanel"
+                            <div class="tab-pane fade {{session()->has('change_grid_view') && session()->get('change_grid_view') == 'list' ? 'show active' : ''}}" id="v-pills-profile" role="tabpanel"
                                 aria-labelledby="v-pills-profile-tab">
                                 <div class="row">
                                     @foreach ($products as $product)
@@ -537,7 +537,7 @@
             let style = $(this).data('id');
             $.ajax({
                 method:'GET',
-                url:'{{route("frontend.products.change-gird-view")}}',
+                url:'{{route("frontend.products.change-grid-view")}}',
                 data:{
                     style:style
                 },

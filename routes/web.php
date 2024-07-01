@@ -8,6 +8,7 @@ use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\FlashSaleController;
 use App\Http\Controllers\Frontend\FrontendProductController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\NewsletterController;
 use App\Http\Controllers\Frontend\UserAddressController;
 use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\WishListController;
@@ -29,7 +30,10 @@ Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/flash-sale', [FlashSaleController::class, 'index'])->name('pages.flash-sale.index');
 Route::get('/product-details/{slug}', [FrontendProductController::class, 'index'])->name('frontend.product-details.index');
 Route::get('/products', [FrontendProductController::class, 'products'])->name('frontend.products');
-Route::get('/change-gird-view', [FrontendProductController::class, 'changeGirdView'])->name('frontend.products.change-gird-view');
+Route::get('/change-grid-view', [FrontendProductController::class, 'changeGridView'])->name('frontend.products.change-grid-view');
+
+Route::post('newsletter', [NewsletterController::class, 'newsletter'])->name('newsletter');
+Route::get('newsletter-verify/{token}', [NewsletterController::class, 'newsLetterEmailVarify'])->name('newsletter-verify');
 
 
 

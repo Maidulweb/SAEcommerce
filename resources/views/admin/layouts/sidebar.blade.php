@@ -81,6 +81,7 @@
             <li><a class="nav-link" href="{{route('admin.footer-grid-three.index')}}">Grid Three</a></li>
           </ul>
         </li>
+        <li><a class="nav-link" href="{{route('admin.newsletter-subscriber.index')}}"><i class="far fa-square"></i> <span>Newsletter Subscriber</span></a></li>
         <br>
         <br>
         <br>

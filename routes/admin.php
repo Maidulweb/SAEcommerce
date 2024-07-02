@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\FooterGridTwoController;
 use App\Http\Controllers\Backend\FooterInfoController;
 use App\Http\Controllers\Backend\FooterSocialController;
 use App\Http\Controllers\Backend\HomepageSettingController;
+use App\Http\Controllers\Backend\NewsletterSubscriberController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\PaymentSettingController;
 use App\Http\Controllers\Backend\PaypalSettingController;
@@ -29,6 +30,7 @@ use App\Http\Controllers\Backend\StripeSettingController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\TransactionController;
 use App\Http\Controllers\Backend\VendorController;
+use App\Http\Controllers\Frontend\NewsletterController;
 use App\Models\Brand;
 use App\Models\Order;
 use App\Models\ShippingRule;
@@ -107,6 +109,11 @@ Route::put('/homepage/single-category-three-product-update', [HomepageSettingCon
 Route::get('/setting', [SettingController::class, 'index'])->name('setting.index');
 Route::put('/general-setting-update', [SettingController::class, 'generalSettingUpdate'])->name('general-setting.update');
 Route::put('/smtp-setting-update', [SettingController::class, 'smtpSettingUpdate'])->name('smtp-setting.update');
+
+/* Newsletter Subscriber */
+Route::get('subscriber', [NewsletterSubscriberController::class, 'index'])->name('newsletter-subscriber.index');
+Route::delete('subscriber/{id}', [NewsletterSubscriberController::class, 'destroy'])->name('newsletter-subscriber.destroy');
+Route::post('subscriber-send-mail', [NewsletterSubscriberController::class, 'sendMail'])->name('subscriber-send-mail');
 
 /* Footer Setting */
 Route::resource('footer-info', FooterInfoController::class);

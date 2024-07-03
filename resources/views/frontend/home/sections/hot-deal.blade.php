@@ -94,43 +94,44 @@
         <section id="wsus__single_banner" class="home_2_single_banner">
             <div class="container">
                 <div class="row">
+                    @php
+                        $banner = \App\Models\Advertisement::where('key', 'advertisement_banner_three')->first();
+                        $banner = json_decode($banner->value);
+                    @endphp
                     <div class="col-xl-6 col-lg-6">
-                        <div class="wsus__single_banner_content banner_1">
-                            <div class="wsus__single_banner_img">
-                                <img src="{{asset('frontend/images/single_banner_44.jpg')}}" alt="banner" class="img-fluid w-100">
+                        @if ($banner->banner_one->status == 1)
+                        <a href="{{$banner->banner_one->url}}">
+                            <div class="wsus__single_banner_content banner_1">
+                                <div class="wsus__single_banner_img">
+                                    <img src="{{asset($banner->banner_one->banner)}}" alt="banner" class="img-fluid w-100">
+                                </div>
                             </div>
-                            <div class="wsus__single_banner_text">
-                                <h6>sell on <span>35% off</span></h6>
-                                <h3>smart watch</h3>
-                                <a class="shop_btn" href="#">shop now</a>
-                            </div>
-                        </div>
+                        </a> 
+                        @endif
                     </div>
                     <div class="col-xl-6 col-lg-6">
                         <div class="row">
                             <div class="col-12">
-                                <div class="wsus__single_banner_content single_banner_2">
-                                    <div class="wsus__single_banner_img">
-                                        <img src="{{asset('frontend/images/single_banner_55.jpg')}}" alt="banner" class="img-fluid w-100">
+                                @if ($banner->banner_two->status == 1)
+                                <a href="{{$banner->banner_two->url}}">
+                                    <div class="wsus__single_banner_content single_banner_2">
+                                        <div class="wsus__single_banner_img">
+                                            <img src="{{asset($banner->banner_two->banner)}}" alt="banner" class="img-fluid w-100">
+                                        </div>
                                     </div>
-                                    <div class="wsus__single_banner_text">
-                                        <h6>New Collection</h6>
-                                        <h3>kid's fashion</h3>
-                                        <a class="shop_btn" href="#">shop now</a>
-                                    </div>
-                                </div>
+                                </a>
+                                @endif
                             </div>
                             <div class="col-12 mt-lg-4">
-                                <div class="wsus__single_banner_content">
-                                    <div class="wsus__single_banner_img">
-                                        <img src="{{asset('frontend/images/single_banner_66.jpg')}}" alt="banner" class="img-fluid w-100">
+                                @if ($banner->banner_three->status == 1)
+                                <a href="{{$banner->banner_three->url}}">
+                                    <div class="wsus__single_banner_content">
+                                        <div class="wsus__single_banner_img">
+                                            <img src="{{asset($banner->banner_three->banner)}}" alt="banner" class="img-fluid w-100">
+                                        </div>
                                     </div>
-                                    <div class="wsus__single_banner_text">
-                                        <h6>sell on <span>42% off</span></h6>
-                                        <h3>winter collection</h3>
-                                        <a class="shop_btn" href="#">shop now</a>
-                                    </div>
-                                </div>
+                                </a>
+                                @endif
                             </div>
                         </div>
                     </div>

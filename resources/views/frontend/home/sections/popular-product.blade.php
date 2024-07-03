@@ -5,18 +5,20 @@
     <div class="container">
         <div class="row">
             <div class="col-xl-12 col-lg-12">
-                <div class="wsus__monthly_top_banner">
-                    <div class="wsus__monthly_top_banner_img">
-                        <img src="{{asset('frontend/images/monthly_top_img3.jpg')}}" alt="img" class="img-fluid w-100">
-                        <span></span>
-                    </div>
-                    <div class="wsus__monthly_top_banner_text">
-                        <h4>Black Friday Sale</h4>
-                        <h3>Up To <span>70% Off</span></h3>
-                        <H6>Everything</H6>
-                        <a class="shop_btn" href="#">shop now</a>
-                    </div>
-                </div>
+                @php
+                    $banner_popular = \App\Models\Advertisement::where('key', 'advertisement_banner_one')->first();
+                    $banner_popular = json_decode($banner_popular->value);
+                @endphp
+                @if ($banner_popular->banner_one->status == 1)
+                        <a href="{{$banner_popular->banner_one->url}}">
+                            <div class="wsus__monthly_top_banner">
+                                <div class="wsus__monthly_top_banner_img">
+                                    <img src="{{asset($banner_popular->banner_one->banner)}}" alt="img" class="img-fluid w-100">
+                                    <span></span>
+                                </div>
+                            </div>
+                        </a>
+                @endif
             </div>
         </div>
         <div class="row">

@@ -82,6 +82,7 @@
           </ul>
         </li>
         <li><a class="nav-link" href="{{route('admin.newsletter-subscriber.index')}}"><i class="far fa-square"></i> <span>Newsletter Subscriber</span></a></li>
+        <li><a class="nav-link" href="{{route('admin.advertisement')}}"><i class="far fa-square"></i> <span>Advertise Banner</span></a></li>
         <br>
         <br>
         <br>

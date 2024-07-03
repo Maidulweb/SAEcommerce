@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\AdminVendorProfileController;
+use App\Http\Controllers\Backend\AdvertisementController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ChildCatgoryController;
@@ -31,6 +32,7 @@ use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\TransactionController;
 use App\Http\Controllers\Backend\VendorController;
 use App\Http\Controllers\Frontend\NewsletterController;
+use App\Models\Advertisement;
 use App\Models\Brand;
 use App\Models\Order;
 use App\Models\ShippingRule;
@@ -147,3 +149,10 @@ Route::resource('order', OrderController::class);
 
 /* Transaction */
 Route::get('transaction', [TransactionController::class, 'index'])->name('transaction.index');
+
+/* Advertisement Banner */
+Route::get('advertisement', [AdvertisementController::class, 'index'])->name('advertisement');
+Route::put('advertisement-banner-one', [AdvertisementController::class, 'advertisementBannerOne'])->name('advertisement-banner-one');
+Route::put('advertisement-banner-two', [AdvertisementController::class, 'advertisementBannerTwo'])->name('advertisement-banner-two');
+Route::put('advertisement-banner-three', [AdvertisementController::class, 'advertisementBannerThree'])->name('advertisement-banner-three');
+Route::put('advertisement-banner-four', [AdvertisementController::class, 'advertisementBannerFour'])->name('advertisement-banner-four');

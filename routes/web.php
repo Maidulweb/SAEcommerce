@@ -13,6 +13,7 @@ use App\Http\Controllers\Frontend\UserAddressController;
 use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\WishListController;
 use App\Http\Controllers\ProfileController;
+use App\Models\ProductReview;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -92,4 +93,6 @@ Route::group(['middleware'=>['auth','verified'], 'prefix'=>'user', 'as'=>'user.'
    /* Order */
    Route::get('order', [UserOrderController::class, 'index'])->name('order.index');
    Route::get('order/{id}', [UserOrderController::class, 'show'])->name('order.show');
+
+   Route::post('product-review', [ProductReview::class, 'create'])->name('product-review.create');
 });

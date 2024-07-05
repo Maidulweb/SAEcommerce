@@ -51,12 +51,18 @@
                                 <div class="wsus__product_details">
                                     <a class="wsus__category" href="#">{{ $product->category->name }} </a>
                                     <p class="wsus__pro_rating">
+                                        @php
+                                        $avg = $product->productReview()->avg('rating');
+                                        $fullRating = round($avg);
+                                    @endphp
+                                    @for ($i=1; $i <= 5; $i++)
+                                        @if($i <= $fullRating )
                                         <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                        <span>(133 review)</span>
+                                        @else
+                                        <i class="far fa-star"></i>
+                                        @endif
+                                    @endfor
+                                    <span>({{count($product->productReview)}} review)</span>
                                     </p>
                                     <a class="wsus__pro_name" href="{{ route('frontend.product-details.index', $product->slug) }}">{{ $product->name }}</a>
                                     @if (checkOffer($product))
@@ -190,12 +196,18 @@
                                 @endif
 
                                 <p class="review">
+                                    @php
+                                    $avg = $product->productReview()->avg('rating');
+                                    $fullRating = round($avg);
+                                @endphp
+                                @for ($i=1; $i <= 5; $i++)
+                                    @if($i <= $fullRating )
                                     <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                    <span>20 review</span>
+                                    @else
+                                    <i class="far fa-star"></i>
+                                    @endif
+                                @endfor
+                                <span>({{count($product->productReview)}} review)</span>
                                 </p>
                                 <!-- <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
                                 neque

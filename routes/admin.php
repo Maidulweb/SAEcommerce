@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\Backend\AdminController;
+use App\Http\Controllers\Backend\AdminProductReviewController;
 use App\Http\Controllers\Backend\AdminVendorProfileController;
 use App\Http\Controllers\Backend\AdvertisementController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ChildCatgoryController;
 use App\Http\Controllers\Backend\CouponController;
+use App\Http\Controllers\Backend\CustomerListController;
 use App\Http\Controllers\Backend\FlashSaleContorller;
 use App\Http\Controllers\Backend\FooterGridThreeController;
 use App\Http\Controllers\Backend\FooterGridTwoController;
@@ -30,6 +32,7 @@ use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\StripeSettingController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\TransactionController;
+use App\Http\Controllers\Backend\VendorConditionController;
 use App\Http\Controllers\Backend\VendorController;
 use App\Http\Controllers\Frontend\NewsletterController;
 use App\Models\Advertisement;
@@ -57,8 +60,6 @@ Route::resource('child-category', ChildCatgoryController::class);
 
 Route::put('/brand/status', [BrandController::class, 'status'])->name('brand.status');
 Route::resource('brand', BrandController::class);
-
-Route::resource('vendor-profile', AdminVendorProfileController::class);
 
 Route::get('product/sub-category', [ProductController::class, 'subCategory'])->name('product.sub-category');
 Route::get('product/child-category', [ProductController::class, 'childCategory'])->name('product.child-category');
@@ -156,3 +157,22 @@ Route::put('advertisement-banner-one', [AdvertisementController::class, 'adverti
 Route::put('advertisement-banner-two', [AdvertisementController::class, 'advertisementBannerTwo'])->name('advertisement-banner-two');
 Route::put('advertisement-banner-three', [AdvertisementController::class, 'advertisementBannerThree'])->name('advertisement-banner-three');
 Route::put('advertisement-banner-four', [AdvertisementController::class, 'advertisementBannerFour'])->name('advertisement-banner-four');
+
+/* Product Review */
+Route::get('product-review', [AdminProductReviewController::class, 'index'])->name('product-review.index');
+Route::put('product-review/status', [AdminProductReviewController::class, 'status'])->name('product-review.status');
+
+/* Vendor */
+Route::get('vendor-request', [AdminVendorProfileController::class, 'vendorRequest'])->name('vendor-request');
+Route::get('vendor-request/{id}', [AdminVendorProfileController::class, 'vendorRequestSingle'])->name('vendor-request.single');
+Route::put('vendor-request/status/{id}', [AdminVendorProfileController::class, 'vendorRequestStatus'])->name('vendor-request.status');
+Route::get('vendor-list', [AdminVendorProfileController::class, 'vendorList'])->name('vendor-list');
+Route::put('vendor-list/status', [AdminVendorProfileController::class, 'vendorListStatus'])->name('vendor-list.status');
+Route::resource('vendor-profile', AdminVendorProfileController::class);
+
+Route::get('vendor-condition', [VendorConditionController::class, 'index'])->name('vendor-condition');
+Route::put('vendor-condition', [VendorConditionController::class, 'update'])->name('vendor-condition.update');
+
+/* Customer */
+Route::get('customer', [CustomerListController::class, 'index'])->name('customer-list');
+Route::put('customer/status-change', [CustomerListController::class, 'customerStatus'])->name('customer-list.status');

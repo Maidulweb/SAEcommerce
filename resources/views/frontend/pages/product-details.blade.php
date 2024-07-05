@@ -479,86 +479,66 @@
                                             <div class="row">
                                                 <div class="col-xl-8 col-lg-7">
                                                     <div class="wsus__comment_area">
-                                                        <h4>Reviews <span>02</span></h4>
-                                                        <div class="wsus__main_comment">
+                                                        @php
+                                                        $reviews = \App\Models\ProductReview::where(['product_id'=> $product->id, 'status' => 1])->paginate(10);   
+                                                        @endphp
+                                                        <h4>Reviews <span>{{count($reviews)}}</span></h4>
+                                                            @foreach ($reviews as $review)
+                                                             <div class="wsus__main_comment mb-4">
                                                             <div class="wsus__comment_img">
-                                                                <img src="images/client_img_3.jpg" alt="user"
+                                                                @if ($review->user->image != null)
+                                                                <img src="{{asset($review->user->image)}}" alt="user"
+                                                                class="img-fluid w-100">
+                                                                @endif
+                                                                
+                                                                <img src="{{asset('frontend/images/client_img_3.jpg')}}" alt="user"
                                                                     class="img-fluid w-100">
                                                             </div>
                                                             <div class="wsus__comment_text reply">
-                                                                <h6>Shopnil mahadi <span>4 <i
-                                                                            class="fas fa-star"></i></span></h6>
-                                                                <span>09 Jul 2021</span>
-                                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing
-                                                                    elit.
-                                                                    Cupiditate sint molestiae eos? Officia, fuga eaque.
-                                                                </p>
+                                                                <h6>{{$review->user->name}} <span>{{$review->rating}}
+                                                                    @for ($i=1; $i<=$review->rating;$i++)
+                                                                    <i class="fas fa-star"></i>
+                                                                    @endfor
+                                                                </span></h6>
+                                                                <span>{{date('d M Y', strtotime($review->created_at))}}</span>
+                                                                <p>{{$review->review}}</p>
+                                                                @if (count($review->productReviewGallery) > 0)
                                                                 <ul class="">
-                                                                    <li><img src="images/headphone_1.jpg" alt="product"
-                                                                            class="img-fluid w-100"></li>
-                                                                    <li><img src="images/headphone_2.jpg" alt="product"
-                                                                            class="img-fluid w-100"></li>
-                                                                    <li><img src="images/kids_1.jpg" alt="product"
-                                                                            class="img-fluid w-100"></li>
-                                                                </ul>
-                                                                <a href="#" data-bs-toggle="collapse"
-                                                                    data-bs-target="#flush-collapsetwo">reply</a>
-                                                                <div class="accordion accordion-flush"
-                                                                    id="accordionFlushExample2">
-                                                                    <div class="accordion-item">
-                                                                        <div id="flush-collapsetwo"
-                                                                            class="accordion-collapse collapse"
-                                                                            aria-labelledby="flush-collapsetwo"
-                                                                            data-bs-parent="#accordionFlushExample">
-                                                                            <div class="accordion-body">
-                                                                                <form>
-                                                                                    <div
-                                                                                        class="wsus__riv_edit_single text_area">
-                                                                                        <i class="far fa-edit"></i>
-                                                                                        <textarea cols="3" rows="1" placeholder="Your Text"></textarea>
-                                                                                    </div>
-                                                                                    <button type="submit"
-                                                                                        class="common_btn">submit</button>
-                                                                                </form>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                                                    @foreach ($review->productReviewGallery as $reviewImage)
+                                                                    <li><img src="{{asset($reviewImage->images)}}" alt="product"
+                                                                        class="img-fluid w-100"></li>
+                                                                    @endforeach
+                                                                   
+                                                                </ul>  
+                                                                @endif
                                                             </div>
                                                         </div>
+                                                        @endforeach
+                                                            
                                                         <div id="pagination">
-                                                            <nav aria-label="Page navigation example">
-                                                                <ul class="pagination">
-                                                                    <li class="page-item">
-                                                                        <a class="page-link" href="#"
-                                                                            aria-label="Previous">
-                                                                            <i class="fas fa-chevron-left"></i>
-                                                                        </a>
-                                                                    </li>
-                                                                    <li class="page-item"><a class="page-link page_active"
-                                                                            href="#">1</a>
-                                                                    </li>
-                                                                    <li class="page-item"><a class="page-link"
-                                                                            href="#">2</a></li>
-                                                                    <li class="page-item"><a class="page-link"
-                                                                            href="#">3</a></li>
-                                                                    <li class="page-item"><a class="page-link"
-                                                                            href="#">4</a></li>
-                                                                    <li class="page-item">
-                                                                        <a class="page-link" href="#"
-                                                                            aria-label="Next">
-                                                                            <i class="fas fa-chevron-right"></i>
-                                                                        </a>
-                                                                    </li>
-                                                                </ul>
-                                                            </nav>
+                                                            {{$reviews->links()}}
                                                         </div>
+                                                        
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-4 col-lg-5 mt-4 mt-lg-0">
+                                                    @php
+                                                        $isBrought = false; 
+                                                        $orders = \App\Models\Order::where(['user_id' => auth()->user()->id, 'order_status' => 'delivered'])->get();
+                                                        foreach ($orders as $key => $order) {
+                                                            $existItem =  $order->orderProduct()->where('product_id', $product->id)->first();
+                                                           if($existItem){
+                                                              $isBrought = true;
+                                                           }
+                                                        }
+                                                    @endphp
+                                                    @if($isBrought == true)
                                                     <div class="wsus__post_comment rev_mar" id="sticky_sidebar3">
                                                         <h4>write a Review</h4>
                                                         <form action="{{route('user.product-review.create')}}" method="POST" enctype="multipart/form-data">
+                                                           @csrf
+                                                            <input type="hidden" name="product_id" value="{{$product->id}}">
+                                                            <input type="hidden" name="vendor_id" value="{{$product->vendor->id}}">
                                                             <p class="rating">
                                                                 <span>select your rating : </span>
                                                             </p>
@@ -566,30 +546,32 @@
                                                                 <div class="col-xl-12 mb-3">
                                                                     <div class="wsus__single_com">
                                                                        <select name="rating" id="" class="form-control">
-                                                                        <option value="1">Select</option>
+                                                                        <option value="">Select</option>
                                                                         <option value="1">1</option>
-                                                                        <option value="1">2</option>
-                                                                        <option value="1">3</option>
-                                                                        <option value="1">4</option>
-                                                                        <option value="1">5</option>
+                                                                        <option value="2">2</option>
+                                                                        <option value="3">3</option>
+                                                                        <option value="4">4</option>
+                                                                        <option value="5">5</option>
                                                                        </select>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-xl-12">
                                                                     <div class="col-xl-12">
                                                                         <div class="wsus__single_com">
-                                                                            <textarea name="message" cols="3" rows="3" placeholder="Write your review"></textarea>
+                                                                            <textarea name="review" cols="3" rows="3" placeholder="Write your review"></textarea>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="img_upload">
-                                                                <input type="file" name="image[]">
+                                                                <input type="file" multiple name="images[]">
                                                             </div>
+                                                            
                                                             <button class="common_btn" type="submit">submit
                                                                 review</button>
                                                         </form>
                                                     </div>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>

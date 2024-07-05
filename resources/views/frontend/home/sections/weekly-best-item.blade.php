@@ -14,13 +14,13 @@
                   $lastkey = [$key => $value];
                   if (array_keys($lastkey)[0] == 'category') {
                     $category = \App\Models\Category::find($lastkey['category']);
-                    $products = \App\Models\Product::where('category_id', $lastkey['category'])->take(5)->orderBy('id', 'DESC')->get();
+                    $products = \App\Models\Product::with('productReview')->where('category_id', $lastkey['category'])->take(5)->orderBy('id', 'DESC')->get();
                   }elseif(array_keys($lastkey)[0] == 'sub_category'){
                     $category = \App\Models\SubCategory::find($lastkey['sub_category']);
-                    $products = \App\Models\Product::where('sub_category_id', $lastkey['sub_category'])->take(5)->orderBy('id', 'DESC')->get();
+                    $products = \App\Models\Product::with('productReview')->where('sub_category_id', $lastkey['sub_category'])->take(5)->orderBy('id', 'DESC')->get();
                   }else{
                     $category = \App\Models\ChildCategory::find($lastkey['child_category']);
-                    $products = \App\Models\Product::where('child_category_id', $lastkey['child_category'])->take(5)->orderBy('id', 'DESC')->get();
+                    $products = \App\Models\Product::with('productReview')->where('child_category_id', $lastkey['child_category'])->take(5)->orderBy('id', 'DESC')->get();
                   }
                  } 
            @endphp
@@ -58,12 +58,18 @@
                         <div class="wsus__product_details">
                             <a class="wsus__category" href="#">{{ $product->category->name }} </a>
                             <p class="wsus__pro_rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                                <span>(133 review)</span>
+                                @php
+                                        $avg = $product->productReview()->avg('rating');
+                                        $fullRating = round($avg);
+                                    @endphp
+                                    @for ($i=1; $i <= 5; $i++)
+                                        @if($i <= $fullRating )
+                                        <i class="fas fa-star"></i>
+                                        @else
+                                        <i class="far fa-star"></i>
+                                        @endif
+                                    @endfor
+                                    <span>({{count($product->productReview)}} review)</span>
                             </p>
                             <a class="wsus__pro_name"
                                 href="{{ route('frontend.product-details.index', $product->slug) }}">{{ $product->name }}</a>

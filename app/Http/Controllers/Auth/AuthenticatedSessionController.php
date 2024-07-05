@@ -28,6 +28,17 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+        if($request->user()->status === 'inactive'){
+
+            Auth::guard('web')->logout();
+
+            $request->session()->regenerateToken();
+    
+            return redirect('/')->with([
+                'alert-status' => 'error',
+                'message' => 'Suspend !!! Please contact with HR'
+            ]);
+        }
 
         if($request->user()->role === 'admin'){
             return redirect()->route('admin.dashboard');

@@ -83,6 +83,11 @@
         </li>
         <li><a class="nav-link" href="{{route('admin.newsletter-subscriber.index')}}"><i class="far fa-square"></i> <span>Newsletter Subscriber</span></a></li>
         <li><a class="nav-link" href="{{route('admin.advertisement')}}"><i class="far fa-square"></i> <span>Advertise Banner</span></a></li>
+        <li><a class="nav-link" href="{{route('admin.product-review.index')}}"><i class="far fa-square"></i> <span>Product Review</span></a></li>
+        <li><a class="nav-link" href="{{route('admin.vendor-request')}}"><i class="far fa-square"></i> <span>Vendor Request</span></a></li>
+        <li><a class="nav-link" href="{{route('admin.customer-list')}}"><i class="far fa-square"></i> <span>Customer List</span></a></li>
+        <li><a class="nav-link" href="{{route('admin.vendor-list')}}"><i class="far fa-square"></i> <span>Vendor List</span></a></li>
+        <li><a class="nav-link" href="{{route('admin.vendor-condition')}}"><i class="far fa-square"></i> <span>Vendor Condition</span></a></li>
         <br>
         <br>
         <br>

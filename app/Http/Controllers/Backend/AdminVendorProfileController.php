@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\DataTables\VendorListDataTable;
+use App\DataTables\VendorRequestDataTable;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Models\Vendor;
 use App\Traits\ImageUploadTrait;
 use Illuminate\Http\Request;
@@ -92,5 +95,45 @@ class AdminVendorProfileController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function vendorRequest(VendorRequestDataTable $datatable){
+        return $datatable->render('admin.vendor-profile.vendor-request-all');
+    }
+
+    public function vendorRequestSingle(string $id){
+        $vendor = Vendor::findOrFail($id);
+        return view('admin.vendor-profile.vendor-request-single', compact('vendor'));
+    }
+
+    public function vendorRequestStatus(Request $request, $id){
+        $vendor = Vendor::findOrFail($id);
+        $vendor->status = $request->status;
+        $vendor->save();
+
+        $user = User::findOrFail($vendor->user_id);
+        $user->role = 'vendor';
+        $user->save();
+
+        return redirect()->route('admin.vendor-request')->with([
+            'alert-type' => 'success',
+            'message' => 'Updated vendor'
+        ]);
+    }
+
+    public function vendorList(VendorListDataTable $datatable){
+        return $datatable->render('admin.vendor-list.vendor-list');
+    }
+
+    public function vendorListStatus(Request $request){
+        $user = User::findOrFail($request->id);
+        $user->status = $request->isChecked == 'true' ? 'active' : 'inactive';
+        $user->save();
+
+        return response()->json([
+            'alert-status' => 'success',
+             'status' => 200,
+             'message' => 'User status changed'
+        ]);
     }
 }

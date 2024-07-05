@@ -40,10 +40,10 @@ class HomeController extends Controller
 
     public function getTypeProducts(){
         $getTypeProducts = [];
-        $getTypeProducts['top_product'] = Product::where(['product_type' => 'top_product','is_approved' => 1, 'status' => 1])->take(8)->orderBy('id', 'DESC')->get();
-        $getTypeProducts['new_product'] = Product::where(['product_type' => 'new_product','is_approved' => 1, 'status' => 1])->take(8)->orderBy('id', 'DESC')->get();
-        $getTypeProducts['featured_product'] = Product::where(['product_type' => 'featured_product','is_approved' => 1, 'status' => 1])->take(8)->orderBy('id', 'DESC')->get();
-        $getTypeProducts['best_product'] = Product::where(['product_type' => 'best_product','is_approved' => 1, 'status' => 1])->take(8)->orderBy('id', 'DESC')->get();
+        $getTypeProducts['top_product'] = Product::with('productReview')->where(['product_type' => 'top_product','is_approved' => 1, 'status' => 1])->take(8)->orderBy('id', 'DESC')->get();
+        $getTypeProducts['new_product'] = Product::with('productReview')->where(['product_type' => 'new_product','is_approved' => 1, 'status' => 1])->take(8)->orderBy('id', 'DESC')->get();
+        $getTypeProducts['featured_product'] = Product::with('productReview')->where(['product_type' => 'featured_product','is_approved' => 1, 'status' => 1])->take(8)->orderBy('id', 'DESC')->get();
+        $getTypeProducts['best_product'] = Product::with('productReview')->where(['product_type' => 'best_product','is_approved' => 1, 'status' => 1])->take(8)->orderBy('id', 'DESC')->get();
 
         return $getTypeProducts;
     }

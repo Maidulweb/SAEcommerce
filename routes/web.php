@@ -9,8 +9,11 @@ use App\Http\Controllers\Frontend\FlashSaleController;
 use App\Http\Controllers\Frontend\FrontendProductController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\NewsletterController;
+use App\Http\Controllers\Frontend\PageController;
+use App\Http\Controllers\Frontend\ProductReviewController;
 use App\Http\Controllers\Frontend\UserAddressController;
 use App\Http\Controllers\Frontend\UserDashboardController;
+use App\Http\Controllers\Frontend\VendorController;
 use App\Http\Controllers\Frontend\WishListController;
 use App\Http\Controllers\ProfileController;
 use App\Models\ProductReview;
@@ -94,5 +97,16 @@ Route::group(['middleware'=>['auth','verified'], 'prefix'=>'user', 'as'=>'user.'
    Route::get('order', [UserOrderController::class, 'index'])->name('order.index');
    Route::get('order/{id}', [UserOrderController::class, 'show'])->name('order.show');
 
-   Route::post('product-review', [ProductReview::class, 'create'])->name('product-review.create');
+   Route::get('product-review', [ProductReviewController::class, 'index'])->name('product-review.index');
+   Route::post('product-review', [ProductReviewController::class, 'create'])->name('product-review.create');
 });
+
+/* Vendor */
+Route::get('pages/vendor', [VendorController::class, 'index'])->name('vendor.index');
+Route::get('pages/vendor-products/{id}', [VendorController::class, 'products'])->name('vendor.products');
+Route::get('pages/vendor-request', [VendorController::class, 'vendorRequestPage'])->name('vendor.request-page');
+Route::post('pages/vendor-request', [VendorController::class, 'vendorRequestCreate'])->name('vendor.request-page.create');
+
+/* Contact */
+Route::get('contact', [PageController::class, 'contact'])->name('contact');
+Route::post('contact', [PageController::class, 'handleContact'])->name('handle.contact');

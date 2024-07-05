@@ -22,7 +22,7 @@
             <div class="row flash_sell_slider">
                 @foreach ($flashSaleItems as $flashSaleItem)
                     @php
-                        $product = \App\Models\Product::find($flashSaleItem->product_id);
+                        $product = \App\Models\Product::with('productReview')->find($flashSaleItem->product_id);
                     @endphp
                     <div class="col-xl-3 col-sm-6 col-lg-4">
                         <div class="wsus__product_item">
@@ -51,13 +51,19 @@
                             </ul>
                             <div class="wsus__product_details">
                                 <a class="wsus__category" href="#">{{ $product->category->name }} </a>
-                                <p class="wsus__pro_rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                    <span>(133 review)</span>
+                                <p class="wsus__pro_rating">    
+                                    @php
+                                        $avg = $product->productReview()->avg('rating');
+                                        $fullRating = round($avg);
+                                    @endphp
+                                    @for ($i=1; $i <= 5; $i++)
+                                        @if($i <= $fullRating )
+                                        <i class="fas fa-star"></i>
+                                        @else
+                                        <i class="far fa-star"></i>
+                                        @endif
+                                    @endfor
+                                    <span>({{count($product->productReview)}} review)</span>
                                 </p>
                                 <a class="wsus__pro_name"
                                     href="{{ route('frontend.product-details.index', $product->slug) }}">{{ $product->name }}</a>

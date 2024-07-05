@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\VendorController;
 use App\Http\Controllers\Backend\VendorOrderController;
 use App\Http\Controllers\Backend\VendorProductController;
 use App\Http\Controllers\Backend\VendorProductImageGalleryController;
+use App\Http\Controllers\Backend\VendorProductReviewController;
 use App\Http\Controllers\Backend\VendorProductVariantController;
 use App\Http\Controllers\Backend\VendorProductVariantItemController;
 use App\Http\Controllers\Backend\VendorProfileController;
@@ -40,3 +41,6 @@ Route::post('product-variant-item/status', [VendorProductVariantItemController::
 Route::get('vendor-order', [VendorOrderController::class, 'index'])->name('order.index');
 Route::get('vendor-order/{id}', [VendorOrderController::class, 'show'])->name('order.show');
 Route::post('vendor-order/status/{id}', [VendorOrderController::class, 'changeOrderStatus'])->name('order.status');
+
+/* Product Review */
+Route::get('product-review', [VendorProductReviewController::class, 'index'])->name('product-review.index');

@@ -1,6 +1,6 @@
 @foreach ($flashSaleItems as $flashSaleItem)
     @php
-        $product = \App\Models\Product::find($flashSaleItem->product_id);
+        $product = \App\Models\Product::with('productReview')->find($flashSaleItem->product_id);
     @endphp
     <section class="product_popup_modal">
         <div class="modal fade" id="exampleModal-{{ $product->id }}" tabindex="-1" aria-hidden="true">
@@ -50,12 +50,18 @@
                                     @endif
 
                                     <p class="review">
+                                        @php
+                                        $avg = $product->productReview()->avg('rating');
+                                        $fullRating = round($avg);
+                                    @endphp
+                                    @for ($i=1; $i <= 5; $i++)
+                                        @if($i <= $fullRating )
                                         <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                        <span>20 review</span>
+                                        @else
+                                        <i class="far fa-star"></i>
+                                        @endif
+                                    @endfor
+                                    <span>({{count($product->productReview)}} review)</span>
                                     </p>
                                     <!-- <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
                                     neque

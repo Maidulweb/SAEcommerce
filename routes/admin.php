@@ -15,6 +15,7 @@ use App\Http\Controllers\Backend\FooterGridTwoController;
 use App\Http\Controllers\Backend\FooterInfoController;
 use App\Http\Controllers\Backend\FooterSocialController;
 use App\Http\Controllers\Backend\HomepageSettingController;
+use App\Http\Controllers\Backend\ManageUserController;
 use App\Http\Controllers\Backend\NewsletterSubscriberController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\PaymentSettingController;
@@ -176,3 +177,7 @@ Route::put('vendor-condition', [VendorConditionController::class, 'update'])->na
 /* Customer */
 Route::get('customer', [CustomerListController::class, 'index'])->name('customer-list');
 Route::put('customer/status-change', [CustomerListController::class, 'customerStatus'])->name('customer-list.status');
+
+/* Manage User */
+Route::get('manage-user', [ManageUserController::class, 'index'])->name('manage-user');
+Route::post('manage-user', [ManageUserController::class, 'store'])->name('manage-user.store');

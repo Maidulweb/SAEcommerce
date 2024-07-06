@@ -88,6 +88,7 @@
         <li><a class="nav-link" href="{{route('admin.customer-list')}}"><i class="far fa-square"></i> <span>Customer List</span></a></li>
         <li><a class="nav-link" href="{{route('admin.vendor-list')}}"><i class="far fa-square"></i> <span>Vendor List</span></a></li>
         <li><a class="nav-link" href="{{route('admin.vendor-condition')}}"><i class="far fa-square"></i> <span>Vendor Condition</span></a></li>
+        <li><a class="nav-link" href="{{route('admin.manage-user')}}"><i class="far fa-square"></i> <span>Manage User</span></a></li>
         <br>
         <br>
         <br>

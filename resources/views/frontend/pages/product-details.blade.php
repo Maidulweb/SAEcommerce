@@ -521,9 +521,15 @@
                                                         
                                                     </div>
                                                 </div>
+                                                @auth
+                                                    
+                                                
+                                                    
+                                              
                                                 <div class="col-xl-4 col-lg-5 mt-4 mt-lg-0">
                                                     @php
-                                                        $isBrought = false; 
+                                                       
+                                                            $isBrought = false; 
                                                         $orders = \App\Models\Order::where(['user_id' => auth()->user()->id, 'order_status' => 'delivered'])->get();
                                                         foreach ($orders as $key => $order) {
                                                             $existItem =  $order->orderProduct()->where('product_id', $product->id)->first();
@@ -531,6 +537,7 @@
                                                               $isBrought = true;
                                                            }
                                                         }
+                                                       
                                                     @endphp
                                                     @if($isBrought == true)
                                                     <div class="wsus__post_comment rev_mar" id="sticky_sidebar3">
@@ -573,6 +580,7 @@
                                                     </div>
                                                     @endif
                                                 </div>
+                                                @endauth
                                             </div>
                                         </div>
                                     </div>

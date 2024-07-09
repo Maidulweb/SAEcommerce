@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\UserOrderController;
+use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\NewsletterController;
 use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\ProductReviewController;
+use App\Http\Controllers\Frontend\TrackOrderController;
 use App\Http\Controllers\Frontend\UserAddressController;
 use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\VendorController;
@@ -99,6 +101,9 @@ Route::group(['middleware'=>['auth','verified'], 'prefix'=>'user', 'as'=>'user.'
 
    Route::get('product-review', [ProductReviewController::class, 'index'])->name('product-review.index');
    Route::post('product-review', [ProductReviewController::class, 'create'])->name('product-review.create');
+
+   /* Blog Comment */
+   Route::post('blog-comment', [BlogController::class, 'comment'])->name('blog.comment');
 });
 
 /* Vendor */
@@ -110,3 +115,14 @@ Route::post('pages/vendor-request', [VendorController::class, 'vendorRequestCrea
 /* Contact */
 Route::get('contact', [PageController::class, 'contact'])->name('contact');
 Route::post('contact', [PageController::class, 'handleContact'])->name('handle.contact');
+
+/* Track Order */
+Route::get('track-order', [TrackOrderController::class, 'index'])->name('track-order');
+
+/* Blog */
+Route::get('blog-all', [BlogController::class, 'index'])->name('frontend.blog-all');
+Route::get('blog-single/{slug}', [BlogController::class, 'singleBlog'])->name('frontend.blog-single');
+Route::get('blog-category-post/{id}', [BlogController::class, 'categoryBlogPost'])->name('frontend.blog-category-post');
+
+
+

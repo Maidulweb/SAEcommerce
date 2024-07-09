@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Advertisement;
+use App\Models\Blog;
 use App\Models\Brand;
 use App\Models\FlashSale;
 use App\Models\FlashSaleItem;
@@ -25,6 +27,8 @@ class HomeController extends Controller
         $singleCategoryAll = HomepageSetting::where('key', 'single_category_product_setting')->first();
         $singleCategoryTwo = HomepageSetting::where('key', 'single_category_two_product_setting')->first();
         $singleCategoryThree = HomepageSetting::where('key', 'single_category_three_product_setting')->first();
+        $advertisement = Advertisement::where('key', 'advertisement_banner_one')->first();
+        $blogs = Blog::with('category')->where('status', 1)->get();
         return view('frontend.home.home', compact([
             'sliders',
             'flashSaleDate',
@@ -34,7 +38,9 @@ class HomeController extends Controller
             'getTypeProducts',
             'singleCategoryAll',
             'singleCategoryTwo',
-            'singleCategoryThree'
+            'singleCategoryThree',
+            'advertisement',
+            'blogs'
         ]));
     }
 

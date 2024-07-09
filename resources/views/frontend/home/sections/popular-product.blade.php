@@ -1,14 +1,12 @@
 @php
     $popularCategories = json_decode($popularCategoryAll->value, true);
+    /* $banner_popular = \App\Models\Advertisement::where('key', 'advertisement_banner_one')->first(); */
+    $banner_popular = json_decode($advertisement->value);
 @endphp
 <section id="wsus__monthly_top" class="wsus__monthly_top_2">
     <div class="container">
         <div class="row">
             <div class="col-xl-12 col-lg-12">
-                @php
-                    $banner_popular = \App\Models\Advertisement::where('key', 'advertisement_banner_one')->first();
-                    $banner_popular = json_decode($banner_popular->value);
-                @endphp
                 @if ($banner_popular->banner_one->status == 1)
                         <a href="{{$banner_popular->banner_one->url}}">
                             <div class="wsus__monthly_top_banner">

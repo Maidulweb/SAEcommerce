@@ -129,8 +129,8 @@
                                 $coupon = json_decode($order->coupon);
                                 $shipping = json_decode($order->shipping_rules);
                             @endphp
-                            <p>Coupon(-) : {{$coupon->discount}}</p>
-                            <p>Shipping Fee(+) : {{$shipping->cost}}</p>
+                            <p>Coupon(-) : {{@$coupon->discount ? $coupon->discount : 0}}</p>
+                            <p>Shipping Fee(+) : {{@$shipping->cost ? $shipping->cost : 0}}</p>
                             <p>Total : {{$order->amount}}</p>
                          </div>
                          <div class="col-md-4"></div>

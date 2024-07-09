@@ -135,13 +135,13 @@
                         </div>
                         <div class="invoice-detail-item mt-1">
                          
-                          <div class="invoice-detail-value"><strong>Coupon : (-){{$setting->currency_icon}}{{$coupon->discount}}</strong></div>
+                          <div class="invoice-detail-value"><strong>Coupon : (-){{$setting->currency_icon}}{{@$coupon->discount ? $coupon->discount : 0}}</strong></div>
                         </div>
                         <div class="invoice-detail-item mt-1">
                           @php
                           $shipping = json_decode($order->shipping_rules);
                           @endphp
-                          <div class="invoice-detail-value"><strong>Shipping Fee : (+){{$setting->currency_icon}}{{$shipping->cost}}</strong></div>
+                          <div class="invoice-detail-value"><strong>Shipping Fee : (+){{$setting->currency_icon}}{{@$shipping->cost ? $shipping->cost : 0}}</strong></div>
                         </div>
                         <div class="invoice-detail-item mt-1">
                           <div class="invoice-detail-value invoice-detail-value-lg"><strong>Total : {{$setting->currency_icon}}{{$order->amount}}</strong></div>

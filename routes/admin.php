@@ -1,9 +1,13 @@
 <?php
 
 use App\Http\Controllers\Backend\AdminController;
+use App\Http\Controllers\Backend\AdminListController;
 use App\Http\Controllers\Backend\AdminProductReviewController;
 use App\Http\Controllers\Backend\AdminVendorProfileController;
 use App\Http\Controllers\Backend\AdvertisementController;
+use App\Http\Controllers\Backend\BlogCategoryController;
+use App\Http\Controllers\Backend\BlogCommentController;
+use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ChildCatgoryController;
@@ -32,11 +36,13 @@ use App\Http\Controllers\Backend\ShippingRuleController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\StripeSettingController;
 use App\Http\Controllers\Backend\SubCategoryController;
+use App\Http\Controllers\Backend\TrackOrderController;
 use App\Http\Controllers\Backend\TransactionController;
 use App\Http\Controllers\Backend\VendorConditionController;
 use App\Http\Controllers\Backend\VendorController;
 use App\Http\Controllers\Frontend\NewsletterController;
 use App\Models\Advertisement;
+use App\Models\BlogCategory;
 use App\Models\Brand;
 use App\Models\Order;
 use App\Models\ShippingRule;
@@ -181,3 +187,18 @@ Route::put('customer/status-change', [CustomerListController::class, 'customerSt
 /* Manage User */
 Route::get('manage-user', [ManageUserController::class, 'index'])->name('manage-user');
 Route::post('manage-user', [ManageUserController::class, 'store'])->name('manage-user.store');
+
+/* Admin List */
+Route::get('admin-list', [AdminListController::class, 'index'])->name('admin-list');
+Route::put('admin-list/status', [AdminListController::class, 'adminListStatus'])->name('admin-list.status');
+Route::delete('admin-list/{id}', [AdminListController::class, 'destroy'])->name('admin-list.destroy');
+
+/* Blog */
+Route::put('blog-category/status', [BlogCategoryController::class, 'status'])->name('blog-category.status');
+Route::resource('blog-category', BlogCategoryController::class);
+
+Route::put('blog/status', [BlogController::class, 'status'])->name('blog.status');
+Route::resource('blog', BlogController::class);
+
+Route::get('blog-comment', [BlogCommentController::class, 'index'])->name('blog-comment');
+Route::delete('blog-comment/{id}', [BlogCommentController::class, 'destroy'])->name('blog-comment.destroy');

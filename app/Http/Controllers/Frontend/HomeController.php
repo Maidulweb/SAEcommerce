@@ -10,6 +10,7 @@ use App\Models\FlashSale;
 use App\Models\FlashSaleItem;
 use App\Models\FooterInfo;
 use App\Models\HomepageSetting;
+use App\Models\Logo;
 use App\Models\Product;
 use App\Models\Slider;
 use Illuminate\Http\Request;

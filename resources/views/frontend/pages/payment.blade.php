@@ -35,12 +35,17 @@
                         <div class="wsus__payment_menu" id="sticky_sidebar">
                             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
                                 aria-orientation="vertical">
-                                <button class="nav-link common_btn active" id="v-pills-paypal-tab" data-bs-toggle="pill"
+                                   <button class="nav-link common_btn active" id="v-pills-paypal-tab" data-bs-toggle="pill"
                                     data-bs-target="#v-pills-paypal" type="button" role="tab" aria-controls="v-pills-paypal"
                                     aria-selected="true">Paypal</button>
-                                <button class="nav-link common_btn" id="v-pills-stripe-tab" data-bs-toggle="pill"
+
+                                    <button class="nav-link common_btn" id="v-pills-stripe-tab" data-bs-toggle="pill"
                                     data-bs-target="#v-pills-stripe" type="button" role="tab"
                                     aria-controls="v-pills-stripe" aria-selected="false">Stripe</button>
+
+                                    <button class="nav-link common_btn" id="v-pills-cod-tab" data-bs-toggle="pill"
+                                    data-bs-target="#v-pills-cod" type="button" role="tab"
+                                    aria-controls="v-pills-cod" aria-selected="false">COD</button>
                             </div>
                         </div>
                     </div>
@@ -57,6 +62,16 @@
                                 </div>
                             </div>
                             @include('frontend.payment-settings.sections.stripe')
+                            <div class="tab-pane fade" id="v-pills-cod" role="tabpanel"
+                                aria-labelledby="v-pills-cod-tab">
+                                <div class="row">
+                                    <div class="col-xl-12 m-auto">
+                                        <div class="wsus__payment_area">
+                                            <a class="nav-link common_btn text-center" href="{{route('user.cod.payment')}}">Cash On Delivery</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-xl-4 col-lg-4">

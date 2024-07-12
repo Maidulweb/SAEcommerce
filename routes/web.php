@@ -95,6 +95,8 @@ Route::group(['middleware'=>['auth','verified'], 'prefix'=>'user', 'as'=>'user.'
    /* Stripe */
    Route::post('stripe/payment', [PaymentController::class, 'stripe'])->name('stripe.payment');
 
+   Route::get('cod/payment', [PaymentController::class, 'cod'])->name('cod.payment');
+
    /* Order */
    Route::get('order', [UserOrderController::class, 'index'])->name('order.index');
    Route::get('order/{id}', [UserOrderController::class, 'show'])->name('order.show');

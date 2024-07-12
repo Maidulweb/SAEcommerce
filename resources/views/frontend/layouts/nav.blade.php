@@ -131,9 +131,20 @@
                     </ul>
                     <ul class="wsus__menu_item wsus__menu_item_right">
                         <li><a href="{{route('contact')}}">contact</a></li>
-                        <li><a href="dsahboard.html">my account</a></li>
-                        <li><a href="{{route('login')}}">login</a></li>
-                        <li><a href="{{route('login')}}">Register</a></li>
+                        
+                        @if (auth()->check())
+                            @if(auth()->user()->role == 'user')
+                                <li><a href="{{route('user.dashboard')}}">my account</a></li>
+                            @elseif (auth()->user()->role == 'vendor') 
+                                <li><a href="{{route('vendor.dashboard')}}">my account</a></li>  
+                            @else   
+                            <li><a href="{{route('admin.dashboard')}}">my account</a></li>    
+                            @endif
+                        @else
+                           <li><a href="{{route('login')}}">login</a></li>
+                           <li><a href="{{route('login')}}">Register</a></li>
+                        @endif
+                     
                     </ul>
                 </div>
             </div>

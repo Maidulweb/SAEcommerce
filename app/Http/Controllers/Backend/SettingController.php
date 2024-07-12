@@ -4,15 +4,19 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\GeneralSetting;
+use App\Models\Logo;
 use App\Models\SmtpConfiguration;
+use App\Traits\ImageUploadTrait;
 use Illuminate\Http\Request;
 
 class SettingController extends Controller
 {
+    use ImageUploadTrait;
     public function index(){
         $generalSetting = GeneralSetting::first();
         $smtpSetting = SmtpConfiguration::first();
-        return view('admin.setting.index', compact(['generalSetting','smtpSetting']));
+        $logoSetting = Logo::first();
+        return view('admin.setting.index', compact(['generalSetting','smtpSetting','logoSetting']));
     }
 
     public function generalSettingUpdate(Request $request){
@@ -68,6 +72,28 @@ class SettingController extends Controller
         return redirect()->back()->with([
             'message' => 'Updated',
             'alert-type' => 'success'
+        ]);
+    }
+
+    public function logoUpdate(Request $request){
+      
+
+        $logo = $this->imageUpdate($request,'logo','uploads');
+        $favicon = $this->imageUpdate($request,'favicon','uploads');
+        $footer_logo = $this->imageUpdate($request,'footer_logo','uploads');
+
+        Logo::updateOrCreate(
+            ['id' => 1],
+            [
+             'logo' => !empty($logo) ? $logo : $request->old_logo,
+             'favicon' => !empty($favicon) ? $favicon : $request->old_favicon,
+             'footer_logo' => !empty($footer_logo) ? $footer_logo : $request->old_footer_logo,
+            ]
+        );
+
+        return redirect()->back()->with([
+            'alert-type' => 'success',
+            'message' => 'Logo setting updated'
         ]);
     }
 }

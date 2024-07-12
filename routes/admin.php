@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ChildCatgoryController;
+use App\Http\Controllers\Backend\CodController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\CustomerListController;
 use App\Http\Controllers\Backend\FlashSaleContorller;
@@ -19,6 +20,7 @@ use App\Http\Controllers\Backend\FooterGridTwoController;
 use App\Http\Controllers\Backend\FooterInfoController;
 use App\Http\Controllers\Backend\FooterSocialController;
 use App\Http\Controllers\Backend\HomepageSettingController;
+use App\Http\Controllers\Backend\LogoController;
 use App\Http\Controllers\Backend\ManageUserController;
 use App\Http\Controllers\Backend\NewsletterSubscriberController;
 use App\Http\Controllers\Backend\OrderController;
@@ -119,6 +121,7 @@ Route::put('/homepage/single-category-three-product-update', [HomepageSettingCon
 Route::get('/setting', [SettingController::class, 'index'])->name('setting.index');
 Route::put('/general-setting-update', [SettingController::class, 'generalSettingUpdate'])->name('general-setting.update');
 Route::put('/smtp-setting-update', [SettingController::class, 'smtpSettingUpdate'])->name('smtp-setting.update');
+Route::put('logo-setting', [SettingController::class, 'logoUpdate'])->name('logo.setting');
 
 /* Newsletter Subscriber */
 Route::get('subscriber', [NewsletterSubscriberController::class, 'index'])->name('newsletter-subscriber.index');
@@ -143,6 +146,7 @@ Route::resource('footer-grid-three', FooterGridThreeController::class);
 Route::get('/payment-setting', [PaymentSettingController::class, 'index'])->name('payment.index');
 Route::put('/paypal-setting/{id}', [PaypalSettingController::class, 'update'])->name('paypal.update');
 Route::put('/stripe-setting/{id}', [StripeSettingController::class, 'update'])->name('stripe.update');
+Route::put('/cod-setting/{id}', [CodController::class, 'update'])->name('cod.update');
 
 /* Order */
 Route::get('/order-status', [OrderController::class, 'changeOrderStatus'])->name('order.status');

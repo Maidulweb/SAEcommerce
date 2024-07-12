@@ -90,7 +90,7 @@ class AdminListDataTable extends DataTable
             Column::make('id'),
             Column::make('name'),
             Column::make('email'),
-            Column::make('phone'),
+            Column::make('role'),
             Column::make('status'),
             Column::computed('action')
                   ->exportable(false)

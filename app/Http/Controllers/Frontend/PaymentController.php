@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cod;
 use App\Models\GeneralSetting;
 use App\Models\Order;
 use App\Models\OrderProduct;
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Session;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 use Stripe\Charge;
 use Stripe\Stripe;
+use Str;
 
 class PaymentController extends Controller
 {
@@ -123,6 +125,11 @@ class PaymentController extends Controller
             $orderProduct->unit_price = $cartItem->price;
             $orderProduct->qty = $cartItem->qty;
             $orderProduct->save();
+
+            /* Upadate Quantity */
+            $updateQty = ($product->qty - $cartItem->qty);
+            $product->qty = $updateQty;
+            $product->save();
           }
           
           $transaction = new Transaction();
@@ -199,7 +206,26 @@ class PaymentController extends Controller
       ]);
     }
    } 
+
    public function stripeSuccess(){
     return view('frontend.pages.payment-success');
+   }
+
+   public function cod(Request $request){
+
+    $cod = Cod::first();
+    $total = getFinalPay();
+    $payAbleAmount = round($total, 2);
+    
+ 
+   
+      $this->storeOrder('COD',1,\Str::random(10), $payAbleAmount,'$');
+         //Clear session
+         $this->clearSession();
+         return redirect()->route('user.payment.success')->with([
+           'message' => 'Payment successfully',
+           'alert-type' => 'success'
+         ]);
+    
    }
 }

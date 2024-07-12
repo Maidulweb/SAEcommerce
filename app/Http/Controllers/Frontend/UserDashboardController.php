@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\ProductReview;
+use App\Models\WishList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use File;
@@ -10,7 +13,12 @@ use File;
 class UserDashboardController extends Controller
 {
     public function index(){
-        return view('frontend.dashboard.dashboard');
+        $total_order = Order::where('user_id', Auth::user()->id)->count();
+        $pending_order = Order::where(['order_status'=>'pending','user_id'=>Auth::user()->id])->count();
+        $delivered_order = Order::where(['order_status'=>'delivered','user_id'=>Auth::user()->id])->count();
+        $reviews = ProductReview::where(['user_id'=>Auth::user()->id])->count();
+        $wishlists = WishList::where(['user_id'=>Auth::user()->id])->count();
+        return view('frontend.dashboard.dashboard',compact('pending_order','delivered_order','total_order','reviews','wishlists'));
     }
 
     public function profile(){

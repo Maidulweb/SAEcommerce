@@ -13,13 +13,14 @@
                       <div class="list-group" id="list-tab" role="tablist">
                         <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab">Paypal Setting</a>
                         <a class="list-group-item list-group-item-action" id="list-stripe-list" data-toggle="list" href="#list-stripe" role="tab">Stripe</a>
-                        <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab">Settings</a>
+                        <a class="list-group-item list-group-item-action" id="list-cod-list" data-toggle="list" href="#list-cod" role="tab">COD</a>
                       </div>
                     </div>
                     <div class="col-10">
                       <div class="tab-content" id="nav-tabContent">
                         @include('admin.payment-setting.sections.paypal')
                         @include('admin.payment-setting.sections.stripe')
+                        @include('admin.payment-setting.sections.cod')
                     </div>
                   </div>
             </div>

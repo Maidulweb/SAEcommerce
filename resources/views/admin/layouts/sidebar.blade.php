@@ -98,6 +98,13 @@
             <li><a class="nav-link" href="{{route('admin.blog-comment')}}">Blog Comment List</a></li>
           </ul>
         </li>
+        <li class="dropdown">
+          <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Withdraw Method</span></a>
+          <ul class="dropdown-menu">
+            <li><a class="nav-link" href="{{route('admin.withdraw.index')}}">Index</a></li>
+            <li><a class="nav-link" href="{{route('admin.withdraw.create')}}">Create</a></li>
+          </ul>
+        </li>
         <br>
         <br>
         <br>

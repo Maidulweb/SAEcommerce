@@ -10,6 +10,7 @@
       <li><a href="{{route('vendor.profile')}}"><i class="far fa-user"></i> My Proile</a></li>
       <li><a href="{{route('vendor.order.index')}}"><i class="far fa-user"></i>Order Product</a></li>
       <li><a href="{{route('vendor.product-review.index')}}"><i class="far fa-user"></i>Product Review</a></li>
+      <li><a href="{{route('vendor.withdraw.index')}}"><i class="far fa-user"></i>Withdraw</a></li>
       <li>
         <form method="POST" action="{{ route('logout') }}">
             @csrf

@@ -42,6 +42,7 @@ use App\Http\Controllers\Backend\TrackOrderController;
 use App\Http\Controllers\Backend\TransactionController;
 use App\Http\Controllers\Backend\VendorConditionController;
 use App\Http\Controllers\Backend\VendorController;
+use App\Http\Controllers\Backend\WithdrawMethodController;
 use App\Http\Controllers\Frontend\NewsletterController;
 use App\Models\Advertisement;
 use App\Models\BlogCategory;
@@ -206,3 +207,6 @@ Route::resource('blog', BlogController::class);
 
 Route::get('blog-comment', [BlogCommentController::class, 'index'])->name('blog-comment');
 Route::delete('blog-comment/{id}', [BlogCommentController::class, 'destroy'])->name('blog-comment.destroy');
+
+/* Withdraw Method */
+Route::resource('withdraw', WithdrawMethodController::class);

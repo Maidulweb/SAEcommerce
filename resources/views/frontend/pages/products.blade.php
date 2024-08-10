@@ -247,69 +247,8 @@
                             <div class="tab-pane fade {{session()->has('change_grid_view') && session()->get('change_grid_view') == 'grid' ? 'show active' : ''}} {{!session()->has('change_grid_view') ? 'show active' : ''}}" id="v-pills-home" role="tabpanel"
                                 aria-labelledby="v-pills-home-tab">
                                 <div class="row">
-                                    @foreach ($products as $product)
-                                    <div class="col-xl-4 col-sm-6">
-                                        <div class="wsus__product_item">
-                                            <span class="wsus__new">{{ productType($product) }}</span>
-                                            @if (checkOffer($product))
-                                                <span
-                                                    class="wsus__minus">-{{ checkDiscountPercentage($product->price, $product->offer_price) }}%</span>
-                                            @endif
-                                            <a class="wsus__pro_link"
-                                                href="{{ route('frontend.product-details.index', $product->slug) }}">
-                                                <img src="{{ asset($product->thumb_image) }}" alt="product"
-                                                    class="img-fluid w-100 img_1" />
-                                                <img src="
-                                        @if (isset($product->productImagegallery[0]->images)) {{ asset($product->productImagegallery[0]->images) }}
-                                        @else
-                                        {{ asset($product->thumb_image) }} @endif
-                                        "
-                                                    alt="product" class="img-fluid w-100 img_2" />
-                                            </a>
-                                            <ul class="wsus__single_pro_icon">
-                                                <li><a class="modal-data" href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#products-{{ $product->id }}"><i
-                                                            class="far fa-eye"></i></a></li>
-                                                <li><a href="#"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#"><i class="far fa-random"></i></a>
-                                            </ul>
-                                            <div class="wsus__product_details">
-                                                <a class="wsus__category" href="#">{{ $product->category->name }} </a>
-                                                <p class="wsus__pro_rating">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star-half-alt"></i>
-                                                    <span>(133 review)</span>
-                                                </p>
-                                                <a class="wsus__pro_name"
-                                                    href="{{ route('frontend.product-details.index', $product->slug) }}">{{ limitText($product->name, 5)  }}</a>
-                                                @if (checkOffer($product))
-                                                    <p class="wsus__price">{{ $setting->currency_icon }}{{ $product->offer_price }}
-                                                        <del>{{ $setting->currency_icon }}{{ $product->price }}</del>
-                                                    </p>
-                                                @else
-                                                    <p class="wsus__price">{{ $setting->currency_icon }}{{ $product->price }}</p>
-                                                @endif
-                                                <form class="shopping-cart-form">
-                                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                                    <select class="d-none" name="variants[]">
-                                                        @foreach ($product->productVariant as $productVariant)
-                                                            @foreach ($productVariant->productVariantItem as $item)
-                                                                <option value="{{ $item->id }}">
-                                                                    {{ $item->name }}</option>
-                                                            @endforeach
-                                                        @endforeach
-                                                    </select>
-                    
-                                                    <input name="qty" type="hidden" min="1" max="100" value="1" />
-                    
-                                                    <button class="add_cart" type="submit">add to cart</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @foreach ($products as $key => $product)
+                                   <x-product-card :product='$product' :key='$key' />
                                     @endforeach
                                 </div>
                             </div>

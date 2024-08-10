@@ -13,23 +13,23 @@ class BlogController extends Controller
 {
     public function index(Request $request){
         if($request->has('search')){
-            $blogs = Blog::where('title', 'like', '%'.$request->search.'%')->where('status', 1)->paginate(3);
+            $blogs = Blog::with('category')->where('title', 'like', '%'.$request->search.'%')->where('status', 1)->paginate(3);
         }else{
-            $blogs = Blog::where('status', 1)->paginate(3);
+            $blogs = Blog::with('category')->where('status', 1)->paginate(3);
         }
         return view('frontend.blog.blog-all', compact('blogs'));
     }
 
     public function singleBlog(string $slug){
-        $blog = Blog::where('slug', $slug)->first();
+        $blog = Blog::with('category')->where('slug', $slug)->first();
         $categories = BlogCategory::get();
         $blog_comments = BlogComment::where('blog_id', $blog->id)->paginate(3);
-        $blog_mores = Blog::where('slug', '!=', $slug)->take(5)->orderBy('id', 'DESC')->get();
+        $blog_mores = Blog::with('category')->where('slug', '!=', $slug)->take(5)->orderBy('id', 'DESC')->get();
         return view('frontend.blog.blog-single', compact('blog','categories','blog_comments','blog_mores'));
     }
 
     public function categoryBlogPost($id){
-        $blogs = Blog::where(['status'=> 1, 'category_id' => $id])->paginate(3);
+        $blogs = Blog::with('category')->where(['status'=> 1, 'category_id' => $id])->paginate(3);
         return view('frontend.blog.blog-all', compact('blogs'));
     }
 

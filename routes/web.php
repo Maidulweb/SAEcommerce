@@ -15,6 +15,7 @@ use App\Http\Controllers\Frontend\ProductReviewController;
 use App\Http\Controllers\Frontend\TrackOrderController;
 use App\Http\Controllers\Frontend\UserAddressController;
 use App\Http\Controllers\Frontend\UserDashboardController;
+use App\Http\Controllers\Frontend\UserMessengerController;
 use App\Http\Controllers\Frontend\VendorController;
 use App\Http\Controllers\Frontend\WishListController;
 use App\Http\Controllers\ProfileController;
@@ -106,6 +107,11 @@ Route::group(['middleware'=>['auth','verified'], 'prefix'=>'user', 'as'=>'user.'
 
    /* Blog Comment */
    Route::post('blog-comment', [BlogController::class, 'comment'])->name('blog.comment');
+
+   /* Messenger */
+   Route::get('/messenger', [UserMessengerController::class, 'index'])->name('messenger.index');
+   Route::post('/user-send-message', [UserMessengerController::class, 'sendMessage'])->name('send-message');
+   Route::get('/get-messages', [UserMessengerController::class, 'getMessages'])->name('get-messages');
 });
 
 /* Vendor */
@@ -125,6 +131,9 @@ Route::get('track-order', [TrackOrderController::class, 'index'])->name('track-o
 Route::get('blog-all', [BlogController::class, 'index'])->name('frontend.blog-all');
 Route::get('blog-single/{slug}', [BlogController::class, 'singleBlog'])->name('frontend.blog-single');
 Route::get('blog-category-post/{id}', [BlogController::class, 'categoryBlogPost'])->name('frontend.blog-category-post');
+
+/* Modal */
+Route::get('product-modal/{id}', [HomeController::class, 'modal'])->name('product.modal');
 
 
 

@@ -1,9 +1,11 @@
 <?php
 
+use App\DataTables\AdminVendorWithdrawRequestDataTable;
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\AdminListController;
 use App\Http\Controllers\Backend\AdminProductReviewController;
 use App\Http\Controllers\Backend\AdminVendorProfileController;
+use App\Http\Controllers\Backend\AdminVendorWithdrawRequestController;
 use App\Http\Controllers\Backend\AdvertisementController;
 use App\Http\Controllers\Backend\BlogCategoryController;
 use App\Http\Controllers\Backend\BlogCommentController;
@@ -123,6 +125,7 @@ Route::get('/setting', [SettingController::class, 'index'])->name('setting.index
 Route::put('/general-setting-update', [SettingController::class, 'generalSettingUpdate'])->name('general-setting.update');
 Route::put('/smtp-setting-update', [SettingController::class, 'smtpSettingUpdate'])->name('smtp-setting.update');
 Route::put('logo-setting', [SettingController::class, 'logoUpdate'])->name('logo.setting');
+Route::put('pusher-setting', [SettingController::class, 'pusherSettingUpdate'])->name('pusher.setting');
 
 /* Newsletter Subscriber */
 Route::get('subscriber', [NewsletterSubscriberController::class, 'index'])->name('newsletter-subscriber.index');
@@ -210,3 +213,7 @@ Route::delete('blog-comment/{id}', [BlogCommentController::class, 'destroy'])->n
 
 /* Withdraw Method */
 Route::resource('withdraw', WithdrawMethodController::class);
+
+Route::get('vendor-withdraw-request', [AdminVendorWithdrawRequestController::class, 'index'])->name('vendor-withdraw-request.index');
+Route::get('vendor-withdraw-request/{id}', [AdminVendorWithdrawRequestController::class, 'show'])->name('vendor-withdraw-request.show');
+Route::put('vendor-withdraw-request/{id}', [AdminVendorWithdrawRequestController::class, 'update'])->name('vendor-withdraw-request.update');

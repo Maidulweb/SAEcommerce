@@ -1,9 +1,19 @@
 @php
-    $footer_info = \App\Models\FooterInfo::first();
-    $footer_socials = \App\Models\FooterSocial::where('status', 1)->orderBy('id', 'ASC')->get();
-    $footer_grid_twos = \App\Models\FooterGridTwo::where('status', 1)->orderBy('id', 'ASC')->get();
-    $footer_grid_threes = \App\Models\FooterGridThree::where('status', 1)->orderBy('id', 'ASC')->get();
-    $footer_grid_title = \App\Models\FooterGridTitle::first();
+    $footer_info = Cache::rememberForever('footer_info', function () {
+       return \App\Models\FooterInfo::first();
+    });
+    $footer_socials = Cache::rememberForever('footer_socials', function () {
+       return \App\Models\FooterSocial::where('status', 1)->orderBy('id', 'ASC')->get();
+    });
+    $footer_grid_twos = Cache::rememberForever('footer_grid_twos', function () {
+       return \App\Models\FooterGridTwo::where('status', 1)->orderBy('id', 'ASC')->get();
+    });
+    $footer_grid_threes = Cache::rememberForever('footer_grid_threes', function () {
+       return \App\Models\FooterGridThree::where('status', 1)->orderBy('id', 'ASC')->get();
+    });
+    $footer_grid_title = Cache::rememberForever('footer_grid_title', function () {
+       return \App\Models\FooterGridTitle::first();
+    });
 @endphp
 <footer class="footer_2">
     <div class="container">

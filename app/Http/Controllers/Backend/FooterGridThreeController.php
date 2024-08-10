@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\FooterGridThree;
 use App\Models\FooterGridTitle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class FooterGridThreeController extends Controller
 {
@@ -43,6 +44,8 @@ class FooterGridThreeController extends Controller
         $footer_grid_three->url = $request->url;
         $footer_grid_three->status = $request->status;
         $footer_grid_three->save();
+
+        Cache::forget('footer_grid_threes');
 
         return redirect()->route('admin.footer-grid-three.index')->with([
             'alert-type' => 'success',
@@ -85,6 +88,8 @@ class FooterGridThreeController extends Controller
         $footer_grid_three->status = $request->status;
         $footer_grid_three->save();
 
+        Cache::forget('footer_grid_threes');
+
         return redirect()->route('admin.footer-grid-three.index')->with([
             'alert-type' => 'success',
             'message' => 'Updated successfully' 
@@ -98,6 +103,9 @@ class FooterGridThreeController extends Controller
     {
         $footer_grid_three = FooterGridThree::findOrFail($id);
         $footer_grid_three->delete();
+        
+        Cache::forget('footer_grid_threes');
+
         return response()->json([
             'status'=>'success',
             'message'=>'footer grid two deleted!!!'
@@ -108,6 +116,9 @@ class FooterGridThreeController extends Controller
         $footer_grid_three = FooterGridThree::findOrFail($request->id);
         $footer_grid_three->status = $request->isChecked == 'true' ? 1 : 0;
         $footer_grid_three->save();
+
+        Cache::forget('footer_grid_threes');
+
         return response()->json([
          'message' => 'Status updated successfully!',
          'alert-type' => 'success'
@@ -121,6 +132,8 @@ class FooterGridThreeController extends Controller
                 'footer_grid_three_title' => $request->footer_grid_three_title
             ]
           );
+
+          Cache::forget('footer_grid_threes');
 
           return redirect()->route('admin.footer-grid-three.index')->with([
             'message' => 'footer grid three title created successfully!',

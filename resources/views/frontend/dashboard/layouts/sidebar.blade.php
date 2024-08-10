@@ -6,6 +6,7 @@
     <a href="dsahboard.html" class="dash_logo"><img src="images/logo.png" alt="logo" class="img-fluid"></a>
     <ul class="dashboard_link">
       <li><a class="active" href="{{url('/')}}"><i class="fas fa-tachometer"></i>Home</a></li>
+      <li><a href="{{route('user.messenger.index')}}"><i class="fas fa-list-ul"></i> Messenger</a></li>
       <li><a href="{{route('user.order.index')}}"><i class="fas fa-list-ul"></i> Orders</a></li>
       <li><a href="{{route('user.product-review.index')}}"><i class="far fa-star"></i> Reviews</a></li>
       <li><a href="dsahboard_wishlist.html"><i class="far fa-heart"></i> Wishlist</a></li>

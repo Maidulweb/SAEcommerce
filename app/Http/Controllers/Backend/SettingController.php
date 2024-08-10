@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\GeneralSetting;
 use App\Models\Logo;
+use App\Models\PusherSetting;
 use App\Models\SmtpConfiguration;
 use App\Traits\ImageUploadTrait;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class SettingController extends Controller
@@ -16,7 +18,8 @@ class SettingController extends Controller
         $generalSetting = GeneralSetting::first();
         $smtpSetting = SmtpConfiguration::first();
         $logoSetting = Logo::first();
-        return view('admin.setting.index', compact(['generalSetting','smtpSetting','logoSetting']));
+        $pusherSetting = PusherSetting::first();
+        return view('admin.setting.index', compact(['generalSetting','smtpSetting','logoSetting','pusherSetting']));
     }
 
     public function generalSettingUpdate(Request $request){
@@ -94,6 +97,24 @@ class SettingController extends Controller
         return redirect()->back()->with([
             'alert-type' => 'success',
             'message' => 'Logo setting updated'
+        ]);
+    }
+
+  function pusherSettingUpdate(Request $request): RedirectResponse{
+      $validated = $request->validate([
+            'app_id'=> ['required'],
+            'key'=> ['required'],
+            'secret'=> ['required'],
+            'cluster'=> ['required']
+        ]);
+        PusherSetting::updateOrCreate(
+            ['id' => 1],
+            $validated
+        );
+
+        return redirect()->back()->with([
+            'message' => 'Pusher Setting Updated',
+            'alert-type' => 'success'
         ]);
     }
 }

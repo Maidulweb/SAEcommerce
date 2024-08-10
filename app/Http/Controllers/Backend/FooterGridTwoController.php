@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\FootergridTitle;
 use App\Models\FooterGridTwo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class FooterGridTwoController extends Controller
 {
@@ -43,6 +44,8 @@ class FooterGridTwoController extends Controller
         $footer_grid_tow->url = $request->url;
         $footer_grid_tow->status = $request->status;
         $footer_grid_tow->save();
+
+        Cache::forget('footer_grid_twos');
 
         return redirect()->route('admin.footer-grid-two.index')->with([
             'alert-type' => 'success',
@@ -85,6 +88,8 @@ class FooterGridTwoController extends Controller
         $footer_grid_two->status = $request->status;
         $footer_grid_two->save();
 
+        Cache::forget('footer_grid_twos');
+
         return redirect()->route('admin.footer-grid-two.index')->with([
             'alert-type' => 'success',
             'message' => 'Updated successfully' 
@@ -98,6 +103,9 @@ class FooterGridTwoController extends Controller
     {
         $footer_grid_two = FooterGridTwo::findOrFail($id);
         $footer_grid_two->delete();
+
+        Cache::forget('footer_grid_twos');
+
         return response()->json([
             'status'=>'success',
             'message'=>'footer grid two deleted!!!'
@@ -108,6 +116,9 @@ class FooterGridTwoController extends Controller
         $footer_grid_two = FooterGridTwo::findOrFail($request->id);
         $footer_grid_two->status = $request->isChecked == 'true' ? 1 : 0;
         $footer_grid_two->save();
+
+        Cache::forget('footer_grid_twos');
+
         return response()->json([
          'message' => 'Status updated successfully!',
          'alert-type' => 'success'
@@ -122,6 +133,8 @@ class FooterGridTwoController extends Controller
             ]
           );
 
+          Cache::forget('footer_grid_twos');
+          
           return redirect()->route('admin.footer-grid-two.index')->with([
             'message' => 'footer grid two title created successfully!',
             'alert-type' => 'success'

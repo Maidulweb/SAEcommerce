@@ -6,6 +6,7 @@
     <a href="dsahboard.html" class="dash_logo"><img src="images/logo.png" alt="logo" class="img-fluid"></a>
     <ul class="dashboard_link">
     
+      <li><a href="{{route('vendor.messenger.index')}}"><i class="far fa-user"></i> Messenger</a></li>
       <li><a href="{{route('vendor.shop-profile.index')}}"><i class="far fa-user"></i> Shop Proile</a></li>
       <li><a href="{{route('vendor.profile')}}"><i class="far fa-user"></i> My Proile</a></li>
       <li><a href="{{route('vendor.order.index')}}"><i class="far fa-user"></i>Order Product</a></li>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\VendorController;
+use App\Http\Controllers\Backend\VendorMessengerController;
 use App\Http\Controllers\Backend\VendorOrderController;
 use App\Http\Controllers\Backend\VendorProductController;
 use App\Http\Controllers\Backend\VendorProductImageGalleryController;
@@ -49,3 +50,6 @@ Route::get('product-review', [VendorProductReviewController::class, 'index'])->n
 /* Withdraw */
 Route::get('withdraw/view/{id}', [WithdrawVendorRequestController::class, 'view'])->name('withdraw.view');
 Route::resource('withdraw', WithdrawVendorRequestController::class);
+
+/* Messenger */
+Route::get('messenger', [VendorMessengerController::class, 'index'])->name('messenger.index');

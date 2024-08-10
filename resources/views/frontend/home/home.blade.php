@@ -24,7 +24,7 @@
     <!--============================
        MONTHLY TOP PRODUCT START
     ==============================-->
-    @include('frontend.home.sections.popular-product') 
+  @include('frontend.home.sections.popular-product')
     <!--============================
        MONTHLY TOP PRODUCT END
     ==============================-->
@@ -38,14 +38,6 @@
         BRAND SLIDER END
     ==============================-->
 
-
-    <!--============================
-        SINGLE BANNER START
-    ==============================-->
-  {{-- @include('frontend.home.sections.single-banner') --}}
-    <!--============================
-        SINGLE BANNER END  
-    ==============================-->
 
 
     <!--============================
@@ -72,13 +64,7 @@
     <!--============================
         ELECTRONIC PART END  
     ==============================-->
-    <!--============================
-        LARGE BANNER  START  
-    ==============================-->
- {{--  @include('frontend.home.sections.large-banner') --}}
-    <!--============================
-        LARGE BANNER  END  
-    ==============================-->
+
 
 
     <!--============================
@@ -87,15 +73,6 @@
   @include('frontend.home.sections.weekly-best-item') 
     <!--============================
         WEEKLY BEST ITEM END 
-    ==============================-->
-
-
-    <!--============================
-      HOME SERVICES START
-    ==============================-->
-{{-- @include('frontend.home.sections.home-services') --}}
-    <!--============================
-        HOME SERVICES END
     ==============================-->
 
 

@@ -4,10 +4,12 @@ namespace App\Http\Controllers\vendor;
 
 use App\DataTables\WithdrawVendorRequestDataTable;
 use App\Http\Controllers\Controller;
+use App\Models\OrderProduct;
 use App\Models\WithdrawMethod;
 use App\Models\WithdrawVendorRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class WithdrawVendorRequestController extends Controller
@@ -17,7 +19,20 @@ class WithdrawVendorRequestController extends Controller
      */
     public function index(WithdrawVendorRequestDataTable $datatable)
     {
-        return $datatable->render('vendor.withdraw-request.index');
+        $total_balance = OrderProduct::where('vendor_id', Auth::user()->id)
+        ->whereHas('order', function($query){
+            $query->where(['payment_status' => 1, 'order_status' => 'delivered']);
+        })
+        ->sum(DB::raw('(product_variants_total + unit_price) * qty'));
+
+        $withdraw = WithdrawVendorRequest::where('status', 'paid')->sum('total_amount');
+
+        $current_balance = $total_balance - $withdraw;
+
+        $pending = WithdrawVendorRequest::where('status', 'pending')->sum('total_amount');
+
+
+        return $datatable->render('vendor.withdraw-request.index', compact(['current_balance','withdraw','pending']));
     }
 
     /**
@@ -45,6 +60,24 @@ class WithdrawVendorRequestController extends Controller
 
         if($request->amount < $method->minimum_amount || $request->amount > $method->maximum_amount){
            throw ValidationException::withMessages(['Please 100 - 1000']);
+        }
+
+        $total_balance = OrderProduct::where('vendor_id', Auth::user()->id)
+        ->whereHas('order', function($query){
+            $query->where(['payment_status' => 1, 'order_status' => 'delivered']);
+        })
+        ->sum(DB::raw('(product_variants_total + unit_price) * qty'));
+
+        $withdraw = WithdrawVendorRequest::where('status', 'paid')->sum('total_amount');
+
+        $current_balance = $total_balance - $withdraw;
+
+        if($request->amount > $current_balance){
+            throw ValidationException::withMessages(['Insufficient balance!!!']);
+        }
+
+        if(WithdrawVendorRequest::where(['vendor_id' => Auth::user()->id,'status' => 'pending'])->exists()){
+            throw ValidationException::withMessages(['You have already a pending request']);
         }
 
         $withdraw = new WithdrawVendorRequest();

@@ -14,6 +14,7 @@
                         <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab">General Setting</a>
                         <a class="list-group-item list-group-item-action" id="list-smtp-list" data-toggle="list" href="#list-smtp" role="tab">smtp Setting</a>
                         <a class="list-group-item list-group-item-action" id="list-logo-list" data-toggle="list" href="#list-logo" role="tab">Logo Setting</a>
+                        <a class="list-group-item list-group-item-action" id="list-pusher-setting" data-toggle="list" href="#list-pusher" role="tab">Pusher Setting</a>
                       </div>
                     </div>
                     <div class="col-10">
@@ -21,6 +22,7 @@
                         @include('admin.setting.general-setting')
                         @include('admin.setting.smtp-setting')
                         @include('admin.setting.logo-setting')
+                        @include('admin.setting.pusher-setting')
                        </div>
                   </div>
             </div>

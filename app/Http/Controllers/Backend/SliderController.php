@@ -8,6 +8,7 @@ use App\Models\Slider;
 use App\Traits\ImageUploadTrait;
 use Illuminate\Http\Request;
 use File;
+use Illuminate\Support\Facades\Cache;
 
 class SliderController extends Controller
 {
@@ -56,7 +57,8 @@ class SliderController extends Controller
         $slider->status = $request->status;
         $slider->save();
 
-     
+        Cache::forget('sliders');
+
         $notification = [
             'message' => 'Slider created successfully',
             'alert-type' => 'success'
@@ -99,6 +101,8 @@ class SliderController extends Controller
         $slider->status = $request->status;
         $slider->save();
 
+        Cache::forget('sliders');
+        
         $notification = [
             'message' => 'Updated successfully',
             'alert-type' => 'success'

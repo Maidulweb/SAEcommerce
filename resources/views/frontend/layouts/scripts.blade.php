@@ -1,7 +1,7 @@
 <script>
     $(document).ready(function() {
 
-        $('.shopping-cart-form').on('submit', function(e) {
+        $(document).on('submit','.shopping-cart-form', function(e) {
             e.preventDefault();
             let formData = $(this).serialize();
             $.ajax({

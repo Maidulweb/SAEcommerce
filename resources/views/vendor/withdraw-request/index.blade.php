@@ -3,7 +3,31 @@
 <div class="row">
     <div class="col-xl-9 col-xxl-10 col-lg-9 ms-auto">
       <div class="dashboard_content mt-2 mt-md-0">
-        <h3><i class="far fa-user"></i> Withdraw Request</h3>
+        <div class="wsus__dashboard">
+        <div class="row">
+          <div class="col-md-4">
+            <a class="wsus__dashboard_item red" href="dsahboard_order.html">
+              <i class="far fa-address-book"></i>
+              <p>Current Balance</p>
+              <p>{{$current_balance}}</p>
+            </a>
+          </div>
+          <div class="col-md-4">
+            <a class="wsus__dashboard_item red" href="dsahboard_order.html">
+              <i class="far fa-address-book"></i>
+              <p>Pending Balance</p>
+              <p>{{$pending}}</p>
+            </a>
+          </div>
+          <div class="col-md-4">
+            <a class="wsus__dashboard_item red" href="dsahboard_order.html">
+              <i class="far fa-address-book"></i>
+              <p>Withdraw Balance</p>
+              <p>{{$withdraw}}</p>
+            </a>
+          </div>
+        </div>
+        </div>
         <div class="wsus__dashboard_profile">
           <div class="wsus__dash_pro_area">
             <h4>Withdraw Request</h4>

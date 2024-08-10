@@ -6,6 +6,7 @@ use App\DataTables\FooterSocialDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\FooterSocial;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class FooterSocialController extends Controller
 {
@@ -44,6 +45,8 @@ class FooterSocialController extends Controller
         $footer_social->url = $request->url;
         $footer_social->status = $request->status;
         $footer_social->save();
+         
+        Cache::forget('footer_socials');
 
         return redirect()->route('admin.footer-social.index')->with([
             'alert-type' => 'success',
@@ -88,6 +91,8 @@ class FooterSocialController extends Controller
         $footer_social->status = $request->status;
         $footer_social->save();
 
+        Cache::forget('footer_socials');
+
         return redirect()->route('admin.footer-social.index')->with([
             'alert-type' => 'success',
             'message' => 'Updated successfully' 
@@ -101,6 +106,9 @@ class FooterSocialController extends Controller
     {
         $footer_social = FooterSocial::findOrFail($id);
         $footer_social->delete();
+
+        Cache::forget('footer_socials');
+
         return response()->json([
             'status'=>'success',
             'message'=>'footer social deleted!!!'
@@ -111,6 +119,9 @@ class FooterSocialController extends Controller
         $footer_social = FooterSocial::findOrFail($request->id);
         $footer_social->status = $request->isChecked == 'true' ? 1 : 0;
         $footer_social->save();
+        
+        Cache::forget('footer_socials');
+
         return response()->json([
          'message' => 'Status updated successfully!',
          'alert-type' => 'success'

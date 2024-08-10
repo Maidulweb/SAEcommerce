@@ -103,6 +103,7 @@
           <ul class="dropdown-menu">
             <li><a class="nav-link" href="{{route('admin.withdraw.index')}}">Index</a></li>
             <li><a class="nav-link" href="{{route('admin.withdraw.create')}}">Create</a></li>
+            <li><a class="nav-link" href="{{route('admin.vendor-withdraw-request.index')}}">Vendor Withdraw Request</a></li>
           </ul>
         </li>
         <br>

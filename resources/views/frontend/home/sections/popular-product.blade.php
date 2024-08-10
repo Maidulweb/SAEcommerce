@@ -40,13 +40,16 @@
                              
                             if(array_keys($lastkey)[0] == 'category'){
                                 $finalItem = \App\Models\Category::find($lastkey['category']);
-                                $products[] = \App\Models\Product::with('productReview')->where('category_id', $finalItem->id)->take(12)->get();     
+                                $products[] = \App\Models\Product::withAvg('productReview', 'rating')
+                                ->with(['productImagegallery','category','productVariant'])->where('category_id', $finalItem->id)->take(12)->get();     
                             }elseif(array_keys($lastkey)[0] == 'sub_category'){
                                 $finalItem = \App\Models\SubCategory::find($lastkey['sub_category']);
-                                $products[] = \App\Models\Product::with('productReview')->where('sub_category_id', $finalItem->id)->take(12)->get();    
+                                $products[] = \App\Models\Product::withAvg('productReview', 'rating')
+                                ->with(['productImagegallery','category','productVariant'])->where('sub_category_id', $finalItem->id)->take(12)->get();    
                             }else{
                                 $finalItem = \App\Models\ChildCategory::find($lastkey['child_category']); 
-                                $products[] = \App\Models\Product::with('productReview')->where('child_category_id', $finalItem->id)->take(12)->get();   
+                                $products[] = \App\Models\Product::withAvg('productReview', 'rating')
+                                ->with(['productImagegallery','category','productVariant'])->where('child_category_id', $finalItem->id)->take(12)->get();   
                             }
                          @endphp
                         <button class="{{$loop->index === 0 ? 'active auto-click' : ''}}" data-filter=".category-{{$loop->index}}">{{$finalItem->name}}</button>
@@ -88,18 +91,13 @@
                             <div class="wsus__product_details">
                                 <a class="wsus__category" href="#">{{ $product->category->name }} </a>
                                 <p class="wsus__pro_rating">
-                                    @php
-                                    $avg = $product->productReview()->avg('rating');
-                                    $fullRating = round($avg);
-                                @endphp
                                 @for ($i=1; $i <= 5; $i++)
-                                    @if($i <= $fullRating )
+                                    @if($i <= $product->productReview_avg_rating )
                                     <i class="fas fa-star"></i>
                                     @else
                                     <i class="far fa-star"></i>
                                     @endif
                                 @endfor
-                                <span>({{count($product->productReview)}} review)</span>
                                 </p>
                                 <a class="wsus__pro_name"
                                     href="{{ route('frontend.product-details.index', $product->slug) }}">{{ $product->name }}</a>

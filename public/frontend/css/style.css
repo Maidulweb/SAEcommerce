@@ -9123,7 +9123,7 @@ DASHBOARD CHAT START
     border-radius: 50%;
 }
 
-.wsus_chat_list_img span {
+.pending-style {
     background: #08c;
     color: #fff;
     width: 20px;
@@ -9482,4 +9482,7 @@ img {
 }
 .wsus__chat_area_body {
     padding-bottom: 40px;
+}
+.img-border {
+    border: 5px solid green !important;
 }

@@ -24,6 +24,7 @@ use App\Http\Controllers\Backend\FooterSocialController;
 use App\Http\Controllers\Backend\HomepageSettingController;
 use App\Http\Controllers\Backend\LogoController;
 use App\Http\Controllers\Backend\ManageUserController;
+use App\Http\Controllers\Backend\MessengerController;
 use App\Http\Controllers\Backend\NewsletterSubscriberController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\PaymentSettingController;
@@ -217,3 +218,8 @@ Route::resource('withdraw', WithdrawMethodController::class);
 Route::get('vendor-withdraw-request', [AdminVendorWithdrawRequestController::class, 'index'])->name('vendor-withdraw-request.index');
 Route::get('vendor-withdraw-request/{id}', [AdminVendorWithdrawRequestController::class, 'show'])->name('vendor-withdraw-request.show');
 Route::put('vendor-withdraw-request/{id}', [AdminVendorWithdrawRequestController::class, 'update'])->name('vendor-withdraw-request.update');
+
+/* Messenger */
+Route::get('messenger', [MessengerController::class, 'index'])->name('messenger');
+Route::get('get-messages', [MessengerController::class, 'getMessages'])->name('get-messages');
+Route::post('send-message', [MessengerController::class, 'sendMessage'])->name('send-message');

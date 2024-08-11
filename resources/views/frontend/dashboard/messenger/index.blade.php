@@ -26,7 +26,7 @@
                                         alt="user" class="img-fluid">
                                         @endif
                                        
-                                        <span class="pending d-none" id="pending-6">0</span>
+                                        <span class="pending-new"></span>
                                     </div>
                                     <div class="wsus_chat_list_text">
                                         <h4>{{$chatUser->receiverProfile->name}}</h4>
@@ -50,26 +50,7 @@
                                                 <h4 id="chat_user_name">Chat with Daniel Paul</h4>
                                             </div>
                                             
-                                            <div class="wsus__chat_area_body">
-                                                <div class="wsus__chat_single">
-                                                    <div class="wsus__chat_single_img">
-                                                        <img src="http://127.0.0.1:8000/uploads/custom-images/daniel-paul-2022-08-15-01-16-48-4881.png"
-                                                            alt="user" class="img-fluid">
-                                                    </div>
-                                                    <div class="wsus__chat_single_text">
-                                                        <p>Welcome to Shop name 2!
-
-                                                            Lorem Ipsum is simply dummy text of the printing
-                                                            and typesetting industry. Lorem Ipsum has been
-                                                            the industry's standard dummy text ever since
-                                                            the 1500s, when an unknown printer took a galley
-                                                            of type and scrambled it to make a type specimen
-                                                            book.</p>
-                                                        <span>15 August, 2022, 12:56 PM</span>
-                                                    </div>
-                                                </div>
-                                               
-                                            </div>
+                                            <div class="wsus__chat_area_body"></div>
                                             <div class="wsus__chat_area_footer">
                                                 <form id="user_chat">
                                                     @csrf
@@ -114,10 +95,21 @@
         } 
 
         $(document).ready(function(){
+            $('.chat_box').on('click', function(){
+                $('.chat_user_profile').find(".wsus_chat_list_img").removeClass("img-border");
+                $('.chat_user_profile').find(".pending-new").removeClass("pending-style");
+                $('.chat_user_profile').find(".pending-new").text("");
+            })
             $('.chat_user_profile').on('click', function(){
                 let receiverId = $(this).data('id');
                 $('#receiver_id').val(receiverId);
                 let chatUserName = $(this).find('h4').text();
+                let chatUserImage = $(this).find('img').attr('src');
+
+                $(this).find(".wsus_chat_list_img").removeClass("img-border");
+                $(this).find(".pending-new").removeClass("pending-style");
+                $(this).find(".pending-new").text("");
+
                 $.ajax({
                     method: 'GET',
                     url:'{{route("user.get-messages")}}',
@@ -130,7 +122,8 @@
                     },
                     success:function(response){
                         $.each(response, function(index,value){
-                            let html = `
+                            if(value.sender_id == USER.id){
+                                var html = `
                                  <div class="wsus__chat_single single_chat_2">
                                     <div class="wsus__chat_single_img">
                                         <img src="${USER.image}"
@@ -142,6 +135,21 @@
                                     </div>
                                 </div>
                                 `
+                            }else{
+                                var html = `
+                                 <div class="wsus__chat_single">
+                                    <div class="wsus__chat_single_img">
+                                        <img src="${chatUserImage}"
+                                            alt="user" class="img-fluid">
+                                    </div>
+                                    <div class="wsus__chat_single_text">
+                                        <p>${value.message}</p>
+                                        <span>${formateDate(value.created_at)}</span>
+                                    </div>
+                                </div>
+                                `
+                            }
+                            
                                 chatBox.append(html);
                         })
                         scrollToBottom();
@@ -177,8 +185,9 @@
                 `;
 
                 chatBox.append(message);
-
+                $('.chat_box').val('');
                 scrollToBottom();
+
 
                 $.ajax({
                     method:'POST',
@@ -187,11 +196,14 @@
                     beforeSend:function(){
                         formSubmitting = true;
                         $('#send_btn').prop('disabled', true);
+                        
+                      
                     },
                     success:function(data){
-                        $('.chat_box').val('');
+                       
                         $('#send_btn').prop('disabled', false);
                         formSubmitting = false;
+
                     },
                     error:function(xhr,status,error){
                         toastr.error(xhr.responseJSON.message)

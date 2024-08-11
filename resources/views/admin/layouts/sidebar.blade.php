@@ -106,6 +106,7 @@
             <li><a class="nav-link" href="{{route('admin.vendor-withdraw-request.index')}}">Vendor Withdraw Request</a></li>
           </ul>
         </li>
+        <li><a class="nav-link" href="{{route('admin.messenger')}}"><i class="far fa-square"></i> <span>Messenger</span></a></li>
         <br>
         <br>
         <br>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Events\MessengerEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Chat;
 use Illuminate\Http\Request;
@@ -30,7 +31,7 @@ class UserMessengerController extends Controller
       $chat->receiver_id = $request->receiver_id;
       $chat->message = $request->message;
       $chat->save();
-
+      broadcast(new MessengerEvent($chat->message,$chat->receiver_id, $chat->created_at));
       return response([
         'alert-type' => 'success',
         'message' => 'Message Sent Successfully'

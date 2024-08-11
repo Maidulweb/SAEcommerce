@@ -10,6 +10,15 @@
   <title>One Shop || e-Commerce HTML Template</title>
   <link rel="icon" type="image/png" href="images/favicon.png">
   @include('vendor.layouts.style')
+
+  <script>
+    const USER = {
+      id:'{{auth()->user()->id}}',
+      name:'{{auth()->user()->name}}',
+      image:"{{asset(auth()->user()->image)}}",
+    }
+  </script>
+   @vite(['resources/js/app.js','resources/js/vendor.js'])
 </head>
 
 <body>
